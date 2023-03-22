@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation fileTree(dir: 'library', include: ['*.jar'])
     implementation 'junit:junit:4.13.1'
     implementation 'org.testng:testng:7.1.0'
     implementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
