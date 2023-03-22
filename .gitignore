@@ -29,3 +29,6 @@ hs_err_pid*
 # ignore all gradle binaries and temp files
 .gradle/*
 build/*
+
+# include everything in the processing library directory
+!library/*
