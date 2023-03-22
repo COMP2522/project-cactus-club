@@ -9,12 +9,14 @@ package cactus.slabslayer;
 public class Game
 {
 
+  InputHandler in;
+
   /**
    * Constructs a new Game object
    */
-  public Game()
+  public Game(InputHandler in)
   {
-
+    this.in = in;
   }
 
   /**
