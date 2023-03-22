@@ -4,9 +4,7 @@ import processing.core.PApplet;
 
 public class Window extends PApplet
 {
-
-  Ball b;
-
+  Game game;
   public void settings()
   {
     size(500, 500);
@@ -14,14 +12,13 @@ public class Window extends PApplet
 
   public void setup()
   {
-    b = new Ball(this);
+    game = new Game();
+    game.init();
   }
 
   public void draw()
   {
-    background(127, 127, 127);
-    b.render();
-    b.move();
+    game.update();
   }
 
   public static void main(String[] args)
