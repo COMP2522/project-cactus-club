@@ -6,34 +6,29 @@ package cactus.slabslayer;
  * @author justin
  * @version 1.0.1
  */
-public class Game
-{
+public class Game {
 
   InputHandler in;
 
   /**
-   * Constructs a new Game object
+   * Constructs a new Game object.
    */
-  public Game(InputHandler in)
-  {
+  public Game(InputHandler in) {
     this.in = in;
   }
 
   /**
-   * Initializes Game object to initial state
-   *
+   * Initializes Game object to initial state.
    * clears all the collections and re-initializes all game processes
    */
-  public void init()
-  {
+  public void init() {
 
   }
 
   /**
    * Runs periodically in the processing main loop. Handles timing of all process execution.
    */
-  public void update()
-  {
+  public void update() {
 
   }
 }
