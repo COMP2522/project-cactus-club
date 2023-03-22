@@ -2,41 +2,67 @@ package cactus.slabslayer;
 
 import processing.core.PApplet;
 
-public class Window extends PApplet
-{
+/**
+ * Window is the main class to run processing projects.
+ *
+ * @author justin
+ * @version 1.0.1
+ */
+public class Window extends PApplet {
+  /**
+   * Instance of Game class.
+   */
   Game game;
+
+  /**
+   * Instance of InputHandler class.
+   */
   InputHandler in;
 
-  public void settings()
-  {
+  /**
+   * Loads window settings such as window size.
+   */
+  public void settings() {
     size(500, 500);
   }
 
-  public void setup()
-  {
+  /**
+   * Runs once at the start of execution.
+   */
+  public void setup() {
     in = new InputHandler(this);
 
     game = new Game(in);
     game.init();
   }
 
-  public void draw()
-  {
+  /**
+   * Periodically runs during program execution.
+   */
+  public void draw() {
     game.update();
   }
 
-  public void keyPressed()
-  {
+  /**
+   * Runs whenever a key is pressed and updates InputHandler accordingly.
+   */
+  public void keyPressed() {
     in.update(true);
   }
 
-  public void keyReleased()
-  {
+  /**
+   * Runs whenever a key is released and updates InputHandler accordingly.
+   */
+  public void keyReleased() {
     in.update(false);
   }
 
-  public static void main(String[] args)
-  {
+  /**
+   * Main loop for the program.
+   *
+   * @param args unused
+   */
+  public static void main(String[] args) {
     String[] processingArgs = {"window"};
     Window window = new Window();
     PApplet.runSketch(processingArgs, window);
