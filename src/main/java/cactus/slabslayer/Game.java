@@ -8,6 +8,9 @@ package cactus.slabslayer;
  */
 public class Game {
 
+  /**
+   * Local reference to main program InputHandler.
+   */
   InputHandler in;
 
   /**
