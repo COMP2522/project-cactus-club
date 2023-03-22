@@ -9,19 +9,29 @@ import java.awt.event.KeyEvent;
  * @version 1.0.1
  */
 public class InputHandler {
-  /** Instance reference to the processing Window object. */
+  /**
+   * Instance reference to the processing Window object.
+   */
   private Window win;
 
-  /** Boolean state of any UP directional button being pressed. */
+  /**
+   * Boolean state of any UP directional button being pressed.
+   */
   private boolean upState;
 
-  /** Boolean state of any DOWN directional button being pressed. */
+  /**
+   * Boolean state of any DOWN directional button being pressed.
+   */
   private boolean downState;
 
-  /** Boolean state of any LEFT directional button being pressed. */
+  /**
+   * Boolean state of any LEFT directional button being pressed.
+   */
   private boolean leftState;
 
-  /** Boolean state of any RIGHT directional button being pressed. */
+  /**
+   * Boolean state of any RIGHT directional button being pressed.
+   */
   private boolean rightState;
 
   /**
