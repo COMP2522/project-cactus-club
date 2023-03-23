@@ -1,9 +1,11 @@
 package cactus.slabslayer;
 
+import processing.data.JSONObject;
+
 /**
  * Represents a paddle object.
  */
-public class Paddle {
+public class Paddle implements JSONable {
   /**
    * Width of the paddle.
    */
@@ -36,6 +38,8 @@ public class Paddle {
     this.window = window;
   }
 
+
+
   /**
    * Renders the paddle in the window.
    */
@@ -54,5 +58,15 @@ public class Paddle {
 //    } else if (xpos < window.size && input == 1) { //line isn't functional
 //      xpos++;
 //    }
+  }
+
+  @Override
+  public String toJSON() {
+    return null;
+  }
+
+  @Override
+  public Object fromJSON(String json) {
+    return null;
   }
 }

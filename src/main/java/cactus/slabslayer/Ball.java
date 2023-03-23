@@ -120,7 +120,6 @@ public class Ball implements JSONable {
     return json.toString();
   }
 
-
   @Override
   public Object fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);

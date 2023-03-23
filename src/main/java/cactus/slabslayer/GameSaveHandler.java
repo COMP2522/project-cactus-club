@@ -11,6 +11,9 @@ import processing.core.PApplet;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import static processing.core.PApplet.loadJSONArray;
+
 public class GameSaveHandler extends GameProcess {
 
   @Override
@@ -40,9 +43,32 @@ public class GameSaveHandler extends GameProcess {
   }
 
   public void loadGame(String dir) {
-
-
-
+    // TODO Auto-generated method stub
   }
+  public static void main(String[] args) {
+    // Create some game elements
+    Ball ball = new Ball(new Window());
+    Ball ball1 = new Ball(new Window());
+    Ball ball2 = new Ball(new Window());
+
+    // Create an ArrayList to store the game elements
+    ArrayList<JSONable> gameElements = new ArrayList<>();
+    gameElements.add(ball);
+    gameElements.add(ball1);
+    gameElements.add(ball2);
+
+    // Save the game elements to a file
+    GameSaveHandler saveHandler = new GameSaveHandler();
+    saveHandler.saveGame(gameElements, "game-save.json");
+
+    // Print a success message
+    System.out.println("Game elements saved successfully.");
+  }
+
+
 }
+
+
+
+
 
