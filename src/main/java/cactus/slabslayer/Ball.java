@@ -1,19 +1,25 @@
 package cactus.slabslayer;
 
-public class Ball
-{
-  float xPos;
-  float yPos;
+/**
+ * Represents a ball object.
+ */
+public class Ball {
+  float xpos;
+  float ypos;
 
   float vy;
   float vx;
 
   Window window;
 
-  public Ball(Window scene)
-  {
-    xPos = 100;
-    yPos = 100;
+  /**
+   * Constructs a new Ball object with initial position and velocity.
+   *
+   * @param scene the Window object in which the ball will be rendered and moved
+   */
+  public Ball(Window scene) {
+    xpos = 100;
+    ypos = 100;
 
     vy = 5;
     vx = 5;
@@ -21,23 +27,25 @@ public class Ball
     window = scene;
   }
 
-  public void render()
-  {
-    window.ellipse(xPos, yPos, 30, 30);
+  /**
+   * Renders the ball in the window.
+   */
+  public void render() {
+    window.ellipse(xpos, ypos, 30, 30);
   }
 
-  public void move()
-  {
-    xPos += vx;
-    yPos += vy;
+  /**
+   * Moves the ball, reverses velocity if boundary is hit.
+   */
+  public void move() {
+    xpos += vx;
+    ypos += vy;
 
-    if (xPos < 0 || xPos > window.width)
-    {
+    if (xpos < 0 || xpos > window.width) {
       vx *= -1;
     }
 
-    if (yPos < 0 || yPos > window.height)
-    {
+    if (ypos < 0 || ypos > window.height) {
       vy *= -1;
     }
   }
