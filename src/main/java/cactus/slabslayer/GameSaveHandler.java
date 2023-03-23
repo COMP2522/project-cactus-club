@@ -51,17 +51,21 @@ public class GameSaveHandler extends GameProcess {
 //      GameElement.add(element);
 //    }
   }
+
   public static void main(String[] args) {
     // Create some game elements
     Ball ball = new Ball(new Window());
-    Ball ball1 = new Ball(new Window());
-    Ball ball2 = new Ball(new Window());
+    Paddle paddle = new Paddle(new Window());
+    Slab slab = new Slab(1.0f, 1.0f, 1, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, new Window());
+
+
 
     // Create an ArrayList to store the game elements
     ArrayList<JSONable> gameElements = new ArrayList<>();
     gameElements.add(ball);
-    gameElements.add(ball1);
-    gameElements.add(ball2);
+    gameElements.add(paddle);
+    gameElements.add(slab);
+
 
     // Save the game elements to a file
     GameSaveHandler saveHandler = new GameSaveHandler();

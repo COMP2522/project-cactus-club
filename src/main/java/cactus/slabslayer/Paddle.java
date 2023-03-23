@@ -1,5 +1,7 @@
 package cactus.slabslayer;
 
+import processing.data.JSONObject;
+
 /**
  * Represents a paddle object.
  */
@@ -73,11 +75,46 @@ public class Paddle extends GameElement implements Moveable, Collidable {
 
   @Override
   public String toJSON() {
-    return null;
+    JSONObject json = new JSONObject();
+    json.setString("type", getClass().getSimpleName());
+    JSONObject constructorVars = new JSONObject();
+    constructorVars.setFloat("width", width);
+    constructorVars.setFloat("height", height);
+    constructorVars.setFloat("xpos", xpos);
+    json.setJSONObject("constructorVars", constructorVars);
+    return json.toString();
   }
 
   @Override
   public Object fromJSON(String json) {
-    return null;
+    JSONObject jsonObject = JSONObject.parse(json);
+    String type = jsonObject.getString("type");
+
+    if ("Paddle".equals(type)) {
+      JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
+      float width = constructorVars.getFloat("width");
+      float height = constructorVars.getFloat("height");
+      float xpos = constructorVars.getFloat("xpos");
+      Paddle paddle = new Paddle(window);
+      paddle.width = width;
+      paddle.height = height;
+      paddle.xpos = xpos;
+      return paddle;
+    }
+    // handle other types here
+
+    throw new IllegalArgumentException("Unknown type: " + type);
+  }
+  public static void main(String[] args) {
+    // Create a new Paddle instance
+    Paddle paddle = new Paddle(new Window());
+
+    // Serialize Paddle instance to JSON
+    String json = paddle.toJSON();
+    System.out.println(json);
+
+    // Deserialize JSON to Paddle instance
+    Paddle newPaddle = (Paddle) paddle.fromJSON(json);
+    System.out.println(newPaddle.toJSON());
   }
 }
