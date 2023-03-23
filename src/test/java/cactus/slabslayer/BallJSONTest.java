@@ -19,8 +19,8 @@ public class BallJSONTest {
   public void testToJSON() {
     String json = ball.toJSON();
     JSONObject jsonObject = JSONObject.parse(json);
-    assertEquals(ball.getXPos(), jsonObject.getFloat("xPos"), 0.01f);
-    assertEquals(ball.getYPos(), jsonObject.getFloat("yPos"), 0.01f);
+    assertEquals(ball.getXpos(), jsonObject.getFloat("xPos"), 0.01f);
+    assertEquals(ball.getYpos(), jsonObject.getFloat("yPos"), 0.01f);
     assertEquals(ball.getVx(), jsonObject.getFloat("vx"), 0.01f);
     assertEquals(ball.getVy(), jsonObject.getFloat("vy"), 0.01f);
   }
@@ -34,8 +34,8 @@ public class BallJSONTest {
     jsonObject.setFloat("vy", 4);
 
     Ball newBall = (Ball) ball.fromJSON(jsonObject.toString());
-    assertEquals(200, newBall.getXPos(), 0.01f);
-    assertEquals(300, newBall.getYPos(), 0.01f);
+    assertEquals(200, newBall.getXpos(), 0.01f);
+    assertEquals(300, newBall.getYpos(), 0.01f);
     assertEquals(-3, newBall.getVx(), 0.01f);
     assertEquals(4, newBall.getVy(), 0.01f);
   }
