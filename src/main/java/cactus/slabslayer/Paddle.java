@@ -3,7 +3,7 @@ package cactus.slabslayer;
 /**
  * Represents a paddle object.
  */
-public class Paddle {
+public class Paddle implements JSONable{
   /**
    * Width of the paddle.
    */
@@ -41,5 +41,15 @@ public class Paddle {
    */
   public void render() {
     window.rect(xpos, 480, width, height);
+  }
+
+  @Override
+  public String toJSON() {
+    return null;
+  }
+
+  @Override
+  public Object fromJSON(String json) {
+    return null;
   }
 }
