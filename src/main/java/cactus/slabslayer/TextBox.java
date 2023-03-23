@@ -13,7 +13,7 @@ public class TextBox extends GameElement {
 
   @Override
   public String toJSON() {
-    return null;
+    return "{\"type\": \"textbox\"}";
   }
 
   @Override

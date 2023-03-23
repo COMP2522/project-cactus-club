@@ -11,7 +11,7 @@ public class Button extends GameElement {
   }
   @Override
   public String toJSON() {
-    return null;
+    return "{\"type\": \"button\"}";
   }
 
   @Override

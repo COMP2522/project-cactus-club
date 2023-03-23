@@ -1,8 +1,10 @@
 package cactus.slabslayer;
 
 import java.util.ArrayList;
+import processing.data.JSONObject;
+import processing.data.JSONArray;
 
-public class Layout extends GameElement {
+public class Layout extends GameElement implements JSONable{
 
   /**
    * The list of all elements contained in the layout.
@@ -66,20 +68,65 @@ public class Layout extends GameElement {
 
   @Override
   public String toJSON() {
-    return null;
+    JSONObject json = new JSONObject();
+    json.setString("type", getClass().getSimpleName());
+    JSONObject constructorVars = new JSONObject();
+    JSONArray layoutElementsArr = new JSONArray();
+    for (GameElement elem : layoutElements) {
+//      System.out.println(elem.toJSON());
+      layoutElementsArr.append(JSONObject.parse(elem.toJSON()));
+    }
+    constructorVars.setJSONArray("layoutElements", layoutElementsArr);
+    json.setJSONObject("constructorVars", constructorVars);
+    return json.toString();
+//    return null;
   }
 
   @Override
   public Object fromJSON(String json) {
+//    JSONObject jsonObject = JSONObject.parse(json);
+//    String type = jsonObject.getString("type");
+//
+//    if ("Layout".equals(type)) {
+//      JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
+//      JSONArray layoutElementsArr = constructorVars.getJSONArray("layoutElements");
+//      Layout layout = new Layout(window);
+//      for (int i = 0; i < layoutElementsArr.size(); i++) {
+//        JSONObject elemJson = layoutElementsArr.getJSONObject(i);
+//        String typeInner = elemJson.getString("type");
+//        switch (typeInner) {
+//          case "Button":
+//            layout.addLayoutElement((Button) elemJson.fromJSON(elemJson.toString()));
+//            break;
+//          case "TextBox":
+//            layout.addLayoutElement(new TextBox());
+//            break;
+//          case "Layout":
+//            layout.addLayoutElement(new Layout(window));
+//            break;
+//          default:
+//            throw new IllegalArgumentException("Unknown type: " + typeInner);
+//        }
+//
+//        GameElement elem = GameElement.fromJSON(elemJson.toString());
+//        layout.addLayoutElement(elem);
+//      }
+//      return layout;
+//    }
+//
+//    throw new IllegalArgumentException("Unknown type: " + type);
     return null;
   }
+
 
   public static void main(String[] args) {
     
     Layout l1 = new Layout(new Window());
     l1.addLayoutElement(new Button());
-    l1.addLayoutElement(new TextBox());
 
+
+    l1.addLayoutElement(new TextBox());
+    System.out.println(l1.toJSON());
     Button b = new Button();
 
     l1.addLayoutElement(b);
