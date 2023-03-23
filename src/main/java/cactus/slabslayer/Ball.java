@@ -131,5 +131,3 @@ public class Ball implements JSONable {
     return ball;
   }
 }
-
-
