@@ -7,6 +7,7 @@ public class Button extends GameElement {
   @Override
   public void render() {
     // to do
+    System.out.println("My Button");
   }
   @Override
   public String toJSON() {
