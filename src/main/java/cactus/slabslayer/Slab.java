@@ -3,7 +3,7 @@ package cactus.slabslayer;
 /**
  * Represents a slab object.
  */
-public class Slab {
+public class Slab implements JSONable{
   /**
    * Width of the slab, will be set to a default value in the constructor.
    */
@@ -94,6 +94,10 @@ public class Slab {
     this.window = window;
   }
 
+  public Slab() {
+
+  }
+
   /**
    * Renders the slab in the window.
    */
@@ -115,5 +119,15 @@ public class Slab {
    */
   public boolean isAlive() {
     return (health > 0) ? true : false;
+  }
+
+  @Override
+  public String toJSON() {
+    return null;
+  }
+
+  @Override
+  public Object fromJSON(String json) {
+    return null;
   }
 }
