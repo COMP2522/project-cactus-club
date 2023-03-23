@@ -42,17 +42,4 @@ public class Paddle {
   public void render() {
     window.rect(xpos, 480, width, height);
   }
-
-  /**
-   * Moves the paddle according to user input.
-   *
-   * @param input -1 for left, 1 for right, 0 for nothing.
-   */
-  public void move(int input) {
-    if (xpos > 0 && input == -1) {
-      xpos--;
-    } else if (xpos < window.size && input == 1) { //line isn't functional
-      xpos++;
-    }
-  }
 }
