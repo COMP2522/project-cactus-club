@@ -7,6 +7,7 @@ public class Ball implements JSONable {
   float xpos;
   float ypos;
 
+
   float vy;
   float vx;
 
@@ -34,6 +35,7 @@ public class Ball implements JSONable {
    */
   public float getXpos() {
     return xpos;
+
   }
 
   /**
@@ -62,6 +64,22 @@ public class Ball implements JSONable {
   public float getVy() {
     return vy;
   }
+  
+  public void setXPos(float xPos) {
+    this.xPos = xPos;
+  }
+
+  public void setYPos(float yPos) {
+    this.yPos = yPos;
+  }
+
+  public void setVx(float vx) {
+    this.vx = vx;
+  }
+
+  public void setVy(float vy) {
+    this.vy = vy;
+  }
 
   /**
    * Renders the ball in the window.
@@ -85,4 +103,33 @@ public class Ball implements JSONable {
       vy *= -1;
     }
   }
+
+
+  @Override
+  public String toJSON() {
+    JSONObject json = new JSONObject();
+    json.setFloat("xPos", xPos);
+    json.setFloat("yPos", yPos);
+    json.setFloat("vy", vy);
+    json.setFloat("vx", vx);
+    return json.toString();
+  }
+
+  @Override
+  public Object fromJSON(String json) {
+    JSONObject jsonObject = JSONObject.parse(json);
+    float xPos = jsonObject.getFloat("xPos");
+    float yPos = jsonObject.getFloat("yPos");
+    float vy = jsonObject.getFloat("vy");
+    float vx = jsonObject.getFloat("vx");
+    Ball ball = new Ball(window);
+    ball.setXPos(xPos);
+    ball.setYPos(yPos);
+    ball.setVy(vy);
+    ball.setVx(vx);
+
+    return ball;
+  }
 }
+
+
