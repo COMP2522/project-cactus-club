@@ -1,5 +1,7 @@
 package cactus.slabslayer;
 
+import processing.data.JSONObject;
+
 /**
  * Represents a ball object.
  */
@@ -65,11 +67,11 @@ public class Ball implements JSONable {
     return vy;
   }
   
-  public void setXPos(float xpos) {
+  public void setXpos(float xpos) {
     this.xpos = xpos;
   }
 
-  public void setYPos(float xpos) {
+  public void setYpos(float ypos) {
     this.ypos = ypos;
   }
 
@@ -124,7 +126,7 @@ public class Ball implements JSONable {
     float vx = jsonObject.getFloat("vx");
     Ball ball = new Ball(window);
     ball.setXPos(xpos);
-    ball.setYPos(xpos);
+    ball.setYPos(ypos);
     ball.setVy(vy);
     ball.setVx(vx);
 
