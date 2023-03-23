@@ -1,5 +1,7 @@
 package cactus.slabslayer;
 
+import processing.data.JSONObject;
+
 /**
  * Represents a ball object.
  */
@@ -65,12 +67,12 @@ public class Ball implements JSONable {
     return vy;
   }
   
-  public void setXPos(float xPos) {
-    this.xPos = xPos;
+  public void setXpos(float xpos) {
+    this.xpos = xpos;
   }
 
-  public void setYPos(float yPos) {
-    this.yPos = yPos;
+  public void setYpos(float ypos) {
+    this.ypos = ypos;
   }
 
   public void setVx(float vx) {
@@ -108,8 +110,8 @@ public class Ball implements JSONable {
   @Override
   public String toJSON() {
     JSONObject json = new JSONObject();
-    json.setFloat("xPos", xPos);
-    json.setFloat("yPos", yPos);
+    json.setFloat("xPos", xpos);
+    json.setFloat("yPos", ypos);
     json.setFloat("vy", vy);
     json.setFloat("vx", vx);
     return json.toString();
@@ -118,13 +120,13 @@ public class Ball implements JSONable {
   @Override
   public Object fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
-    float xPos = jsonObject.getFloat("xPos");
-    float yPos = jsonObject.getFloat("yPos");
+    float xpos = jsonObject.getFloat("xPos");
+    float ypos = jsonObject.getFloat("yPos");
     float vy = jsonObject.getFloat("vy");
     float vx = jsonObject.getFloat("vx");
     Ball ball = new Ball(window);
-    ball.setXPos(xPos);
-    ball.setYPos(yPos);
+    ball.setXpos(xpos);
+    ball.setYpos(ypos);
     ball.setVy(vy);
     ball.setVx(vx);
 
