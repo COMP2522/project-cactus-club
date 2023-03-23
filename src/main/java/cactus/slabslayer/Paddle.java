@@ -50,9 +50,9 @@ public class Paddle {
    */
   public void move(int input) {
     if (xpos > 0 && input == -1) {
-      xpos--;
-    } else if (xpos < window.size && input == 1) { //line isn't functional
-      xpos++;
-    }
+      xpos--;}
+//    } else if (xpos < window.size && input == 1) { //line isn't functional
+//      xpos++;
+//    }
   }
 }
