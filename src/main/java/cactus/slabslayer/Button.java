@@ -11,11 +11,12 @@ public class Button extends GameElement {
   }
   @Override
   public String toJSON() {
-    return "{\"type\": \"button\"}";
+    return "{\"type\": \"Button\"}";
   }
 
   @Override
   public Object fromJSON(String json) {
-    return null;
+    Button button = new Button();
+    return button;
   }
 }
