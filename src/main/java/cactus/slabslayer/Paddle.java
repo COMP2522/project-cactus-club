@@ -3,7 +3,7 @@ package cactus.slabslayer;
 /**
  * Represents a paddle object.
  */
-public class Paddle implements JSONable{
+public class Paddle extends GameElement implements Moveable, Collidable {
   /**
    * Width of the paddle.
    */
@@ -37,10 +37,38 @@ public class Paddle implements JSONable{
   }
 
   /**
+   * Controls paddle movement.
+   */
+  @Override
+  public void move() {
+    // to do
+  }
+
+  /**
    * Renders the paddle in the window.
    */
   public void render() {
     window.rect(xpos, 480, width, height);
+  }
+
+  /**
+   * Checks if colliding with another object.
+   * @param toCheck the Object to check
+   * @return true/false if colliding
+   */
+  @Override
+  public boolean isCollidingWith(Object toCheck) {
+    // to do
+    return false;
+  }
+
+  /**
+   * Executes collision with another object.
+   * @param collidedWith the Object to collide with
+   */
+  @Override
+  public void doCollision(Object collidedWith) {
+    // to do
   }
 
   @Override
