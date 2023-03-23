@@ -1,21 +1,26 @@
 package cactus.slabslayer;
 
-import processing.data.JSONObject;
+/**
+ * Represents a ball object.
+ */
+public class Ball implements JSONable {
+  float xpos;
+  float ypos;
 
-public class Ball implements JSONable
-{
-  float xPos;
-  float yPos;
 
   float vy;
   float vx;
 
   Window window;
 
-  public Ball(Window scene)
-  {
-    xPos = 100;
-    yPos = 100;
+  /**
+   * Constructs a new Ball object with initial position and velocity.
+   *
+   * @param scene the Window object in which the ball will be rendered and moved
+   */
+  public Ball(Window scene) {
+    xpos = 100;
+    ypos = 100;
 
     vy = 5;
     vx = 5;
@@ -23,22 +28,43 @@ public class Ball implements JSONable
     window = scene;
   }
 
-  public float getXPos() {
-    return xPos;
+  /**
+   * Getter for x-coordinate of ball.
+   *
+   * @return x-coordinate
+   */
+  public float getXpos() {
+    return xpos;
+
   }
 
-  public float getYPos() {
-    return yPos;
+  /**
+   * Getter for y-coordinate of ball.
+   *
+   * @return y-coordinate
+   */
+  public float getYpos() {
+    return ypos;
   }
 
-  public float getVy() {
-    return vy;
-  }
-
+  /**
+   * Getter for x-velocity of ball.
+   *
+   * @return x-velocity
+   */
   public float getVx() {
     return vx;
   }
 
+  /**
+   * Getter for y-velocity of ball.
+   *
+   * @return y-velocity
+   */
+  public float getVy() {
+    return vy;
+  }
+  
   public void setXPos(float xPos) {
     this.xPos = xPos;
   }
@@ -55,24 +81,25 @@ public class Ball implements JSONable
     this.vy = vy;
   }
 
-
-  public void render()
-  {
-    window.ellipse(xPos, yPos, 30, 30);
+  /**
+   * Renders the ball in the window.
+   */
+  public void render() {
+    window.ellipse(xpos, ypos, 30, 30);
   }
 
-  public void move()
-  {
-    xPos += vx;
-    yPos += vy;
+  /**
+   * Moves the ball, reverses velocity if boundary is hit.
+   */
+  public void move() {
+    xpos += vx;
+    ypos += vy;
 
-    if (xPos < 0 || xPos > window.width)
-    {
+    if (xpos < 0 || xpos > window.width) {
       vx *= -1;
     }
 
-    if (yPos < 0 || yPos > window.height)
-    {
+    if (ypos < 0 || ypos > window.height) {
       vy *= -1;
     }
   }
