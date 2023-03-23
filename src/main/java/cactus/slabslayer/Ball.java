@@ -5,7 +5,7 @@ import processing.data.JSONObject;
 /**
  * Represents a ball object.
  */
-public class Ball implements JSONable {
+public class Ball extends GameElement implements Moveable, Collidable {
   float xpos;
   float ypos;
 
@@ -106,6 +106,25 @@ public class Ball implements JSONable {
     }
   }
 
+  /**
+   * Checks if colliding with another object.
+   * @param toCheck the Object to check
+   * @return true/false if colliding
+   */
+  @Override
+  public boolean isCollidingWith(Object toCheck) {
+    // to do
+    return false;
+  }
+
+  /**
+   * Executes collision with another object.
+   * @param collidedWith the Object to collide with
+   */
+  @Override
+  public void doCollision(Object collidedWith) {
+    // to do
+  }
 
   @Override
   public String toJSON() {
