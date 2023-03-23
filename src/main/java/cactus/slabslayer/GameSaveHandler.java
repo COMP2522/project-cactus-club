@@ -43,7 +43,13 @@ public class GameSaveHandler extends GameProcess {
   }
 
   public void loadGame(String dir) {
-    // TODO Auto-generated method stub
+//    // TODO Auto-generated method stub
+//    JSONArray jsonElements = loadJSONArray(new File(dir));
+//    for (int i = 0; i < jsonElements.size(); i++) {
+//      JSONObject jsonElement = jsonElements.getJSONObject(i);
+//      GameElement element = (GameElement)GameElement.fromJSON(jsonElement);
+//      GameElement.add(element);
+//    }
   }
   public static void main(String[] args) {
     // Create some game elements

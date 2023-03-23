@@ -6,7 +6,7 @@ import processing.data.JSONObject;
 public abstract class GameElement implements JSONable {
   private PVector position;
   private Window window;
-  public static GameElement fromJSON(JSONObject json) {
+  public GameElement fromJSON(JSONObject json) {
     // Extract the "type" field from the JSON object
     String type = json.getString("type");
 
