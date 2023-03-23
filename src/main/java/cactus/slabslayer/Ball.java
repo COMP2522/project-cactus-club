@@ -110,8 +110,8 @@ public class Ball implements JSONable {
   @Override
   public String toJSON() {
     JSONObject json = new JSONObject();
-    json.setFloat("xPos", xpos);
-    json.setFloat("yPos", ypos);
+    json.setFloat("xpos", xpos);
+    json.setFloat("ypos", ypos);
     json.setFloat("vy", vy);
     json.setFloat("vx", vx);
     return json.toString();
@@ -120,18 +120,16 @@ public class Ball implements JSONable {
   @Override
   public Object fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
-    float xpos = jsonObject.getFloat("xPos");
-    float ypos = jsonObject.getFloat("yPos");
+    float xpos = jsonObject.getFloat("xpos");
+    float ypos = jsonObject.getFloat("ypos");
     float vy = jsonObject.getFloat("vy");
     float vx = jsonObject.getFloat("vx");
     Ball ball = new Ball(window);
-    ball.setXpos(xpos);
-    ball.setYpos(ypos);
+    ball.setXPos(xpos);
+    ball.setYPos(ypos);
     ball.setVy(vy);
     ball.setVx(vx);
 
     return ball;
   }
 }
-
-
