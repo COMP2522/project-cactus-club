@@ -3,7 +3,7 @@ package cactus.slabslayer;
 /**
  * Represents a slab object.
  */
-public class Slab implements JSONable{
+public class Slab extends GameElement implements Collidable {
   /**
    * Width of the slab, will be set to a default value in the constructor.
    */
@@ -99,13 +99,6 @@ public class Slab implements JSONable{
   }
 
   /**
-   * Renders the slab in the window.
-   */
-  public void render() {
-    window.rect(xpos, ypos, width, height);
-  }
-
-  /**
    * Reduces hp of slab by 1.
    */
   public void getHit() {
@@ -119,6 +112,33 @@ public class Slab implements JSONable{
    */
   public boolean isAlive() {
     return (health > 0) ? true : false;
+  }
+
+  /**
+   * Renders the slab in the window.
+   */
+  public void render() {
+    window.rect(xpos, ypos, width, height);
+  }
+
+  /**
+   * Checks if colliding with another object.
+   * @param toCheck the Object to check
+   * @return true/false if colliding
+   */
+  @Override
+  public boolean isCollidingWith(Object toCheck) {
+    // to do
+    return false;
+  }
+
+  /**
+   * Executes collision with another object.
+   * @param collidedWith the Object to collide with
+   */
+  @Override
+  public void doCollision(Object collidedWith) {
+    // to do
   }
 
   @Override
