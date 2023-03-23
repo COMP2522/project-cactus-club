@@ -1,6 +1,64 @@
 package cactus.slabslayer;
 
-public class PowerUp extends GameElement implements Moveable, Collidable {
+import java.util.Random;
+
+public class PowerUp extends GameElement implements Moveable, Collidable, JSONable {
+  float radius;
+  int type;
+  float xpos;
+  float ypos;
+  float yvel;
+
+  Random randomType = new Random();
+  Window window;
+
+  /**
+   * Constructs a power up object with a random type.
+   */
+  public PowerUp() {
+    this.type = randomType.nextInt(4);
+    this.radius = 10;
+    this.xpos = 0;
+    this.ypos = 0;
+    this.yvel = 5;
+
+  }
+
+  /**
+   * Get the type of power up.
+   *
+   * @return type
+   */
+  public int getType() {
+    return type;
+  }
+
+  /**
+   * Set x-position of power up.
+   *
+   * @param xpos x-position
+   */
+  public void setXpos(float xpos) {
+    this.xpos = xpos;
+  }
+
+  /**
+   * Set y-position of power up.
+   *
+   * @param ypos y-position
+   */
+  public void setYpos(float ypos) {
+    this.ypos = ypos;
+  }
+
+  /**
+   * Set the window of the power up.
+   *
+   * @param window window
+   */
+  public void setWindow(Window window) {
+    this.window = window;
+  }
 
   /**
    * Controls power up movement.
