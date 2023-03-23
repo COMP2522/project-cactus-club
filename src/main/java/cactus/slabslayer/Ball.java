@@ -3,7 +3,7 @@ package cactus.slabslayer;
 /**
  * Represents a ball object.
  */
-public class Ball {
+public class Ball implements JSONable {
   float xpos;
   float ypos;
 
@@ -25,6 +25,42 @@ public class Ball {
     vx = 5;
 
     window = scene;
+  }
+
+  /**
+   * Getter for x-coordinate of ball.
+   *
+   * @return x-coordinate
+   */
+  public float getXpos() {
+    return xpos;
+  }
+
+  /**
+   * Getter for y-coordinate of ball.
+   *
+   * @return y-coordinate
+   */
+  public float getYpos() {
+    return ypos;
+  }
+
+  /**
+   * Getter for x-velocity of ball.
+   *
+   * @return x-velocity
+   */
+  public float getVx() {
+    return vx;
+  }
+
+  /**
+   * Getter for y-velocity of ball.
+   *
+   * @return y-velocity
+   */
+  public float getVy() {
+    return vy;
   }
 
   /**
