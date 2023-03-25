@@ -36,6 +36,11 @@ public class Game {
   ArrayList<Renderable> renderables;
 
   /**
+   * List of all Moveable objects.
+   */
+  ArrayList<Moveable> moveables;
+
+  /**
    * Constructs a new Game object.
    */
   public Game(Window win, InputHandler in) {
@@ -53,12 +58,19 @@ public class Game {
     pad = null;
     slabs = new ArrayList<Slab>();
     renderables = new ArrayList<Renderable>();
+    moveables = new ArrayList<Moveable>();
   }
 
   /**
    * Runs periodically in the processing main loop. Handles timing of all process execution.
    */
   public void update() {
+    win.background(200, 200, 255);
+
+    for (Moveable m : moveables) {
+      m.move(in);
+    }
+
     for (Renderable r : renderables) {
       r.render();
     }
@@ -70,6 +82,7 @@ public class Game {
   public void spawnPaddle() {
     pad = new Paddle(win);
     renderables.add(pad);
+    moveables.add(pad);
   }
 
   /**

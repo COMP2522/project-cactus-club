@@ -94,7 +94,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    * Controls power up movement.
    */
   @Override
-  public void move() {
+  public void move(InputHandler in) {
 
   }
 

@@ -93,7 +93,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
   /**
    * Moves the ball, reverses velocity if boundary is hit.
    */
-  public void move() {
+  public void move(InputHandler in) {
     xpos += vx;
     ypos += vy;
 
