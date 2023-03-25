@@ -108,7 +108,7 @@ public class Layout extends GameElement implements JSONable{
             layout.addLayoutElement((Button) (button.fromJSON(elemJson.toString())));
             break;
           case "TextBox":
-            TextBox textBox = new TextBox();
+            TextBox textBox = new TextBox(new Window());
             layout.addLayoutElement((TextBox) (textBox.fromJSON(elemJson.toString())));
             break;
           default:
@@ -127,7 +127,7 @@ public class Layout extends GameElement implements JSONable{
     Layout l1 = new Layout(new Window());
 
     l1.addLayoutElement(new Button());
-    l1.addLayoutElement(new TextBox());
+    l1.addLayoutElement(new TextBox(new Window()));
 
     System.out.println(l1.toJSON());
     Layout l1Copy = (Layout) l1.fromJSON(l1.toJSON());
@@ -140,7 +140,7 @@ public class Layout extends GameElement implements JSONable{
     l1.removeLayoutElement(b);
 
     Layout l2 = new Layout(new Window());
-    l2.addLayoutElement(new TextBox());
+    l2.addLayoutElement(new TextBox(new Window()));
     l2.addLayoutElement(new Button());
 
     l2.addLayoutElement(new Layout(new Window()));
