@@ -52,12 +52,15 @@ public class Game {
   public void init() {
     pad = null;
     renderables = new ArrayList<Renderable>();
+    moveables = new ArrayList<Moveable>();
   }
 
   /**
    * Runs periodically in the processing main loop. Handles timing of all process execution.
    */
   public void update() {
+    win.background(200, 200, 255);
+
     for (Moveable m : moveables) {
       m.move(in);
     }
@@ -73,5 +76,6 @@ public class Game {
   public void spawnPaddle() {
     pad = new Paddle(win);
     renderables.add(pad);
+    moveables.add(pad);
   }
 }
