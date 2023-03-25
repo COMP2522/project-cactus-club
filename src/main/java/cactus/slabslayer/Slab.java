@@ -5,7 +5,7 @@ import processing.data.JSONObject;
 /**
  * Represents a slab object.
  */
-public class Slab implements JSONable {
+public class Slab extends GameElement {
   /**
    * Width of the slab, will be set to a default value in the constructor.
    */
@@ -104,6 +104,9 @@ public class Slab implements JSONable {
    * Renders the slab in the window.
    */
   public void render() {
+    window.stroke(0);
+    window.strokeWeight(4);
+    window.fill(255, 200, 200);
     window.rect(xpos, ypos, width, height);
   }
 
