@@ -128,6 +128,11 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
     // to do
   }
 
+  /**
+   * Converts this object to a JSON string.
+   *
+   * @return JSON string
+   */
   @Override
   public String toJSON() {
     JSONObject json = new JSONObject();
@@ -142,6 +147,12 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
     return json.toString();
   }
 
+  /**
+   * Converts a JSON string to a powerup object.
+   *
+   * @param json JSON string
+   * @return powerup object
+   */
   @Override
   public Object fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
