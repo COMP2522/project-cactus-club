@@ -53,6 +53,8 @@ public class Game {
    * Runs periodically in the processing main loop. Handles timing of all process execution.
    */
   public void update() {
-
+    for (Renderable r : renderables) {
+      r.render();
+    }
   }
 }
