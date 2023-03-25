@@ -32,8 +32,10 @@ public class Window extends PApplet {
   public void setup() {
     in = new InputHandler(this);
 
-    game = new Game(in);
+    game = new Game(this, in);
     game.init();
+
+    game.spawnPaddle();
   }
 
   /**

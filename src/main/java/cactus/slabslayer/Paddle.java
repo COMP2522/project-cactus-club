@@ -2,6 +2,8 @@ package cactus.slabslayer;
 
 import processing.data.JSONObject;
 
+import java.awt.*;
+
 /**
  * Represents a paddle object.
  */
@@ -50,7 +52,10 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    * Renders the paddle in the window.
    */
   public void render() {
-    window.rect(xpos, 480, width, height);
+    window.stroke(0);
+    window.strokeWeight(4);
+    window.fill(200, 255, 200);
+    window.rect(xpos, window.height/100 * 60, width, height);
   }
 
   /**
