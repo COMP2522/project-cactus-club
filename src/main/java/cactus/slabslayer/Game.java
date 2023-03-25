@@ -9,6 +9,11 @@ package cactus.slabslayer;
 public class Game {
 
   /**
+   * Local reference to main window.
+   */
+  Window win;
+
+  /**
    * Local reference to main program InputHandler.
    */
   InputHandler in;
@@ -16,8 +21,11 @@ public class Game {
   /**
    * Constructs a new Game object.
    */
-  public Game(InputHandler in) {
+  public Game(Window win, InputHandler in) {
+    this.win = win;
     this.in = in;
+
+    this.init();
   }
 
   /**
