@@ -44,7 +44,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    * Controls paddle movement.
    */
   @Override
-  public void move() {
+  public void move(InputHandler in) {
     // to do
   }
 
