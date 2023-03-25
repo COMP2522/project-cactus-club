@@ -73,6 +73,11 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     // to do
   }
 
+  /**
+   * Converts this object to a JSON string.
+   *
+   * @return JSON string
+   */
   @Override
   public String toJSON() {
     JSONObject json = new JSONObject();
@@ -85,6 +90,12 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     return json.toString();
   }
 
+  /**
+   * Converts a JSON string to a paddle object.
+   *
+   * @param json JSON string
+   * @return paddle
+   */
   @Override
   public Object fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);

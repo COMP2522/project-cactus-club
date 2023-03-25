@@ -139,6 +139,12 @@ public class Ball extends GameElement implements Moveable, Collidable {
     return json.toString();
   }
 
+  /**
+   * Creates a new Ball object from a JSON string.
+   *
+   * @param json JSON string
+   * @return new Ball object
+   */
   @Override
   public Object fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);

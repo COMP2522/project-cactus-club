@@ -123,6 +123,11 @@ public class Slab implements JSONable {
     return (health > 0) ? true : false;
   }
 
+  /**
+   * Converts this object to a JSON string.
+   *
+   * @return JSON string
+   */
   @Override
   public String toJSON() {
     JSONObject json = new JSONObject();
@@ -140,6 +145,12 @@ public class Slab implements JSONable {
     return json.toString();
   }
 
+  /**
+   * Converts a JSON string to a Slab object.
+   *
+   * @param json JSON string
+   * @return Slab object
+   */
   @Override
   public Object fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
@@ -162,6 +173,7 @@ public class Slab implements JSONable {
 
     throw new IllegalArgumentException("Unknown type: " + type);
   }
+
   public static void main(String[] args) {
     Window window = new Window();
     Slab slab = new Slab(3, 50, 50, 0.5f, window);
