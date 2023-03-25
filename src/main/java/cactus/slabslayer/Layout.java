@@ -74,6 +74,11 @@ public class Layout extends GameElement implements JSONable{
 
   }
 
+  /**
+   * Converts this object to a JSON string.
+   *
+   * @return JSON string
+   */
   @Override
   public String toJSON() {
     JSONObject json = new JSONObject();
@@ -90,6 +95,12 @@ public class Layout extends GameElement implements JSONable{
 //    return null;
   }
 
+  /**
+   * Converts a JSON string to a layout object.
+   *
+   * @param json JSON string
+   * @return layout
+   */
   @Override
   public Object fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
