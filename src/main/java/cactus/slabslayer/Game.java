@@ -1,5 +1,7 @@
 package cactus.slabslayer;
 
+import java.util.ArrayList;
+
 /**
  * Game will have collections of game elements, and game processing that affect game elements.
  *
@@ -19,6 +21,16 @@ public class Game {
   InputHandler in;
 
   /**
+   * Paddle instance.
+   */
+  Paddle pad;
+
+  /**
+   * List of all Renderable objects
+   */
+  ArrayList<Renderable> renderables;
+
+  /**
    * Constructs a new Game object.
    */
   public Game(Window win, InputHandler in) {
@@ -33,7 +45,8 @@ public class Game {
    * clears all the collections and re-initializes all game processes
    */
   public void init() {
-
+    Paddle p = new Paddle(win);
+    renderables = new ArrayList<Renderable>();
   }
 
   /**
