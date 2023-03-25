@@ -2,6 +2,8 @@ package cactus.slabslayer;
 
 
 import static com.mongodb.client.model.Filters.eq;
+import static processing.core.PApplet.loadJSONArray;
+import static processing.core.PApplet.loadJSONObject;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -12,12 +14,12 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import processing.data.JSONArray;
 import processing.data.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import processing.core.PApplet;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -28,7 +30,7 @@ import java.nio.file.Paths;
  * @author Trevor
  * @version 2023
  */
-public class DatabaseHandler {
+public class DatabaseHandler{
   /** The singleton instance of the database handler. */
   private static DatabaseHandler instance;
 
@@ -88,21 +90,28 @@ public class DatabaseHandler {
    * @param db the database
    * @param filePath the file path
    */
-  public static void save(MongoDatabase db, String filePath) throws IOException {
-    // Read the contents of the JSON file into a string
-    String jsonString = new String(Files.readAllBytes(Paths.get(filePath)));
-
-    // Parse the JSON string into a Document object
-    Document document = Document.parse(jsonString);
-
-    // Insert the Document into the "savestates" collection
-    db.getCollection("saves").insertOne(document);
-  }
-//  public static void save(MongoDatabase db, String filePath) {
-//    Document document = new Document();
-//    document.append("filePath", filePath);
+//  public static void save(MongoDatabase db, String filePath) throws IOException {
+//    // Read the contents of the JSON file into a string
+//    String jsonString = new String(Files.readAllBytes(Paths.get(filePath)));
+//
+//    // Parse the JSON string into a Document object
+//    Document document = Document.parse(jsonString);
+//
+//    // Insert the Document into the "savestates" collection
 //    db.getCollection("saves").insertOne(document);
 //  }
+  public static void save(MongoDatabase db, String filePath) {
+    Document document = new Document();
+    JSONArray json = new JSONArray();
+    String filename = "game-save.json";
+
+    json = loadJSONArray(new File(filename));
+
+    String jsonString = json.toString();
+
+    document.append("filePath", jsonString);
+    db.getCollection("saves").insertOne(document);
+  }
 
   public static void read(MongoDatabase db, String filePath) {
     db.getCollection("saves").find(eq("filePath", filePath)).forEach(System.out::println);
