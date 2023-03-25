@@ -1,6 +1,5 @@
 package cactus.slabslayer;
 
-import static com.mongodb.client.model.Filters.eq;
 import static processing.core.PApplet.loadJSONArray;
 
 import com.mongodb.ConnectionString;
@@ -127,7 +126,7 @@ public class DatabaseHandler {
     MongoDatabase database = databaseHandler.getDatabase();
     String filePath = "game-save.json";
 
-//    save(database, filePath);
+    save(database, filePath);
     read(database);
     databaseHandler.close();
   }
