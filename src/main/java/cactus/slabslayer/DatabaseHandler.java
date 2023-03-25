@@ -7,6 +7,7 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
@@ -98,7 +99,7 @@ public class DatabaseHandler {
 
     String jsonString = json.toString();
 
-    document.append("filePath", jsonString);
+    document.append("saveData", jsonString);
     db.getCollection("saves").insertOne(document);
   }
 
@@ -106,11 +107,14 @@ public class DatabaseHandler {
    * Reads the game from the database.
    *
    * @param db the database
-   * @param filePath the file path
    */
-  public static void read(MongoDatabase db, String filePath) {
-    db.getCollection("saves").find(eq("filePath", filePath)).forEach(System.out::println);
+  public static void read(MongoDatabase db) {
+    FindIterable<Document> documents = db.getCollection("saves").find();
+    for (Document document : documents) {
+      System.out.println(document.toJson());
+    }
   }
+
 
   /**
    * Drives the program.
@@ -123,7 +127,8 @@ public class DatabaseHandler {
     MongoDatabase database = databaseHandler.getDatabase();
     String filePath = "game-save.json";
 
-    save(database, filePath);
-
+//    save(database, filePath);
+    read(database);
+    databaseHandler.close();
   }
 }
