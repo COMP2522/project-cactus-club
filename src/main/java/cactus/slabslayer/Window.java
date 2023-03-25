@@ -36,6 +36,8 @@ public class Window extends PApplet {
     game.init();
 
     game.spawnPaddle();
+
+    game.spawnSlab(90, 15, 100, 50, 50, 5, 0, 0, this);
   }
 
   /**
