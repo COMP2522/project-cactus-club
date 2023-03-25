@@ -34,6 +34,8 @@ public class Window extends PApplet {
 
     game = new Game(this, in);
     game.init();
+
+    game.spawnPaddle();
   }
 
   /**

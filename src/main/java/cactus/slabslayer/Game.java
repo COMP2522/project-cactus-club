@@ -45,7 +45,7 @@ public class Game {
    * clears all the collections and re-initializes all game processes
    */
   public void init() {
-    Paddle p = new Paddle(win);
+    pad = null;
     renderables = new ArrayList<Renderable>();
   }
 
@@ -56,5 +56,13 @@ public class Game {
     for (Renderable r : renderables) {
       r.render();
     }
+  }
+
+  /**
+   * Spawns a paddle with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnPaddle() {
+    pad = new Paddle(win);
+    renderables.add(pad);
   }
 }
