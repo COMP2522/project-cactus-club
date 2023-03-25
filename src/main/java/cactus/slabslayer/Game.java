@@ -31,6 +31,11 @@ public class Game {
   ArrayList<Renderable> renderables;
 
   /**
+   * List of all Moveable objects.
+   */
+  ArrayList<Moveable> moveables;
+
+  /**
    * Constructs a new Game object.
    */
   public Game(Window win, InputHandler in) {
@@ -53,6 +58,10 @@ public class Game {
    * Runs periodically in the processing main loop. Handles timing of all process execution.
    */
   public void update() {
+    for (Moveable m : moveables) {
+      m.move(in);
+    }
+
     for (Renderable r : renderables) {
       r.render();
     }
