@@ -72,6 +72,14 @@ public class Game {
     renderables.add(pad);
   }
 
+    /**
+     * Spawns a paddle with arguments and adds it to any necessary ArrayLists
+     */
+    public void spawnPaddle(float width, float height, float xpos) {
+      pad = new Paddle(width, height, xpos,win);
+      renderables.add(pad);
+    }
+
   /**
    * Spawns a Slab with no arguments and adds it to any necessary ArrayLists
    */

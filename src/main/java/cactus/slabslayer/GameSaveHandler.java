@@ -43,13 +43,14 @@ public class GameSaveHandler extends GameProcess {
   }
 
   public void loadGame(String dir) {
-//    // TODO Auto-generated method stub
-//    JSONArray jsonElements = loadJSONArray(new File(dir));
-//    for (int i = 0; i < jsonElements.size(); i++) {
-//      JSONObject jsonElement = jsonElements.getJSONObject(i);
-//      GameElement element = (GameElement)GameElement.fromJSON(jsonElement);
-//      GameElement.add(element);
-//    }
+    // TODO Auto-generated method stub
+    JSONArray jsonElements = loadJSONArray(new File(dir));
+    String type  = jsonElements.getString("type");
+    for (int i = 0; i < jsonElements.size(); i++) {
+      JSONObject jsonElement = jsonElements.getJSONObject(i);
+      GameElement element = (GameElement)GameElement.fromJSON(jsonElement);
+      GameElement.add(element);
+    }
   }
 
   public static void main(String[] args) {
@@ -73,6 +74,7 @@ public class GameSaveHandler extends GameProcess {
 
     // Print a success message
     System.out.println("Game elements saved successfully.");
+    saveHandler.loadGame("game-save.json");
   }
 
 
