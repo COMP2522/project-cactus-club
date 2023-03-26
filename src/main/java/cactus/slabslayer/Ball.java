@@ -21,11 +21,11 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * @param scene the Window object in which the ball will be rendered and moved
    */
   public Ball(Window scene) {
-    xpos = 100;
-    ypos = 100;
+    xpos = scene.width/2;
+    ypos = scene.height/2;
 
     vy = 5;
-    vx = 5;
+    vx = 0;
 
     window = scene;
   }
@@ -87,6 +87,9 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * Renders the ball in the window.
    */
   public void render() {
+    window.stroke(0);
+    window.strokeWeight(4);
+    window.fill(100, 100, 255);
     window.ellipse(xpos, ypos, 30, 30);
   }
 
