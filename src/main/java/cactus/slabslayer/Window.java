@@ -51,6 +51,8 @@ public class Window extends PApplet {
     for (int i = 1; i <= 18; i++) {
       game.spawnSlab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 2, 5, 0, 0, this);
     }
+
+    game.spawnBall();
   }
 
   /**

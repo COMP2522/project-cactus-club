@@ -87,6 +87,9 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * Renders the ball in the window.
    */
   public void render() {
+    window.stroke(0);
+    window.strokeWeight(4);
+    window.fill(100, 100, 255);
     window.ellipse(xpos, ypos, 30, 30);
   }
 

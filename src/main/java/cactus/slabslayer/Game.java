@@ -31,6 +31,11 @@ public class Game {
   ArrayList<Slab> slabs;
 
   /**
+   * List of all Ball objects.
+   */
+  ArrayList<Ball> balls;
+
+  /**
    * List of all Renderable objects
    */
   ArrayList<Renderable> renderables;
@@ -57,6 +62,7 @@ public class Game {
   public void init() {
     pad = null;
     slabs = new ArrayList<Slab>();
+    balls = new ArrayList<Ball>();
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
   }
@@ -86,7 +92,7 @@ public class Game {
   }
 
   /**
-   * Spawns a Slab with no arguments and adds it to any necessary ArrayLists
+   * Spawns a Slab and adds it to any necessary ArrayLists
    */
   public void spawnSlab(float width, float height, int health, float xpos, float ypos, float pdropChance,
                         float vx, float vy, Window window) {
@@ -95,5 +101,12 @@ public class Game {
     renderables.add(tmpSlab);
   }
 
-
+  /**
+   * Spawns a Ball and adds it to any necessary ArrayLists
+   */
+  public void spawnBall() {
+    Ball tmpball = new Ball(win);
+    balls.add(tmpball);
+    renderables.add(tmpball);
+  }
 }
