@@ -115,7 +115,7 @@ public class Layout extends GameElement implements JSONable{
         String typeInner = elemJson.getString("type");
         switch (typeInner) {
           case "Button":
-            Button button = new Button();
+            Button button = new Button(new Window());
             layout.addLayoutElement((Button) (button.fromJSON(elemJson.toString())));
             break;
           case "TextBox":
@@ -137,7 +137,7 @@ public class Layout extends GameElement implements JSONable{
     
     Layout l1 = new Layout(new Window());
 
-    l1.addLayoutElement(new Button());
+    l1.addLayoutElement(new Button(new Window()));
     l1.addLayoutElement(new TextBox(new Window()));
 
     System.out.println(l1.toJSON());
@@ -145,14 +145,14 @@ public class Layout extends GameElement implements JSONable{
     System.out.println(l1Copy.toJSON());
 
 
-    Button b = new Button();
+    Button b = new Button(new Window());
 
     l1.addLayoutElement(b);
     l1.removeLayoutElement(b);
 
     Layout l2 = new Layout(new Window());
     l2.addLayoutElement(new TextBox(new Window()));
-    l2.addLayoutElement(new Button());
+    l2.addLayoutElement(new Button(new Window()));
 
     l2.addLayoutElement(new Layout(new Window()));
 

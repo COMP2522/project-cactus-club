@@ -84,6 +84,20 @@ public class InputHandler {
     }
   }
 
+
+  /**
+   * Executes a button's function if mouse was clicked in
+   * button's box.
+   */
+  public void checkPressButton() {
+
+    for (Button b : Button.buttons) {
+      System.out.println(b.mouseInBounds());
+    }
+
+  }
+
+
   /**
    * Returns upState field value.
    *

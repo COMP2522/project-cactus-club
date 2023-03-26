@@ -23,7 +23,7 @@ public abstract class GameElement implements Renderable, JSONable {
       case "Layout":
         return (GameElement)new Layout(new Window()).fromJSON(json.toString());
       case "Button":
-        return (GameElement)new Button().fromJSON(json.toString());
+        return (GameElement)new Button(new Window()).fromJSON(json.toString());
       case "Textbox":
         return (GameElement)new TextBox(new Window()).fromJSON(json.toString());
       default:
