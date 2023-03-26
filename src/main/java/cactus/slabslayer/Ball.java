@@ -6,13 +6,29 @@ import processing.data.JSONObject;
  * Represents a ball object.
  */
 public class Ball extends GameElement implements Moveable, Collidable {
+  /**
+   * x-position of ball.
+   */
   float xpos;
+
+  /**
+   * y-position of ball.
+   */
   float ypos;
 
-
+  /**
+   * y-velocity of ball.
+   */
   float vy;
+
+  /**
+   * x-velocity of ball.
+   */
   float vx;
 
+  /**
+   * Window object to render to.
+   */
   Window window;
 
   /**
@@ -66,19 +82,39 @@ public class Ball extends GameElement implements Moveable, Collidable {
   public float getVy() {
     return vy;
   }
-  
+
+  /**
+   * Setter for x-coordinate of ball.
+   *
+   * @param xpos x-coordinate
+   */
   public void setXpos(float xpos) {
     this.xpos = xpos;
   }
 
+    /**
+     * Setter for y-coordinate of ball.
+     *
+     * @param ypos y-coordinate
+     */
   public void setYpos(float ypos) {
     this.ypos = ypos;
   }
 
+  /**
+   * Setter for x-velocity of ball.
+   *
+   * @param vx x-velocity
+   */
   public void setVx(float vx) {
     this.vx = vx;
   }
 
+  /**
+   * Setter for y-velocity of ball.
+   *
+   * @param vy y-velocity
+   */
   public void setVy(float vy) {
     this.vy = vy;
   }
