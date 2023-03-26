@@ -35,9 +35,11 @@ public class Window extends PApplet {
     game = new Game(this, in);
     game.init();
 
-    game.spawnPaddle();
-
-    game.spawnSlab(90, 15, 100, 50, 50, 5, 0, 0, this);
+//    game.spawnPaddle();
+//
+//    game.spawnSlab(90, 15, 100, 50, 50, 5, 0, 0, this);
+    GameSaveHandler gsh = new GameSaveHandler();
+    gsh.loadGame("game-save.json", this, in, game);
   }
 
   /**

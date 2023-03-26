@@ -75,8 +75,8 @@ public class Game {
     /**
      * Spawns a paddle with arguments and adds it to any necessary ArrayLists
      */
-    public void spawnPaddle(float width, float height, float xpos) {
-      pad = new Paddle(width, height, xpos,win);
+    public void spawnPaddle(Paddle pad) {
+      this.pad = pad;
       renderables.add(pad);
     }
 
@@ -88,6 +88,49 @@ public class Game {
     Slab tmpSlab = new Slab(width, height, health, xpos, ypos, pdropChance, vx, vy, window);
     slabs.add(tmpSlab);
     renderables.add(tmpSlab);
+  }
+
+    /**
+     * Spawns a Slab with arguments and adds it to any necessary ArrayLists
+     */
+  public void spawnSlab(Slab slab) {
+    slabs.add(slab);
+    renderables.add(slab);
+  }
+
+/**
+   * Spawns a PowerUp with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnPowerUp(PowerUp powerUp) {
+    renderables.add(powerUp);
+  }
+
+  /**
+   * Spawns a Ball with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnBall(Ball ball) {
+    renderables.add(ball);
+  }
+
+  /**
+   * Spawns a Layout with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnLayout(Layout layout) {
+    renderables.add(layout);
+  }
+
+  /**
+   * Spawns a Button with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnButton(Button button) {
+    renderables.add(button);
+  }
+
+  /**
+   * Spawns a TextBox with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnTextBox(TextBox textbox) {
+    renderables.add(textbox);
   }
 
 
