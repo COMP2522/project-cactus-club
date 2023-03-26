@@ -42,6 +42,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     this.width = 100;
     this.height = 20;
     this.xpos = 250 - (width / 2);
+    this.xvel = 10;
     this.window = window;
   }
 
