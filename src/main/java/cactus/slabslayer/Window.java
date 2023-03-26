@@ -53,6 +53,10 @@ public class Window extends PApplet {
     }
 
     game.spawnBall();
+
+    // Used to load a game save
+    GameSaveHandler gsh = new GameSaveHandler();
+    gsh.loadGame("game-save.json", this, in, game);
   }
 
   /**
