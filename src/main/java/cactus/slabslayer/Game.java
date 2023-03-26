@@ -108,5 +108,6 @@ public class Game {
     Ball tmpball = new Ball(win);
     balls.add(tmpball);
     renderables.add(tmpball);
+    moveables.add(tmpball);
   }
 }
