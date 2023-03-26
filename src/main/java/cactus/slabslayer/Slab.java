@@ -181,13 +181,29 @@ public class Slab extends GameElement {
     Window window = new Window();
     Slab slab = new Slab(3, 50, 50, 0.5f, window);
 
+    String jsonSlab = "{\n" +
+            "  \"type\": \"Slab\",\n" +
+            "  \"constructorVars\": {\n" +
+            "    \"vx\": 1,\n" +
+            "    \"ypos\": 1,\n" +
+            "    \"pdropChance\": 1,\n" +
+            "    \"vy\": 0,\n" +
+            "    \"xpos\": 1,\n" +
+            "    \"width\": 11,\n" +
+            "    \"health\": 31,\n" +
+            "    \"height\": 51\n" +
+            "  }\n" +
+            "}";
     // test toJSON() method
     String json = slab.toJSON();
+
     System.out.println(json);
+    System.out.println(jsonSlab);
 
     // test fromJSON() method
-    Slab newSlab = (Slab) slab.fromJSON(json);
-    System.out.println(newSlab.toJSON());
+//    Slab newSlab = (Slab) slab.fromJSON(json);
+    Slab newSlab2 = (Slab) slab.fromJSON(jsonSlab);
+    System.out.println(newSlab2.toJSON());
   }
 }
 
