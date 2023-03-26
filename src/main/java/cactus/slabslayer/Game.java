@@ -91,13 +91,14 @@ public class Game {
     moveables.add(pad);
   }
 
-    /**
-     * Spawns a paddle with arguments and adds it to any necessary ArrayLists
-     */
-    public void spawnPaddle(Paddle pad) {
-      this.pad = pad;
-      renderables.add(pad);
-    }
+  /**
+   * Spawns a paddle with arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnPaddle(Paddle pad) {
+    this.pad = pad;
+    renderables.add(pad);
+    moveables.add(pad);
+  }
 
   /**
    * Spawns a Slab and adds it to any necessary ArrayLists
@@ -118,9 +119,10 @@ public class Game {
     renderables.add(tmpball);
     moveables.add(tmpball);
   }
-    /**
-     * Spawns a Slab with arguments and adds it to any necessary ArrayLists
-     */
+
+  /**
+   * Spawns a Slab with arguments and adds it to any necessary ArrayLists
+   */
   public void spawnSlab(Slab slab) {
     slabs.add(slab);
     renderables.add(slab);
@@ -130,7 +132,7 @@ public class Game {
     renderables.add(wall);
   }
 
-/**
+  /**
    * Spawns a PowerUp with no arguments and adds it to any necessary ArrayLists
    */
   public void spawnPowerUp(PowerUp powerUp) {
@@ -141,7 +143,9 @@ public class Game {
    * Spawns a Ball with no arguments and adds it to any necessary ArrayLists
    */
   public void spawnBall(Ball ball) {
+    balls.add(ball);
     renderables.add(ball);
+    moveables.add(ball);
   }
 
   /**
