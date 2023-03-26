@@ -158,7 +158,7 @@ public class Layout extends GameElement implements JSONable{
 
     l1.addLayoutElement(l2);
 
-    l1.render();
+//    l1.render();
 
   }
 

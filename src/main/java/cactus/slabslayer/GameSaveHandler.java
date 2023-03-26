@@ -1,13 +1,8 @@
 package cactus.slabslayer;
 
-
 import java.util.ArrayList;
-
 import processing.data.JSONArray;
 import processing.data.JSONObject;
-import processing.core.PApplet;
-
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,7 +17,6 @@ public class GameSaveHandler extends GameProcess {
   }
 
   public void saveGame(ArrayList<JSONable> elements, String dir) {
-    // TODO Auto-generated method stub
     JSONArray jsonElements = new JSONArray();
     for (JSONable element : elements) {
       jsonElements.append(JSONObject.parse(element.toJSON()));
@@ -31,7 +25,6 @@ public class GameSaveHandler extends GameProcess {
   }
 
   private void saveJSONArray(JSONArray jsonElements, String dir) {
-    // TODO Auto-generated method stub
     File file = new File(dir);
     try {
       FileWriter writer = new FileWriter(file);
@@ -115,15 +108,19 @@ public class GameSaveHandler extends GameProcess {
   }
 
   public static void main(String[] args) {
-    // Create some game elements
+    // Create a window and input handler
     Window window = new Window();
     InputHandler in = new InputHandler(window);
 
+    // Create some game elements to save
     Ball ball = new Ball(new Window());
     Paddle paddle = new Paddle(new Window());
     Slab slab = new Slab(200f, 200f, 1, 100f, 100f, 1.0f, 1.0f, 1.0f, new Window());
     Slab slab2 = new Slab(1, 1, 1, 1, 1, 1, 1, 1, new Window());
     Wall wall = new Wall(1, 1, 1, 1, 1, 1, new Window());
+    Layout layout = new Layout(new Window());
+    layout.addLayoutElement(new Button());
+    layout.addLayoutElement(new TextBox(new Window()));
 
     // Create an ArrayList to store the game elements
     ArrayList<JSONable> gameElements = new ArrayList<>();
@@ -132,7 +129,7 @@ public class GameSaveHandler extends GameProcess {
     gameElements.add(slab);
     gameElements.add(slab2);
     gameElements.add(wall);
-
+    gameElements.add(layout);
 
     // Save the game elements to a file
     GameSaveHandler saveHandler = new GameSaveHandler();
@@ -142,8 +139,6 @@ public class GameSaveHandler extends GameProcess {
     System.out.println("Game elements saved successfully.");
     saveHandler.loadGame("game-save.json", window, in, new Game(window, in));
   }
-
-
 }
 
 
