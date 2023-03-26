@@ -80,6 +80,13 @@ public class GameSaveHandler extends GameProcess {
           System.out.println(slabOutput.toJSON());
           game.spawnSlab(slabOutput);
           break;
+        case "Wall":
+          Wall wall = new Wall(1f, 1f, 1f, 1f, 1f, 1f, window);
+          System.out.println(jsonElement.toString());
+          Wall wallOutput = (Wall) wall.fromJSON(jsonElement.toString());
+          System.out.println(wallOutput.toJSON());
+          game.spawnWall(wallOutput);
+          break;
         case "Layout":
           Layout layout = new Layout(window);
           System.out.println(jsonElement.toString());
@@ -116,6 +123,7 @@ public class GameSaveHandler extends GameProcess {
     Paddle paddle = new Paddle(new Window());
     Slab slab = new Slab(200f, 200f, 1, 100f, 100f, 1.0f, 1.0f, 1.0f, new Window());
     Slab slab2 = new Slab(1, 1, 1, 1, 1, 1, 1, 1, new Window());
+    Wall wall = new Wall(1, 1, 1, 1, 1, 1, new Window());
 
     // Create an ArrayList to store the game elements
     ArrayList<JSONable> gameElements = new ArrayList<>();
@@ -123,6 +131,7 @@ public class GameSaveHandler extends GameProcess {
     gameElements.add(paddle);
     gameElements.add(slab);
     gameElements.add(slab2);
+    gameElements.add(wall);
 
 
     // Save the game elements to a file

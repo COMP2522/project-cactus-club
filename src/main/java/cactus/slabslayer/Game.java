@@ -126,6 +126,10 @@ public class Game {
     renderables.add(slab);
   }
 
+  public void spawnWall(Wall wall) {
+    renderables.add(wall);
+  }
+
 /**
    * Spawns a PowerUp with no arguments and adds it to any necessary ArrayLists
    */
@@ -160,6 +164,5 @@ public class Game {
   public void spawnTextBox(TextBox textbox) {
     renderables.add(textbox);
   }
-
 
 }
