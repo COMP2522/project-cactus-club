@@ -40,21 +40,22 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     this.window = window;
   }
 
-    /**
-     * Constructor for paddle object.
-     *
-     * @param width Width of the paddle
-     * @param height Height of the paddle
-     * @param xpos x-coord of the paddle
-     * @param window Window to render to
-     */
-    public Paddle(float width, float height, float xpos, Window window) {
-      this.width = width;
-      this.height = height;
-      this.xpos = xpos;
-      this.window = window;
+  /**
+   * Constructor for paddle object.
+   *
+   * @param width  Width of the paddle
+   * @param height Height of the paddle
+   * @param xpos   x-coord of the paddle
+   * @param window Window to render to
+   */
+  public Paddle(float width, float height, float xpos, Window window) {
+    this.width = width;
+    this.height = height;
+    this.xpos = xpos;
+    this.window = window;
 
-    }
+  }
+
   /**
    * Controls paddle movement.
    */
@@ -70,11 +71,12 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     window.stroke(0);
     window.strokeWeight(4);
     window.fill(200, 255, 200);
-    window.rect(xpos, window.height/100 * 60, width, height);
+    window.rect(xpos, window.height / 100 * 60, width, height);
   }
 
   /**
    * Checks if colliding with another object.
+   *
    * @param toCheck the Object to check
    * @return true/false if colliding
    */
@@ -86,6 +88,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
 
   /**
    * Executes collision with another object.
+   *
    * @param collidedWith the Object to collide with
    */
   @Override
@@ -136,16 +139,30 @@ public class Paddle extends GameElement implements Moveable, Collidable {
 
     throw new IllegalArgumentException("Unknown type: " + type);
   }
+
   public static void main(String[] args) {
     // Create a new Paddle instance
     Paddle paddle = new Paddle(new Window());
+
+    String jsonPaddle = "{\n" +
+            "  \"type\": \"Paddle\",\n" +
+            "  \"constructorVars\": {\n" +
+            "    \"xpos\": 3,\n" +
+            "    \"width\": 1,\n" +
+            "    \"height\": 2\n" +
+            "  }\n" +
+            "}";
 
     // Serialize Paddle instance to JSON
     String json = paddle.toJSON();
     System.out.println(json);
 
+    System.out.println(jsonPaddle);
+
     // Deserialize JSON to Paddle instance
-    Paddle newPaddle = (Paddle) paddle.fromJSON(json);
-    System.out.println(newPaddle.toJSON());
+    Paddle newPaddle2 = (Paddle) paddle.fromJSON(jsonPaddle);
+//    Paddle newPaddle = (Paddle) paddle.fromJSON(json);
+
+    System.out.println(newPaddle2.toJSON());
   }
 }
