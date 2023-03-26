@@ -23,7 +23,7 @@ public class Window extends PApplet {
    * Loads window settings such as window size.
    */
   public void settings() {
-    size(500, 500);
+    size(800, 600);
   }
 
   /**
@@ -37,7 +37,20 @@ public class Window extends PApplet {
 
     game.spawnPaddle();
 
-    game.spawnSlab(90, 15, 100, 50, 50, 5, 0, 0, this);
+    /*
+     * Spawn rows of slabs.
+     */
+    for (int i = 1; i <= 18; i++) {
+      game.spawnSlab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f, 5, 0, 0, this);
+    }
+
+    for (int i = 1; i <= 18; i++) {
+      game.spawnSlab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 1, 5, 0, 0, this);
+    }
+
+    for (int i = 1; i <= 18; i++) {
+      game.spawnSlab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 2, 5, 0, 0, this);
+    }
   }
 
   /**
