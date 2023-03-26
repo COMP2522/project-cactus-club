@@ -257,8 +257,8 @@ public class Slab extends GameElement {
   /**
    * Reduces hp of slab by 1.
    */
-  public void getHit() {
-    health--;
+  public void takeDamage(int damage) {
+    health -= damage;
   }
 
   /**
@@ -266,8 +266,8 @@ public class Slab extends GameElement {
    *
    * @return if slab has at least 1 hp.
    */
-  public boolean isAlive() {
-    return (health > 0) ? true : false;
+  public boolean isDead() {
+    return (health > 0) ? false : true;
   }
 
   /**
