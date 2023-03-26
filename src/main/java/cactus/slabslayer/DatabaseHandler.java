@@ -2,14 +2,9 @@ package cactus.slabslayer;
 
 import static processing.core.PApplet.loadJSONArray;
 
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.ServerApi;
-import com.mongodb.ServerApiVersion;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.*;
+import com.mongodb.client.*;
+
 import java.io.File;
 import org.bson.Document;
 import processing.data.JSONArray;
@@ -103,17 +98,19 @@ public class DatabaseHandler {
   }
 
   /**
-   * Reads the game from the database.
+   * Reads the most recent game save from the database.
    *
    * @param db the database
+   * @return the most recent game save
    */
-  public static void read(MongoDatabase db) {
-    FindIterable<Document> documents = db.getCollection("saves").find();
-    for (Document document : documents) {
-      System.out.println(document.toJson());
-    }
-  }
+  public static String read(MongoDatabase db) {
+    MongoCollection<Document> collection = db.getCollection("saves");
+    Document mostRecentDoc = collection.find().sort(new BasicDBObject("$natural", -1)).limit(1).first();
+    String mostRecentDocString = mostRecentDoc.toJson();
 
+    System.out.println(mostRecentDocString);
+    return mostRecentDocString;
+  }
 
   /**
    * Drives the program.
