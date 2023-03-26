@@ -6,13 +6,29 @@ import processing.data.JSONObject;
  * Represents a ball object.
  */
 public class Ball extends GameElement implements Moveable, Collidable {
+  /**
+   * x-position of ball.
+   */
   float xpos;
+
+  /**
+   * y-position of ball.
+   */
   float ypos;
 
-
+  /**
+   * y-velocity of ball.
+   */
   float vy;
+
+  /**
+   * x-velocity of ball.
+   */
   float vx;
 
+  /**
+   * Window object to render to.
+   */
   Window window;
 
   /**
@@ -21,11 +37,11 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * @param scene the Window object in which the ball will be rendered and moved
    */
   public Ball(Window scene) {
-    xpos = 100;
-    ypos = 100;
+    xpos = scene.width/2;
+    ypos = scene.height/2;
 
     vy = 5;
-    vx = 5;
+    vx = 0;
 
     window = scene;
   }
@@ -66,19 +82,39 @@ public class Ball extends GameElement implements Moveable, Collidable {
   public float getVy() {
     return vy;
   }
-  
+
+  /**
+   * Setter for x-coordinate of ball.
+   *
+   * @param xpos x-coordinate
+   */
   public void setXpos(float xpos) {
     this.xpos = xpos;
   }
 
+    /**
+     * Setter for y-coordinate of ball.
+     *
+     * @param ypos y-coordinate
+     */
   public void setYpos(float ypos) {
     this.ypos = ypos;
   }
 
+  /**
+   * Setter for x-velocity of ball.
+   *
+   * @param vx x-velocity
+   */
   public void setVx(float vx) {
     this.vx = vx;
   }
 
+  /**
+   * Setter for y-velocity of ball.
+   *
+   * @param vy y-velocity
+   */
   public void setVy(float vy) {
     this.vy = vy;
   }
@@ -87,13 +123,16 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * Renders the ball in the window.
    */
   public void render() {
+    window.stroke(0);
+    window.strokeWeight(4);
+    window.fill(100, 100, 255);
     window.ellipse(xpos, ypos, 30, 30);
   }
 
   /**
    * Moves the ball, reverses velocity if boundary is hit.
    */
-  public void move() {
+  public void move(InputHandler in) {
     xpos += vx;
     ypos += vy;
 

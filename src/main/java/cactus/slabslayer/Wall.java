@@ -5,7 +5,7 @@ import processing.data.JSONObject;
 /**
  * Represents a slab object.
  */
-public class Slab extends GameElement {
+public class Wall extends GameElement {
   /**
    * Width of the slab, will be set to a default value in the constructor.
    */
@@ -15,12 +15,6 @@ public class Slab extends GameElement {
    * Height of the slab.
    */
   float height;
-
-  /**
-   * Amount of hits for the slab to break (make uncollidable).
-   * If hp < 0, slab is considered a "wall" and unbreakable.
-   */
-  int health;
 
   /**
    * x-position of slab.
@@ -33,11 +27,6 @@ public class Slab extends GameElement {
   float ypos;
 
   /**
-   * Chance for slab to drop a power-up upon hp reaching 0.
-   */
-  float pdropChance;
-
-  /**
    * Used for moving walls.
    */
   float vx;
@@ -47,26 +36,25 @@ public class Slab extends GameElement {
    */
   float vy;
 
+  /**
+   * Window to render to.
+   */
   Window window;
 
   /**
    * Constructor for a default slab.
    *
-   * @param health      hit points of slab
    * @param xpos        x-coord of slab
    * @param ypos        y-coord of slab
-   * @param pdropChance chance to drop power-up upon death
    * @param window      window to render to
    */
-  public Slab(int health, float xpos, float ypos, float pdropChance, Window window) {
+  public Wall(float xpos, float ypos, Window window) {
     width = 10;
     height = 5;
     vx = 0;
     vy = 0;
-    this.health = health;
     this.xpos = xpos;
     this.ypos = ypos;
-    this.pdropChance = pdropChance;
     this.window = window;
   }
 
@@ -83,165 +71,18 @@ public class Slab extends GameElement {
    * @param vy          y-velocity of slab
    * @param window      window to render to
    */
-  public Slab(float width, float height, int health, float xpos, float ypos, float pdropChance,
-              float vx, float vy, Window window) {
+  public Wall(float width, float height, float xpos, float ypos, float vx, float vy, Window window) {
     this.width = width;
     this.height = height;
-    this.health = health;
     this.xpos = xpos;
     this.ypos = ypos;
-    this.pdropChance = pdropChance;
     this.vx = vx;
     this.vy = vy;
     this.window = window;
   }
 
-  public Slab() {
-    //bro what is this.
-  }
+  public Wall() {
 
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public float getWidth() {
-    return width;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public void setWidth(float width) {
-    this.width = width;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public float getHeight() {
-    return height;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public void setHeight(float height) {
-    this.height = height;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public int getHealth() {
-    return health;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public void setHealth(int health) {
-    this.health = health;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public float getXpos() {
-    return xpos;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public void setXpos(float xpos) {
-    this.xpos = xpos;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public float getYpos() {
-    return ypos;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public void setYpos(float ypos) {
-    this.ypos = ypos;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public float getPdropChance() {
-    return pdropChance;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public void setPdropChance(float pdropChance) {
-    this.pdropChance = pdropChance;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public float getVx() {
-    return vx;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public void setVx(float vx) {
-    this.vx = vx;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public float getVy() {
-    return vy;
-  }
-
-  /**
-   * Updates the slab's position.
-   *
-   * @return if the slab is still alive
-   */
-  public void setVy(float vy) {
-    this.vy = vy;
   }
 
   /**
@@ -252,22 +93,6 @@ public class Slab extends GameElement {
     window.strokeWeight(4);
     window.fill(255, 200, 200);
     window.rect(xpos, ypos, width, height);
-  }
-
-  /**
-   * Reduces hp of slab by 1.
-   */
-  public void takeDamage(int damage) {
-    health -= damage;
-  }
-
-  /**
-   * Returns slab's state of life.
-   *
-   * @return if slab has at least 1 hp.
-   */
-  public boolean isDead() {
-    return (health > 0) ? false : true;
   }
 
   /**
@@ -282,10 +107,8 @@ public class Slab extends GameElement {
     JSONObject constructorVars = new JSONObject();
     constructorVars.setFloat("width", width);
     constructorVars.setFloat("height", height);
-    constructorVars.setInt("health", health);
     constructorVars.setFloat("xpos", xpos);
     constructorVars.setFloat("ypos", ypos);
-    constructorVars.setFloat("pdropChance", pdropChance);
     constructorVars.setFloat("vx", vx);
     constructorVars.setFloat("vy", vy);
     json.setJSONObject("constructorVars", constructorVars);

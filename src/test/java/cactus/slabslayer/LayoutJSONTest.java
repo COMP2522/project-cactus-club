@@ -16,7 +16,7 @@ public class LayoutJSONTest {
   public void setUp() {
     layout = new Layout(new Window());
     button = new Button();
-    textBox = new TextBox();
+    textBox = new TextBox(new Window());
 
     layout.addLayoutElement(button);
     layout.addLayoutElement(textBox);

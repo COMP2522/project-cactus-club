@@ -2,6 +2,6 @@ package cactus.slabslayer;
 
 public interface Moveable {
 
-    void move();
+    void move(InputHandler in);
 
 }

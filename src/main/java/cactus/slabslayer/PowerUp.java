@@ -11,14 +11,29 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
   float ypos;
   float yvel;
 
+  /**
+   * Set the radius of the power up.
+   *
+   * @param radius radius
+   */
   public void setRadius(float radius) {
     this.radius = radius;
   }
 
+  /**
+   * Set the type of power up.
+   *
+   * @param type type
+   */
   public void setType(int type) {
     this.type = type;
   }
 
+  /**
+   * Set the y-velocity of the power up.
+   *
+   * @param yvel y-velocity
+   */
   public void setYvel(float yvel) {
     this.yvel = yvel;
   }
@@ -38,18 +53,38 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
 
   }
 
+  /**
+   * Gets the radius of the power up.
+   *
+   * @return radius
+   */
   public float getRadius() {
     return radius;
   }
 
+  /**
+   * Gets the x-position of the power up.
+   *
+   * @return x-position
+   */
   public float getXpos() {
     return xpos;
   }
 
+  /**
+   * Gets the y-position of the power up.
+   *
+   * @return y-position
+   */
   public float getYpos() {
     return ypos;
   }
 
+  /**
+   * Gets the y-velocity of the power up.
+   *
+   * @return y-velocity
+   */
   public float getYvel() {
     return yvel;
   }
@@ -94,7 +129,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    * Controls power up movement.
    */
   @Override
-  public void move() {
+  public void move(InputHandler in) {
 
   }
 
