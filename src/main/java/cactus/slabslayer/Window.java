@@ -2,6 +2,9 @@ package cactus.slabslayer;
 
 import processing.core.PApplet;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Window is the main class to run processing projects.
  *
@@ -30,32 +33,41 @@ public class Window extends PApplet {
    * Runs once at the start of execution.
    */
   public void setup() {
+    ArrayList<JSONable> elements = new ArrayList<JSONable>();
     in = new InputHandler(this);
 
     game = new Game(this, in);
     game.init();
 
     game.spawnPaddle();
+    elements.add(new Paddle(this));
 
     /*
      * Spawn rows of slabs.
      */
     for (int i = 1; i <= 18; i++) {
       game.spawnSlab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f, 5, 0, 0, this);
+      elements.add(new Slab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f, 5, 0, 0, this));
     }
 
     for (int i = 1; i <= 18; i++) {
       game.spawnSlab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 1, 5, 0, 0, this);
+      elements.add(new Slab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 1, 5, 0, 0, this));
     }
 
     for (int i = 1; i <= 18; i++) {
       game.spawnSlab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 2, 5, 0, 0, this);
+        elements.add(new Slab(this.width / 20f, this.height / 35f, 100, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 2, 5, 0, 0, this));
     }
 
     game.spawnBall();
+    elements.add(new Ball(this));
 
+    // Clearing everything to test save/load
+    game.init();
     // Used to load a game save
     GameSaveHandler gsh = new GameSaveHandler();
+    gsh.saveGame(elements, "game-save.json");
     gsh.loadGame("game-save.json", this, in, game);
   }
 
