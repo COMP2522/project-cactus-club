@@ -96,8 +96,20 @@ public class Slab extends GameElement {
     this.window = window;
   }
 
+  /**
+   * Constructor for a slab with default values.
+   * To be used with JSON tests.
+   */
   public Slab() {
-    //bro what is this.
+    this.width = 0;
+    this.height = 0;
+    this.health = 0;
+    this.xpos = 0;
+    this.ypos = 0;
+    this.pdropChance = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.window = null;
   }
 
   /**
