@@ -75,7 +75,6 @@ public class GameSaveHandler extends GameProcess {
           game.spawnBall(ballOutput);
           break;
         case "Slab":
-          System.out.println("Slab2132132112");
           Slab slab = new Slab(1, 1, 1, 1, 1, 1, 1, 1, window);
           System.out.println(jsonElement.toString());
           Slab slabOutput = (Slab) slab.fromJSON(jsonElement.toString());
@@ -97,7 +96,7 @@ public class GameSaveHandler extends GameProcess {
           game.spawnButton(buttonOutput);
           break;
         case "TextBox":
-          TextBox textbox = new TextBox();
+          TextBox textbox = new TextBox(window);
           System.out.println(jsonElement.toString());
           TextBox textboxOutput = (TextBox) textbox.fromJSON(jsonElement.toString());
           System.out.println(textboxOutput.toJSON());
@@ -113,7 +112,7 @@ public class GameSaveHandler extends GameProcess {
     // Create some game elements
     Window window = new Window();
     InputHandler in = new InputHandler(window);
-//    Game game = new Game(new Window(), in);
+
     Ball ball = new Ball(new Window());
     Paddle paddle = new Paddle(new Window());
     Slab slab = new Slab(200f, 200f, 1, 100f, 100f, 1.0f, 1.0f, 1.0f, new Window());
