@@ -24,6 +24,11 @@ public class Paddle extends GameElement implements Moveable, Collidable {
   float xpos;
 
   /**
+   * x-coord velocity of the paddle.
+   */
+  float xvel;
+
+  /**
    * Window to render to.
    */
   Window window;
@@ -38,6 +43,78 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     this.height = 20;
     this.xpos = 250 - (width / 2);
     this.window = window;
+  }
+
+  /**
+   * Getter for width.
+   *
+   * @return width
+   */
+  public float getWidth() {
+    return width;
+  }
+
+  /**
+   * Setter for width.
+   *
+   * @param width new width
+   */
+  public void setWidth(float width) {
+    this.width = width;
+  }
+
+  /**
+   * Getter for height.
+   *
+   * @return height
+   */
+  public float getHeight() {
+    return height;
+  }
+
+  /**
+   * Setter for height.
+   *
+   * @param height new height
+   */
+  public void setHeight(float height) {
+    this.height = height;
+  }
+
+  /**
+   * Getter for x-coord.
+   *
+   * @return x-coord
+   */
+  public float getXpos() {
+    return xpos;
+  }
+
+  /**
+   * Setter for x-coord.
+   *
+   * @param xpos new x-coord
+   */
+  public void setXpos(float xpos) {
+    this.xpos = xpos;
+  }
+
+  /**
+   * Getter for x-coord velocity.
+   *
+   * @return x-coord velocity
+   */
+  public float getXvel() {
+    return xvel;
+  }
+
+  /**
+   * Setter for x-coord velocity.
+   *
+   * @param xvel new x-coord velocity
+   */
+  public void setXvel(float xvel) {
+    this.xvel = xvel;
   }
 
   /**
@@ -60,8 +137,13 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    * Controls paddle movement.
    */
   @Override
-  public void move() {
-    // to do
+  public void move(InputHandler in) {
+    if (in.isLeft()) {
+      xpos -= xvel;
+    }
+    if (in.isRight()) {
+      xpos += xvel;
+    }
   }
 
   /**

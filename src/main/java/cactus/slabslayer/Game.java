@@ -31,9 +31,19 @@ public class Game {
   ArrayList<Slab> slabs;
 
   /**
+   * List of all Ball objects.
+   */
+  ArrayList<Ball> balls;
+
+  /**
    * List of all Renderable objects
    */
   ArrayList<Renderable> renderables;
+
+  /**
+   * List of all Moveable objects.
+   */
+  ArrayList<Moveable> moveables;
 
   /**
    * Constructs a new Game object.
@@ -52,13 +62,21 @@ public class Game {
   public void init() {
     pad = null;
     slabs = new ArrayList<Slab>();
+    balls = new ArrayList<Ball>();
     renderables = new ArrayList<Renderable>();
+    moveables = new ArrayList<Moveable>();
   }
 
   /**
    * Runs periodically in the processing main loop. Handles timing of all process execution.
    */
   public void update() {
+    win.background(200, 200, 255);
+
+    for (Moveable m : moveables) {
+      m.move(in);
+    }
+
     for (Renderable r : renderables) {
       r.render();
     }
@@ -70,6 +88,7 @@ public class Game {
   public void spawnPaddle() {
     pad = new Paddle(win);
     renderables.add(pad);
+    moveables.add(pad);
   }
 
     /**
@@ -81,7 +100,7 @@ public class Game {
     }
 
   /**
-   * Spawns a Slab with no arguments and adds it to any necessary ArrayLists
+   * Spawns a Slab and adds it to any necessary ArrayLists
    */
   public void spawnSlab(float width, float height, int health, float xpos, float ypos, float pdropChance,
                         float vx, float vy, Window window) {
@@ -90,6 +109,15 @@ public class Game {
     renderables.add(tmpSlab);
   }
 
+  /**
+   * Spawns a Ball and adds it to any necessary ArrayLists
+   */
+  public void spawnBall() {
+    Ball tmpball = new Ball(win);
+    balls.add(tmpball);
+    renderables.add(tmpball);
+    moveables.add(tmpball);
+  }
     /**
      * Spawns a Slab with arguments and adds it to any necessary ArrayLists
      */

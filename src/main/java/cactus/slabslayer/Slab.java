@@ -97,7 +97,151 @@ public class Slab extends GameElement {
   }
 
   public Slab() {
+    //bro what is this.
+  }
 
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public float getWidth() {
+    return width;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public void setWidth(float width) {
+    this.width = width;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public float getHeight() {
+    return height;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public void setHeight(float height) {
+    this.height = height;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public int getHealth() {
+    return health;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public void setHealth(int health) {
+    this.health = health;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public float getXpos() {
+    return xpos;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public void setXpos(float xpos) {
+    this.xpos = xpos;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public float getYpos() {
+    return ypos;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public void setYpos(float ypos) {
+    this.ypos = ypos;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public float getPdropChance() {
+    return pdropChance;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public void setPdropChance(float pdropChance) {
+    this.pdropChance = pdropChance;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public float getVx() {
+    return vx;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public void setVx(float vx) {
+    this.vx = vx;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public float getVy() {
+    return vy;
+  }
+
+  /**
+   * Updates the slab's position.
+   *
+   * @return if the slab is still alive
+   */
+  public void setVy(float vy) {
+    this.vy = vy;
   }
 
   /**
@@ -113,8 +257,8 @@ public class Slab extends GameElement {
   /**
    * Reduces hp of slab by 1.
    */
-  public void getHit() {
-    health--;
+  public void takeDamage(int damage) {
+    health -= damage;
   }
 
   /**
@@ -122,8 +266,8 @@ public class Slab extends GameElement {
    *
    * @return if slab has at least 1 hp.
    */
-  public boolean isAlive() {
-    return (health > 0) ? true : false;
+  public boolean isDead() {
+    return (health > 0) ? false : true;
   }
 
   /**
