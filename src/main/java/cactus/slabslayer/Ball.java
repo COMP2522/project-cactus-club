@@ -27,6 +27,11 @@ public class Ball extends GameElement implements Moveable, Collidable {
   float vx;
 
   /**
+   * Diameter of ball.
+   */
+  float diameter;
+
+  /**
    * Window object to render to.
    */
   Window window;
@@ -42,6 +47,8 @@ public class Ball extends GameElement implements Moveable, Collidable {
 
     vy = 5;
     vx = 0;
+
+    diameter = 30;
 
     window = scene;
   }
@@ -81,6 +88,15 @@ public class Ball extends GameElement implements Moveable, Collidable {
    */
   public float getVy() {
     return vy;
+  }
+
+  /**
+   * Getter for diameter of ball.
+   *
+   * @return diameter
+   */
+  public float getDiameter() {
+    return diameter;
   }
 
   /**
@@ -126,7 +142,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
     window.stroke(0);
     window.strokeWeight(4);
     window.fill(100, 100, 255);
-    window.ellipse(xpos, ypos, 30, 30);
+    window.ellipse(xpos, ypos, diameter, diameter);
   }
 
   /**
@@ -152,7 +168,9 @@ public class Ball extends GameElement implements Moveable, Collidable {
    */
   @Override
   public boolean isCollidingWith(Object toCheck) {
-    // to do
+    if (toCheck.getClass() == Paddle.class) {
+      System.out.println("Ball colliding with Paddle");
+    }
     return false;
   }
 
