@@ -211,6 +211,9 @@ public class Paddle extends GameElement implements Moveable, Collidable {
   public boolean isCollidingWith(Object toCheck) {
     if (toCheck.getClass() == Ball.class) {
       Ball b = (Ball) toCheck;
+
+      // splits the paddle into checkResolution number of points
+      // and checks if the ball is contacting any of those points
       for (int i = 0; i <= width; i += width/checkResolution) {
         PVector segPos = new PVector(xpos + i, window.height/100*90);
         if (!(PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
