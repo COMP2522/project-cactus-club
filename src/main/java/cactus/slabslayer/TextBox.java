@@ -153,12 +153,12 @@ public class TextBox extends GameElement {
   public String toJSON() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
-    JSONObject contructorVars = new JSONObject();
-    contructorVars.setString("text", text);
-    contructorVars.setInt("xPos", (int) localPos.x);
-    contructorVars.setInt("yPos", (int) localPos.y);
-    contructorVars.setInt("size", size);
-    json.setJSONObject("constructorVars", contructorVars);
+    JSONObject constructorVars = new JSONObject();
+    constructorVars.setString("text", text);
+    constructorVars.setInt("xPos", (int) localPos.x);
+    constructorVars.setInt("yPos", (int) localPos.y);
+    constructorVars.setInt("size", size);
+    json.setJSONObject("constructorVars", constructorVars);
     return json.toString();
   }
 

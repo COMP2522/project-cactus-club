@@ -4,8 +4,8 @@ import static processing.core.PApplet.loadJSONArray;
 
 import com.mongodb.*;
 import com.mongodb.client.*;
-
 import java.io.File;
+import java.util.concurrent.CompletableFuture;
 import org.bson.Document;
 import processing.data.JSONArray;
 
@@ -71,9 +71,9 @@ public class DatabaseHandler {
     return database;
   }
 
-    /**
-     * Closes the database connection.
-     */
+  /**
+   * Closes the database connection.
+   */
   public void close() {
     mongoClient.close();
   }
@@ -83,34 +83,71 @@ public class DatabaseHandler {
    *
    * @param db the database
    * @param filePath the file path
+   * @return a CompletableFuture that completes when the save is done
    */
-  public static void save(MongoDatabase db, String filePath) {
-    Document document = new Document();
-    JSONArray json = new JSONArray();
-    String filename = "game-save.json";
+  public static CompletableFuture<Void> save(MongoDatabase db, String filePath) {
+    return CompletableFuture.runAsync(() -> {
+      Document document = new Document();
+      JSONArray json = new JSONArray();
+      String filename = "game-save.json";
 
-    json = loadJSONArray(new File(filename));
+      json = loadJSONArray(new File(filename));
 
-    String jsonString = json.toString();
+      String jsonString = json.toString();
 
-    document.append("saveData", jsonString);
-    db.getCollection("saves").insertOne(document);
+      document.append("saveData", jsonString);
+      db.getCollection("saves").insertOne(document);
+    });
   }
+
+  //  /**
+  //   * Saves the game to the database.
+  //   *
+  //   * @param db the database
+  //   * @param filePath the file path
+  //   */
+  //  public static void save(MongoDatabase db, String filePath) {
+  //    Document document = new Document();
+  //    JSONArray json = new JSONArray();
+  //    String filename = "game-save.json";
+  //
+  //    json = loadJSONArray(new File(filename));
+  //
+  //    String jsonString = json.toString();
+  //
+  //    document.append("saveData", jsonString);
+  //    db.getCollection("saves").insertOne(document);
+  //  }
+
 
   /**
    * Reads the most recent game save from the database.
    *
    * @param db the database
-   * @return the most recent game save
+   * @return a CompletableFuture that completes with the most recent game save
    */
-  public static String read(MongoDatabase db) {
-    MongoCollection<Document> collection = db.getCollection("saves");
-    Document mostRecentDoc = collection.find().sort(new BasicDBObject("$natural", -1)).limit(1).first();
-    String mostRecentDocString = mostRecentDoc.toJson();
-
-    System.out.println(mostRecentDocString);
-    return mostRecentDocString;
+  public static CompletableFuture<String> read(MongoDatabase db) {
+    return CompletableFuture.supplyAsync(() -> {
+      MongoCollection<Document> collection = db.getCollection("saves");
+      Document mostRecentDoc = collection.find().sort(new BasicDBObject("$natural", -1)).limit(1).first();
+      String mostRecentDocString = mostRecentDoc.toJson();
+      mostRecentDocString = mostRecentDocString.substring(59, mostRecentDocString.length() - 2).replaceAll("", "");
+      return mostRecentDocString;
+    });
   }
+  //  /**
+  //   * Reads the most recent game save from the database.
+  //   *
+  //   * @param db the database
+  //   * @return the most recent game save
+  //   */
+  //  public static void read(MongoDatabase db) {
+  //    MongoCollection<Document> collection = db.getCollection("saves");
+  //    Document mostRecentDoc = collection.find().sort(new BasicDBObject("$natural", -1)).limit(1).first();
+  //    String mostRecentDocString = mostRecentDoc.toJson();
+  //    mostRecentDocString = mostRecentDocString.substring(59, mostRecentDocString.length() - 2).replaceAll("", "");
+  //    System.out.println(mostRecentDocString);
+  //  }
 
   /**
    * Drives the program.
@@ -119,12 +156,26 @@ public class DatabaseHandler {
    * @throws InterruptedException if the thread is interrupted
    */
   public static void main(String[] args) throws InterruptedException {
+    //    DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
+    //    MongoDatabase database = databaseHandler.getDatabase();
+    //    String filePath = "game-save.json";
+    //
+    ////    save(database, filePath);
+    ////    read(database);
+    //    databaseHandler.close();
     DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
     MongoDatabase database = databaseHandler.getDatabase();
     String filePath = "game-save.json";
 
-    save(database, filePath);
-    read(database);
+    CompletableFuture<Void> saveFuture = save(database, filePath);
+    saveFuture.thenRun(() -> System.out.println("Save completed."));
+
+    CompletableFuture<String> readFuture = read(database);
+    readFuture.thenAccept(saveData -> System.out.println("Read completed: " + saveData));
+
+    // Wait for all tasks to complete before closing the database connection
+    CompletableFuture.allOf(saveFuture, readFuture).join();
     databaseHandler.close();
+
   }
 }
