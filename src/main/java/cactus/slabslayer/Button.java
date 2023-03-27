@@ -1,6 +1,7 @@
 package cactus.slabslayer;
 
 import processing.core.PVector;
+import processing.data.JSONObject;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,7 @@ public class Button extends GameElement {
 
   /**
    * Gets the width of the button.
+   *
    * @return width as an int
    */
   public int getWidth() {
@@ -55,6 +57,7 @@ public class Button extends GameElement {
 
   /**
    * Sets the width of the button.
+   *
    * @param width as an int
    */
   public void setWidth(int width) {
@@ -63,6 +66,7 @@ public class Button extends GameElement {
 
   /**
    * Gets the height of the button.
+   *
    * @return height as an int
    */
   public int getHeight() {
@@ -71,6 +75,7 @@ public class Button extends GameElement {
 
   /**
    * Sets the height of the button.
+   *
    * @param height as an int
    */
   public void setHeight(int height) {
@@ -80,6 +85,7 @@ public class Button extends GameElement {
 
   /**
    * Gets the local position in relation to its layout.
+   *
    * @return localPos as a PVector
    */
   public PVector getLocalPos() {
@@ -88,6 +94,7 @@ public class Button extends GameElement {
 
   /**
    * Sets the local x pos.
+   *
    * @param posX as an int
    */
   public void setLocalXPos(int posX) {
@@ -96,6 +103,7 @@ public class Button extends GameElement {
 
   /**
    * Sets the local y pos.
+   *
    * @param posY as an int
    */
   public void setLocalYPos(int posY) {
@@ -104,6 +112,7 @@ public class Button extends GameElement {
 
   /**
    * Sets the local pos.
+   *
    * @param localPos as a PVector
    */
   public void setLocalPos(PVector localPos) {
@@ -113,12 +122,13 @@ public class Button extends GameElement {
   /**
    * Checks if the current mouse position is in the
    * button's box.
+   *
    * @return true/false
    */
   public boolean mouseInBounds() {
 
-    return window.mouseX >= localPos.x && window.mouseX <= localPos.x+width &&
-            window.mouseY >= localPos.y && window.mouseY <= localPos.y+height;
+    return window.mouseX >= localPos.x && window.mouseX <= localPos.x + width &&
+            window.mouseY >= localPos.y && window.mouseY <= localPos.y + height;
 
   }
 
@@ -142,10 +152,25 @@ public class Button extends GameElement {
    * Converts this object to a JSON string.
    *
    * @return JSON string
+   * public Button(Window window) {
+   * buttons.add(this);
+   * width = 300;
+   * height = 150;
+   * this.window = window;
+   * localPos = new PVector(50, 50);
+   * }
    */
   @Override
   public String toJSON() {
-    return "{\"type\": \"Button\"}";
+    JSONObject json = new JSONObject();
+    json.setString("type", getClass().getSimpleName());
+    JSONObject constructorVars = new JSONObject();
+    constructorVars.setInt("width", width);
+    constructorVars.setInt("height", height);
+    constructorVars.setFloat("localXPos", localPos.x);
+    constructorVars.setFloat("localYPos", localPos.y);
+    json.setJSONObject("constructorVars", constructorVars);
+    return json.toString();
   }
 
   /**
@@ -156,7 +181,30 @@ public class Button extends GameElement {
    */
   @Override
   public Object fromJSON(String json) {
+    JSONObject jsonObject = JSONObject.parse(json);
+    String type = jsonObject.getString("type");
+
+    if ("Button".equals(type)) {
+      JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
+      int width = constructorVars.getInt("width");
+      int height = constructorVars.getInt("height");
+      int localXPos = constructorVars.getInt("localXPos");
+      int localYPos = constructorVars.getInt("localYPos");
+      Button button = new Button(window);
+      button.setWidth(width);
+      button.setHeight(height);
+      button.setLocalXPos(localXPos);
+      button.setLocalYPos(localYPos);
+      return button;
+    }
+
+    throw new IllegalArgumentException("Unknown type: " + type);
+  }
+
+  public static void main(String[] args) {
     Button button = new Button(new Window());
-    return button;
+    System.out.println(button.toJSON());
+    Button output = (Button) button.fromJSON(button.toJSON());
+    System.out.println(output.toJSON());
   }
 }
