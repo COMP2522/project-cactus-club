@@ -19,10 +19,15 @@ public class GameSaveHandlerTest {
   private Paddle paddle;
   private Slab slab;
   private ArrayList<JSONable> gameElements;
+  private Game game;
+  private String saveDir;
+  private InputHandler in;
 
   @BeforeEach
   public void setUp() {
-    saveHandler = new GameSaveHandler();
+    in = new InputHandler(new Window());
+    Game game = new Game(new Window(), in);
+    saveHandler = new GameSaveHandler(game, "test-save.json");
     ball = new Ball(new Window());
     paddle = new Paddle(new Window());
     slab = new Slab(1.0f, 1.0f, 1, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, new Window());

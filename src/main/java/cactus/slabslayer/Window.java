@@ -66,7 +66,7 @@ public class Window extends PApplet {
     // Clearing everything to test save/load
     game.init();
     // Used to load a game save
-    GameSaveHandler gsh = new GameSaveHandler();
+    GameSaveHandler gsh = new GameSaveHandler(game, "game-save.json");
     gsh.saveGame(elements, "game-save.json");
     gsh.loadGame("game-save.json", this, in, game);
   }

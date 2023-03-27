@@ -1,21 +1,92 @@
 package cactus.slabslayer;
 
-import java.util.ArrayList;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static processing.core.PApplet.loadJSONArray;
 
 public class GameSaveHandler extends GameProcess {
+  /**
+   * The interval between autosaves in milliseconds.
+   */
+  private static final int AUTOSAVE_INTERVAL_MS = 5000;
+  /**
+   * The game to save.
+   */
+  private Game game;
+  /**
+   * The directory to save the game to.
+   */
+  private String saveDir;
+  /**
+   * The time of the last autosave.
+   */
+  private long lastAutosaveTime;
 
-  @Override
-  public void update() {
-    // TODO Auto-generated method stub
+  /**
+   * Constructs a new GameSaveHandler.
+   *
+   * @param game    the game to save
+   * @param saveDir the directory to save the game to
+   */
+  public GameSaveHandler(Game game, String saveDir) {
+    lastAutosaveTime = System.currentTimeMillis();
+    this.game = game;
+    this.saveDir = saveDir;
   }
 
+  /**
+   * Constructs a new GameSaveHandler.
+   *
+   * @param game             the game to save
+   * @param saveDir          the directory to save the game to
+   * @param lastAutosaveTime the time of the last autosave
+   */
+  public GameSaveHandler(Game game, String saveDir, long lastAutosaveTime) {
+    this.lastAutosaveTime = lastAutosaveTime;
+    this.game = game;
+    this.saveDir = saveDir;
+  }
+
+  /**
+   * Updates the save file.
+   */
+  @Override
+  public void update() {
+    long currentTime = System.currentTimeMillis();
+    if (currentTime - lastAutosaveTime >= AUTOSAVE_INTERVAL_MS) {
+      // Save the game elements periodically
+      saveGame(toJSONable(game.getRenderables()), saveDir);
+      System.out.println("Autosave completed.");
+      lastAutosaveTime = currentTime;
+    }
+  }
+
+  /**
+   * Converts an ArrayList of Renderable objects to an ArrayList of JSONable objects.
+   *
+   * @param element the ArrayList of Renderable objects
+   * @return the ArrayList of JSONable objects
+   */
+  private ArrayList<JSONable> toJSONable(ArrayList<Renderable> element) {
+    ArrayList<JSONable> json = new ArrayList<JSONable>();
+    for (Object obj : element) {
+      json.add((JSONable) obj);
+    }
+    return json;
+  }
+
+  /**
+   * Saves the game to a file.
+   *
+   * @param elements the elements to save
+   * @param dir      the directory to save the game to
+   */
   public void saveGame(ArrayList<JSONable> elements, String dir) {
     JSONArray jsonElements = new JSONArray();
     for (JSONable element : elements) {
@@ -24,6 +95,12 @@ public class GameSaveHandler extends GameProcess {
     saveJSONArray(jsonElements, dir);
   }
 
+  /**
+   * saves the JSONArray to a file.
+   *
+   * @param jsonElements the JSONArray to save
+   * @param dir          the directory to save the game to
+   */
   private void saveJSONArray(JSONArray jsonElements, String dir) {
     File file = new File(dir);
     try {
@@ -35,6 +112,14 @@ public class GameSaveHandler extends GameProcess {
     }
   }
 
+  /**
+   * Loads the game from a file.
+   *
+   * @param dir    the directory to load the game from
+   * @param window the game window
+   * @param in     the game's input handler
+   * @param game   the game to load
+   */
   public void loadGame(String dir, Window window, InputHandler in, Game game) {
     // TODO Remove print statements once we are done testing
 
@@ -107,6 +192,11 @@ public class GameSaveHandler extends GameProcess {
     }
   }
 
+  /**
+   * tests the save and load functions.
+   *
+   * @param args the command line arguments
+   */
   public static void main(String[] args) {
     // Create a window and input handler
     Window window = new Window();
@@ -132,7 +222,7 @@ public class GameSaveHandler extends GameProcess {
     gameElements.add(layout);
 
     // Save the game elements to a file
-    GameSaveHandler saveHandler = new GameSaveHandler();
+    GameSaveHandler saveHandler = new GameSaveHandler(new Game(window, in), "game-save.json");
     saveHandler.saveGame(gameElements, "game-save.json");
 
     // Print a success message
