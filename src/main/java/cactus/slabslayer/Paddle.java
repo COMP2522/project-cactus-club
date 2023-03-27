@@ -37,7 +37,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
   /**
    * The resolution at which to check collisions.
    */
-  int checkResolution = 100;
+  int checkResolution = 20;
 
   /**
    * How funneled the refletion angle is between ball and paddle.
@@ -211,7 +211,10 @@ public class Paddle extends GameElement implements Moveable, Collidable {
   public boolean isCollidingWith(Object toCheck) {
     if (toCheck.getClass() == Ball.class) {
       Ball b = (Ball) toCheck;
-      for (int i = 0; i <= width; i += width/checkResolution) {
+
+      // splits the paddle into checkResolution number of points
+      // and checks if the ball is contacting any of those points
+      for (int i = 0; i <= this.width; i += Math.max(this.width/checkResolution, 1)) {
         PVector segPos = new PVector(xpos + i, window.height/100*90);
         if (!(PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
           continue;

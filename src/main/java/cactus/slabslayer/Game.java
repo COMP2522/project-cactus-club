@@ -99,6 +99,8 @@ public class Game {
       r.render();
     }
 
+    checkDeadSlabs(slabs);
+
     ch.update();
     gp.update();
   }
@@ -131,6 +133,7 @@ public class Game {
     Slab tmpSlab = new Slab(width, height, health, xpos, ypos, pdropChance, vx, vy, window);
     slabs.add(tmpSlab);
     renderables.add(tmpSlab);
+    collidables.add(tmpSlab);
   }
 
   /**
@@ -150,6 +153,7 @@ public class Game {
   public void spawnSlab(Slab slab) {
     slabs.add(slab);
     renderables.add(slab);
+    collidables.add(slab);
   }
 
   public void spawnWall(Wall wall) {
@@ -192,6 +196,24 @@ public class Game {
    */
   public void spawnTextBox(TextBox textbox) {
     renderables.add(textbox);
+  }
+
+  /**
+   * Checks for dead Slabs and removes them.
+   *
+   * @param slabs the list of Slabs the check through
+   */
+  public void checkDeadSlabs(ArrayList<Slab> slabs) {
+    ArrayList<Slab> notDead = new ArrayList<Slab>();
+    for (Slab s : slabs) {
+      if (s.isDead()) {
+        renderables.remove(s);
+        collidables.remove(s);
+        continue;
+      }
+      notDead.add(s);
+    }
+    this.slabs = notDead;
   }
 
 }
