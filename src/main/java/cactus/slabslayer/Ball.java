@@ -63,12 +63,14 @@ public class Ball extends GameElement implements Moveable, Collidable {
     xpos = scene.width/2;
     ypos = scene.height/2;
 
-    vy = 10;
-    vx = 0;
+    vy = 7;
+    vx = 2;
 
     diameter = 30;
 
     window = scene;
+
+    this.doCollision(new Slab());
   }
 
   /**
@@ -196,6 +198,47 @@ public class Ball extends GameElement implements Moveable, Collidable {
 //        }
 //        return true;
     }
+
+    if (toCheck.getClass() == Slab.class) {
+      Slab s = (Slab) toCheck;
+
+      // bottom edge check
+      for (int i = 0; i <= s.getWidth(); i += s.getWidth()/checkResolution) {
+        PVector segPos = new PVector(s.getXpos() + i, s.getYpos() + s.getHeight());
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
+          continue;
+        }
+        return true;
+      }
+
+      // top edge check
+      for (int i = 0; i <= s.getWidth(); i += s.getWidth()/checkResolution) {
+        PVector segPos = new PVector(s.getXpos() + i, s.getYpos());
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
+          continue;
+        }
+        return true;
+      }
+
+      // left edge check
+      for (int i = 0; i <= s.getHeight(); i += s.getHeight()/checkResolution) {
+        PVector segPos = new PVector(s.getXpos(), s.getYpos() + i);
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
+          continue;
+        }
+        return true;
+      }
+
+      // right edge check
+      for (int i = 0; i <= s.getHeight(); i += s.getHeight()/checkResolution) {
+        PVector segPos = new PVector(s.getXpos() + s.getWidth(), s.getYpos() + i);
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
+          continue;
+        }
+        return true;
+      }
+
+    }
     return false;
   }
 
@@ -231,6 +274,10 @@ public class Ball extends GameElement implements Moveable, Collidable {
           window.line(segPos.x, segPos.y, segPos.x + lineVector.x, segPos.y + lineVector.y);
         }
       }
+    }
+
+    if (collidedWith.getClass() == Slab.class) {
+      vy *= -1;
     }
 
   }

@@ -1,11 +1,12 @@
 package cactus.slabslayer;
 
+import processing.core.PVector;
 import processing.data.JSONObject;
 
 /**
  * Represents a slab object.
  */
-public class Slab extends GameElement {
+public class Slab extends GameElement implements Collidable {
   /**
    * Width of the slab, will be set to a default value in the constructor.
    */
@@ -41,6 +42,11 @@ public class Slab extends GameElement {
    * Used for moving walls.
    */
   float vx;
+
+  /**
+   * The resolution at which to check collisions.
+   */
+  int checkResolution = 10;
 
   /**
    * Used for moving walls.
@@ -276,10 +282,10 @@ public class Slab extends GameElement {
   /**
    * Returns slab's state of life.
    *
-   * @return if slab has at least 1 hp.
+   * @return returns true if slab has less than 1 health
    */
   public boolean isDead() {
-    return health > 0;
+    return health < 1;
   }
 
   /**
@@ -364,6 +370,70 @@ public class Slab extends GameElement {
     // Slab newSlab = (Slab) slab.fromJSON(json);
     Slab newSlab2 = (Slab) slab.fromJSON(jsonSlab);
     System.out.println(newSlab2.toJSON());
+  }
+
+  /**
+   * Checks if colliding with another object.
+   *
+   * @param toCheck the Object to check
+   * @return true/false if colliding
+   */
+  @Override
+  public boolean isCollidingWith(Object toCheck) {
+    if (toCheck.getClass() == Ball.class) {
+      Ball b = (Ball) toCheck;
+
+      // bottom edge check
+      for (int i = 0; i <= this.width; i += Math.max(this.width/checkResolution, 1)) {
+        PVector segPos = new PVector(this.xpos + i, this.ypos + height);
+        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+          continue;
+        }
+        return true;
+      }
+
+      // top edge check
+      for (int i = 0; i <= this.width; i += Math.max(this.width/checkResolution, 1)) {
+        PVector segPos = new PVector(this.xpos + i, this.ypos);
+        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+          continue;
+        }
+        return true;
+      }
+
+      // left edge check
+      for (int i = 0; i <= this.height; i += Math.max(this.height/checkResolution, 1)) {
+        PVector segPos = new PVector(this.xpos, this.ypos + i);
+        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+          continue;
+        }
+        return true;
+      }
+
+      // right edge check
+      for (int i = 0; i <= this.height; i += Math.max(this.height/checkResolution, 1)) {
+        PVector segPos = new PVector(this.xpos + width, this.ypos + i);
+        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+          continue;
+        }
+        return true;
+      }
+
+    }
+
+    return false;
+  }
+
+  /**
+   * Executes collision with another object.
+   *
+   * @param collidedWith the Object to collid with
+   */
+  @Override
+  public void doCollision(Object collidedWith) {
+    if (collidedWith.getClass() == Ball.class) {
+      health--;
+    }
   }
 }
 
