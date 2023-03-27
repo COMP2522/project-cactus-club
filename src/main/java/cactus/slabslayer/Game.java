@@ -67,6 +67,10 @@ public class Game {
     moveables = new ArrayList<Moveable>();
   }
 
+  public ArrayList<Renderable> getRenderables() {
+    return renderables;
+  }
+
   /**
    * Runs periodically in the processing main loop. Handles timing of all process execution.
    */
@@ -80,6 +84,8 @@ public class Game {
     for (Renderable r : renderables) {
       r.render();
     }
+    GameProcess gp = new GameSaveHandler(this,"game-save.json");
+    gp.update();
   }
 
   /**
