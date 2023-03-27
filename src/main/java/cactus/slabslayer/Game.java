@@ -11,6 +11,11 @@ import java.util.ArrayList;
 public class Game {
 
   /**
+   * The game instance.
+   */
+  private static Game gameInstance;
+
+  /**
    * Local reference to main window.
    */
   Window win;
@@ -60,10 +65,80 @@ public class Game {
   /**
    * Constructs a new Game object.
    */
-  public Game(Window win, InputHandler in) {
-    this.win = win;
+  private Game() {
+    this.init();
+  }
+
+  /**
+   * Constructs a new Game object
+   * with a window and input handler.
+   * @param w as a Window object
+   * @param in as an InputHandler object
+   */
+  private Game(Window w, InputHandler in) {
+    win = w;
     this.in = in;
     this.init();
+  }
+
+  /**
+   * Gets the game instance.
+   * @return gameInstance as a Game object
+   */
+  public static Game getGameInstance() {
+
+    if (gameInstance == null) {
+      gameInstance = new Game();
+    }
+
+    return gameInstance;
+
+  }
+
+  /**
+   * Gets the game instance.
+   * @return gameInstance as a Game object
+   */
+  public static Game getGameInstance(Window w, InputHandler in) {
+
+    if (gameInstance == null) {
+      gameInstance = new Game(w, in);
+    }
+
+    return gameInstance;
+
+  }
+
+  /**
+   * Gets the window.
+   * @return win as a Window object
+   */
+  public Window getWin() {
+    return win;
+  }
+
+  /**
+   * Sets the window.
+   * @param win as a Window object
+   */
+  public void setWin(Window win) {
+    this.win = win;
+  }
+
+  /**
+   * Gets the input handler.
+   * @return in as an InputHandler object
+   */
+  public InputHandler getIn() {
+    return in;
+  }
+
+  /**
+   * Sets the input handler.
+   * @param in as an InputHandler object
+   */
+  public void setIn(InputHandler in) {
+    this.in = in;
   }
 
   /**

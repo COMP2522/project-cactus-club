@@ -222,12 +222,12 @@ public class GameSaveHandler extends GameProcess {
     gameElements.add(layout);
 
     // Save the game elements to a file
-    GameSaveHandler saveHandler = new GameSaveHandler(new Game(window, in), "game-save.json");
+    GameSaveHandler saveHandler = new GameSaveHandler(Game.getGameInstance(window, in), "game-save.json");
     saveHandler.saveGame(gameElements, "game-save.json");
 
     // Print a success message
     System.out.println("Game elements saved successfully.");
-    saveHandler.loadGame("game-save.json", window, in, new Game(window, in));
+    saveHandler.loadGame("game-save.json", window, in, Game.getGameInstance(window, in));
   }
 }
 
