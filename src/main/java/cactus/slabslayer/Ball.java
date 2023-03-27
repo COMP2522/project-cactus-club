@@ -1,5 +1,6 @@
 package cactus.slabslayer;
 
+import processing.core.PVector;
 import processing.data.JSONObject;
 
 /**
@@ -27,6 +28,28 @@ public class Ball extends GameElement implements Moveable, Collidable {
   float vx;
 
   /**
+   * Diameter of ball.
+   */
+  float diameter;
+
+  /**
+   * The resolution at which to check collisions.
+   */
+  int checkResolution = 100;
+
+  /**
+   * How funneled the refletion angle is between ball and paddle.
+   *
+   * Bigger is wider max angle.
+   */
+  int funnelFactor = 10;
+
+  /**
+   * Activates and deactivates bebug logs.
+   */
+  boolean isDebugging = false;
+
+  /**
    * Window object to render to.
    */
   Window window;
@@ -40,8 +63,10 @@ public class Ball extends GameElement implements Moveable, Collidable {
     xpos = scene.width/2;
     ypos = scene.height/2;
 
-    vy = 5;
+    vy = 10;
     vx = 0;
+
+    diameter = 30;
 
     window = scene;
   }
@@ -81,6 +106,15 @@ public class Ball extends GameElement implements Moveable, Collidable {
    */
   public float getVy() {
     return vy;
+  }
+
+  /**
+   * Getter for diameter of ball.
+   *
+   * @return diameter
+   */
+  public float getDiameter() {
+    return diameter;
   }
 
   /**
@@ -126,7 +160,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
     window.stroke(0);
     window.strokeWeight(4);
     window.fill(100, 100, 255);
-    window.ellipse(xpos, ypos, 30, 30);
+    window.ellipse(xpos, ypos, diameter, diameter);
   }
 
   /**
@@ -152,7 +186,16 @@ public class Ball extends GameElement implements Moveable, Collidable {
    */
   @Override
   public boolean isCollidingWith(Object toCheck) {
-    // to do
+    if (toCheck.getClass() == Paddle.class) {
+//      Paddle p = (Paddle) toCheck;
+//      int checkResolution = 10;
+//      for (int i = 0; i <= p.getWidth(); i += p.getWidth()/checkResolution) {
+//        PVector segPos = new PVector(xpos + i, window.height/100*90);
+//        if (!(PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+//          continue;
+//        }
+//        return true;
+    }
     return false;
   }
 
@@ -162,7 +205,34 @@ public class Ball extends GameElement implements Moveable, Collidable {
    */
   @Override
   public void doCollision(Object collidedWith) {
-    // to do
+
+    // reflects the ball at the appropriate angle
+    if (collidedWith.getClass() == Paddle.class) {
+      Paddle p = (Paddle) collidedWith;
+      for (int i = 0; i <= p.getWidth(); i += p.getWidth()/checkResolution) {
+        PVector segPos = new PVector(p.getXpos() + i, p.getYpos());
+        if (!(PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
+          continue;
+        }
+        PVector reflectionAngle = new PVector(-1, 0);
+        reflectionAngle.setMag(new PVector(vx, vy).mag());
+        float theta = window.map(i, 0, p.getWidth(), window.PI / funnelFactor, window.PI - window.PI / funnelFactor);
+        reflectionAngle.rotate(theta);
+
+        setVx(reflectionAngle.x);
+        setVy(reflectionAngle.y);
+
+        // log: debug: renders performed reflection angle
+        if (isDebugging) {
+          window.stroke(0, 255, 0);
+          window.strokeWeight(8);
+          PVector lineVector = new PVector(reflectionAngle.x, reflectionAngle.y);
+          lineVector.setMag(200);
+          window.line(segPos.x, segPos.y, segPos.x + lineVector.x, segPos.y + lineVector.y);
+        }
+      }
+    }
+
   }
 
   @Override

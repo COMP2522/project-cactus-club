@@ -46,6 +46,16 @@ public class Game {
   ArrayList<Moveable> moveables;
 
   /**
+   * List of all Collidable objects.
+   */
+  ArrayList<Collidable> collidables;
+
+  /**
+   * GameProcess that handles collisions.
+   */
+  CollisionsHandler ch;
+
+  /**
    * Constructs a new Game object.
    */
   public Game(Window win, InputHandler in) {
@@ -65,6 +75,8 @@ public class Game {
     balls = new ArrayList<Ball>();
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
+    collidables = new ArrayList<Collidable>();
+    ch = new CollisionsHandler(collidables);
   }
 
   /**
@@ -80,6 +92,8 @@ public class Game {
     for (Renderable r : renderables) {
       r.render();
     }
+
+    ch.update();
   }
 
   /**
@@ -89,6 +103,17 @@ public class Game {
     pad = new Paddle(win);
     renderables.add(pad);
     moveables.add(pad);
+    collidables.add(pad);
+  }
+
+  /**
+   * Spawns a paddle with arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnPaddle(Paddle pad) {
+    this.pad = pad;
+    renderables.add(pad);
+    moveables.add(pad);
+    collidables.add(pad);
   }
 
   /**
@@ -109,5 +134,57 @@ public class Game {
     balls.add(tmpball);
     renderables.add(tmpball);
     moveables.add(tmpball);
+    collidables.add(tmpball);
   }
+
+  /**
+   * Spawns a Slab with arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnSlab(Slab slab) {
+    slabs.add(slab);
+    renderables.add(slab);
+  }
+
+  public void spawnWall(Wall wall) {
+    renderables.add(wall);
+  }
+
+  /**
+   * Spawns a PowerUp with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnPowerUp(PowerUp powerUp) {
+    renderables.add(powerUp);
+  }
+
+  /**
+   * Spawns a Ball with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnBall(Ball ball) {
+    balls.add(ball);
+    renderables.add(ball);
+    moveables.add(ball);
+    collidables.add(ball);
+  }
+
+  /**
+   * Spawns a Layout with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnLayout(Layout layout) {
+    renderables.add(layout);
+  }
+
+  /**
+   * Spawns a Button with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnButton(Button button) {
+    renderables.add(button);
+  }
+
+  /**
+   * Spawns a TextBox with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnTextBox(TextBox textbox) {
+    renderables.add(textbox);
+  }
+
 }
