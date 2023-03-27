@@ -77,6 +77,13 @@ public class Window extends PApplet {
   }
 
   /**
+   * Runs whenever the mouse is clicked and notifies InputHandler.
+   */
+  public void mouseClicked() {
+    in.checkPressButton();
+  }
+
+  /**
    * Main loop for the program.
    *
    * @param args unused
