@@ -1,6 +1,7 @@
 package cactus.slabslayer;
 
 import processing.core.PVector;
+import processing.data.JSONObject;
 
 public class TextBox extends GameElement {
 
@@ -28,6 +29,7 @@ public class TextBox extends GameElement {
   /**
    * Constructs a new text box with a default message and size.
    * Sets its location to the middle of the layout.
+   *
    * @param window as a Window
    */
   public TextBox(Window window) {
@@ -40,6 +42,7 @@ public class TextBox extends GameElement {
   /**
    * Constructs a new text box with
    * a custom message, position, and size.
+   *
    * @param text as a String
    * @param xPos as an int
    * @param yPos as an int
@@ -55,9 +58,10 @@ public class TextBox extends GameElement {
   /**
    * Constructs a new text box with
    * a custom message, position, and size.
-   * @param text as a String
+   *
+   * @param text     as a String
    * @param localPos as a PVector
-   * @param size as an int
+   * @param size     as an int
    */
   public TextBox(String text, PVector localPos, int size) {
     this.text = text;
@@ -67,6 +71,7 @@ public class TextBox extends GameElement {
 
   /**
    * Returns the text in this text box.
+   *
    * @return text as a String
    */
   public String getText() {
@@ -75,6 +80,7 @@ public class TextBox extends GameElement {
 
   /**
    * Sets the text to a new String.
+   *
    * @param text the text to set, as a String
    */
   public void setText(String text) {
@@ -83,6 +89,7 @@ public class TextBox extends GameElement {
 
   /**
    * Gets the current font size of the text.
+   *
    * @return size as an int
    */
   public int getSize() {
@@ -91,6 +98,7 @@ public class TextBox extends GameElement {
 
   /**
    * Sets the size of the font.
+   *
    * @param size as an int
    */
   public void setSize(int size) {
@@ -99,6 +107,7 @@ public class TextBox extends GameElement {
 
   /**
    * Gets the local position in relation to its layout.
+   *
    * @return localPos as a PVector
    */
   public PVector getLocalPos() {
@@ -107,6 +116,7 @@ public class TextBox extends GameElement {
 
   /**
    * Sets the local x pos.
+   *
    * @param posX as an int
    */
   public void setLocalXPos(int posX) {
@@ -115,6 +125,7 @@ public class TextBox extends GameElement {
 
   /**
    * Sets the local y pos.
+   *
    * @param posY as an int
    */
   public void setLocalYPos(int posY) {
@@ -134,11 +145,23 @@ public class TextBox extends GameElement {
    * Converts this object to a JSON string.
    *
    * @return JSON string
+   * text = "Text goes here!";
+   * localPos = new PVector(0, 0);
+   * size = 50;
    */
   @Override
   public String toJSON() {
-    return "{\"type\": \"TextBox\"}";
+    JSONObject json = new JSONObject();
+    json.setString("type", getClass().getSimpleName());
+    JSONObject constructorVars = new JSONObject();
+    constructorVars.setString("text", text);
+    constructorVars.setInt("xPos", (int) localPos.x);
+    constructorVars.setInt("yPos", (int) localPos.y);
+    constructorVars.setInt("size", size);
+    json.setJSONObject("constructorVars", constructorVars);
+    return json.toString();
   }
+
 
   /**
    * Converts a JSON string to a text box object.
@@ -148,8 +171,27 @@ public class TextBox extends GameElement {
    */
   @Override
   public Object fromJSON(String json) {
-    TextBox textBox = new TextBox(new Window());
-    return textBox;
+    JSONObject jsonObject = JSONObject.parse(json);
+    String type  = jsonObject.getString("type");
+
+    if ("TextBox".equals(type)) {
+      JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
+      String text = constructorVars.getString("text");
+      int xPos = constructorVars.getInt("xPos");
+      int yPos = constructorVars.getInt("yPos");
+      int size = constructorVars.getInt("size");
+      return new TextBox(text, xPos, yPos, size, window);
+    }
+    // handle other types here
+    throw new IllegalArgumentException("Unknown type: " + type);
+  }
+
+  public static void main(String[] args) {
+    Window window = new Window();
+    TextBox textBox = new TextBox("here", 100, 100, 50, window);
+    System.out.println(textBox.toJSON());
+    TextBox textBox1 = (TextBox) textBox.fromJSON(textBox.toJSON());
+    System.out.println(textBox1.toJSON());
   }
 
 }

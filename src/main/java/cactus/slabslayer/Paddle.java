@@ -1,5 +1,6 @@
 package cactus.slabslayer;
 
+import processing.core.PVector;
 import processing.data.JSONObject;
 
 import java.awt.*;
@@ -24,9 +25,31 @@ public class Paddle extends GameElement implements Moveable, Collidable {
   float xpos;
 
   /**
+   * y-coord of the paddle.
+   */
+  float ypos;
+
+  /**
    * x-coord velocity of the paddle.
    */
   float xvel;
+
+  /**
+   * The resolution at which to check collisions.
+   */
+  int checkResolution = 100;
+
+  /**
+   * How funneled the refletion angle is between ball and paddle.
+   *
+   * Bigger is wider max angle.
+   */
+  int funnelFactor = 10;
+
+  /**
+   * Activates and deactivates bebug logs.
+   */
+  boolean isDebugging = false;
 
   /**
    * Window to render to.
@@ -39,9 +62,10 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    * @param window Window to render to
    */
   public Paddle(Window window) {
-    this.width = 100;
+    this.width = 150;
     this.height = 20;
     this.xpos = 250 - (width / 2);
+    this.ypos = window.height/100*90;
     this.xvel = 10;
     this.window = window;
   }
@@ -119,6 +143,31 @@ public class Paddle extends GameElement implements Moveable, Collidable {
   }
 
   /**
+   * Getter for y-coord.
+   *
+   * @return ypos
+   */
+  public float getYpos() {
+    return ypos;
+  }
+
+  /**
+   * Constructor for paddle object.
+   *
+   * @param width  Width of the paddle
+   * @param height Height of the paddle
+   * @param xpos   x-coord of the paddle
+   * @param window Window to render to
+   */
+  public Paddle(float width, float height, float xpos, Window window) {
+    this.width = width;
+    this.height = height;
+    this.xpos = xpos;
+    this.window = window;
+
+  }
+
+  /**
    * Controls paddle movement.
    */
   @Override
@@ -138,27 +187,51 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     window.stroke(0);
     window.strokeWeight(4);
     window.fill(200, 255, 200);
-    window.rect(xpos, window.height/100 * 60, width, height);
+    window.rect(xpos, ypos, width, height);
+
+    // log: debug: renders possible reflection angles of a poddle and a ball
+    if (isDebugging) {
+      for (int i = 0; i <= width; i += width/checkResolution) {
+        PVector angle = new PVector(-1, 0);
+        angle.setMag(100);
+        float theta = window.map(i, 0, width, window.PI/funnelFactor, window.PI - window.PI/funnelFactor);
+        angle.rotate(theta);
+        window.line(xpos + i, ypos, xpos + i + angle.x, ypos);
+      }
+    }
   }
 
   /**
    * Checks if colliding with another object.
+   *
    * @param toCheck the Object to check
    * @return true/false if colliding
    */
   @Override
   public boolean isCollidingWith(Object toCheck) {
-    // to do
+    if (toCheck.getClass() == Ball.class) {
+      Ball b = (Ball) toCheck;
+      for (int i = 0; i <= width; i += width/checkResolution) {
+        PVector segPos = new PVector(xpos + i, window.height/100*90);
+        if (!(PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+          continue;
+        }
+        return true;
+      }
+    }
     return false;
   }
 
   /**
    * Executes collision with another object.
+   *
    * @param collidedWith the Object to collide with
    */
   @Override
   public void doCollision(Object collidedWith) {
-    // to do
+    if (collidedWith.getClass() == Ball.class) {
+      // paddle does nothing when colliding with ball
+    }
   }
 
   /**
@@ -204,16 +277,30 @@ public class Paddle extends GameElement implements Moveable, Collidable {
 
     throw new IllegalArgumentException("Unknown type: " + type);
   }
+
   public static void main(String[] args) {
     // Create a new Paddle instance
     Paddle paddle = new Paddle(new Window());
+
+    String jsonPaddle = "{\n" +
+            "  \"type\": \"Paddle\",\n" +
+            "  \"constructorVars\": {\n" +
+            "    \"xpos\": 3,\n" +
+            "    \"width\": 1,\n" +
+            "    \"height\": 2\n" +
+            "  }\n" +
+            "}";
 
     // Serialize Paddle instance to JSON
     String json = paddle.toJSON();
     System.out.println(json);
 
+    System.out.println(jsonPaddle);
+
     // Deserialize JSON to Paddle instance
-    Paddle newPaddle = (Paddle) paddle.fromJSON(json);
-    System.out.println(newPaddle.toJSON());
+    Paddle newPaddle2 = (Paddle) paddle.fromJSON(jsonPaddle);
+//    Paddle newPaddle = (Paddle) paddle.fromJSON(json);
+
+    System.out.println(newPaddle2.toJSON());
   }
 }

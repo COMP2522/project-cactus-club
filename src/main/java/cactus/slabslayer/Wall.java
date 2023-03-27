@@ -126,18 +126,16 @@ public class Wall extends GameElement {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
-    if ("Slab".equals(type)) {
+    if ("Wall".equals(type)) {
       JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
       float width = constructorVars.getFloat("width");
       float height = constructorVars.getFloat("height");
-      int health = constructorVars.getInt("health");
       float xpos = constructorVars.getFloat("xpos");
       float ypos = constructorVars.getFloat("ypos");
-      float pdropChance = constructorVars.getFloat("pdropChance");
       float vx = constructorVars.getFloat("vx");
       float vy = constructorVars.getFloat("vy");
-      Slab slab = new Slab(width, height, health, xpos, ypos, pdropChance, vx, vy, window);
-      return slab;
+      Wall wall = new Wall(width, height, xpos, ypos, vx, vy, window);
+      return wall;
     }
     // handle other types here
 
@@ -146,14 +144,14 @@ public class Wall extends GameElement {
 
   public static void main(String[] args) {
     Window window = new Window();
-    Slab slab = new Slab(3, 50, 50, 0.5f, window);
+    Wall wall = new Wall(10, 10, 10, 10, 10, 10, window);
 
     // test toJSON() method
-    String json = slab.toJSON();
+    String json = wall.toJSON();
     System.out.println(json);
 
     // test fromJSON() method
-    Slab newSlab = (Slab) slab.fromJSON(json);
+    Wall newSlab = (Wall) wall.fromJSON(json);
     System.out.println(newSlab.toJSON());
   }
 }

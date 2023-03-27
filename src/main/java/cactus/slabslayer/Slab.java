@@ -96,8 +96,20 @@ public class Slab extends GameElement {
     this.window = window;
   }
 
+  /**
+   * Constructor for a slab with default values.
+   * To be used with JSON tests.
+   */
   public Slab() {
-    //bro what is this.
+    this.width = 0;
+    this.height = 0;
+    this.health = 0;
+    this.xpos = 0;
+    this.ypos = 0;
+    this.pdropChance = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.window = null;
   }
 
   /**
@@ -110,135 +122,135 @@ public class Slab extends GameElement {
   }
 
   /**
-   * Updates the slab's position.
+   * Updates the slab's width.
    *
-   * @return if the slab is still alive
+   * @param width width of the slab
    */
   public void setWidth(float width) {
     this.width = width;
   }
 
   /**
-   * Updates the slab's position.
+   * Gets the slab's height.
    *
-   * @return if the slab is still alive
+   * @return slab's height
    */
   public float getHeight() {
     return height;
   }
 
   /**
-   * Updates the slab's position.
+   * Updates the slab's height.
    *
-   * @return if the slab is still alive
+   * @param height height of the slab
    */
   public void setHeight(float height) {
     this.height = height;
   }
 
   /**
-   * Updates the slab's position.
+   * Gets the slab's health.
    *
-   * @return if the slab is still alive
+   * @return slab's health
    */
   public int getHealth() {
     return health;
   }
 
   /**
-   * Updates the slab's position.
+   * Updates the slab's health.
    *
-   * @return if the slab is still alive
+   * @param health health of the slab
    */
   public void setHealth(int health) {
     this.health = health;
   }
 
   /**
-   * Updates the slab's position.
+   * Gets the slab's x-position.
    *
-   * @return if the slab is still alive
+   * @return x-position of the slab
    */
   public float getXpos() {
     return xpos;
   }
 
   /**
-   * Updates the slab's position.
+   * Updates the slab's x-position.
    *
-   * @return if the slab is still alive
+   * @param xpos x-position of the slab
    */
   public void setXpos(float xpos) {
     this.xpos = xpos;
   }
 
   /**
-   * Updates the slab's position.
+   * Gets the slab's y-position.
    *
-   * @return if the slab is still alive
+   * @return y-position of the slab
    */
   public float getYpos() {
     return ypos;
   }
 
   /**
-   * Updates the slab's position.
+   * Updates the slab's y-position.
    *
-   * @return if the slab is still alive
+   * @param ypos y-position of the slab
    */
   public void setYpos(float ypos) {
     this.ypos = ypos;
   }
 
   /**
-   * Updates the slab's position.
+   * Gets the slab's chance to drop a power-up.
    *
-   * @return if the slab is still alive
+   * @return power-up drop chance
    */
   public float getPdropChance() {
     return pdropChance;
   }
 
   /**
-   * Updates the slab's position.
+   * Updates the slab's chance to drop a power-up.
    *
-   * @return if the slab is still alive
+   * @param pdropChance power-up drop chance
    */
   public void setPdropChance(float pdropChance) {
     this.pdropChance = pdropChance;
   }
 
   /**
-   * Updates the slab's position.
+   * Gets the slab's x-velocity.
    *
-   * @return if the slab is still alive
+   * @return x-velocity of the slab
    */
   public float getVx() {
     return vx;
   }
 
   /**
-   * Updates the slab's position.
+   * Updates the slab's x-velocity.
    *
-   * @return if the slab is still alive
+   * @param vx x-velocity of the slab
    */
   public void setVx(float vx) {
     this.vx = vx;
   }
 
   /**
-   * Updates the slab's position.
+   * Gets the slab's y-velocity.
    *
-   * @return if the slab is still alive
+   * @return y-velocity of the slab
    */
   public float getVy() {
     return vy;
   }
 
   /**
-   * Updates the slab's position.
+   * Updates the slab's y-velocity.
    *
-   * @return if the slab is still alive
+   * @param vy y-velocity of the slab
    */
   public void setVy(float vy) {
     this.vy = vy;
@@ -267,7 +279,7 @@ public class Slab extends GameElement {
    * @return if slab has at least 1 hp.
    */
   public boolean isDead() {
-    return (health > 0) ? false : true;
+    return health > 0;
   }
 
   /**
@@ -313,25 +325,45 @@ public class Slab extends GameElement {
       float pdropChance = constructorVars.getFloat("pdropChance");
       float vx = constructorVars.getFloat("vx");
       float vy = constructorVars.getFloat("vy");
-      Slab slab = new Slab(width, height, health, xpos, ypos, pdropChance, vx, vy, window);
-      return slab;
+      return new Slab(width, height, health, xpos, ypos, pdropChance, vx, vy, window);
     }
     // handle other types here
 
     throw new IllegalArgumentException("Unknown type: " + type);
   }
 
+  /**
+   * Quick JSON tests for Slab class.
+   *
+   * @param args command line arguments.
+   */
   public static void main(String[] args) {
     Window window = new Window();
     Slab slab = new Slab(3, 50, 50, 0.5f, window);
 
+    String jsonSlab = "{\n" +
+            "  \"type\": \"Slab\",\n" +
+            "  \"constructorVars\": {\n" +
+            "    \"vx\": 1,\n" +
+            "    \"ypos\": 1,\n" +
+            "    \"pdropChance\": 1,\n" +
+            "    \"vy\": 0,\n" +
+            "    \"xpos\": 1,\n" +
+            "    \"width\": 11,\n" +
+            "    \"health\": 31,\n" +
+            "    \"height\": 51\n" +
+            "  }\n" +
+            "}";
     // test toJSON() method
     String json = slab.toJSON();
+
     System.out.println(json);
+    System.out.println(jsonSlab);
 
     // test fromJSON() method
-    Slab newSlab = (Slab) slab.fromJSON(json);
-    System.out.println(newSlab.toJSON());
+    // Slab newSlab = (Slab) slab.fromJSON(json);
+    Slab newSlab2 = (Slab) slab.fromJSON(jsonSlab);
+    System.out.println(newSlab2.toJSON());
   }
 }
 
