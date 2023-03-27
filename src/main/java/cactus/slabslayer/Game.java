@@ -55,13 +55,14 @@ public class Game {
    */
   CollisionsHandler ch;
 
+  GameProcess gp;
+
   /**
    * Constructs a new Game object.
    */
   public Game(Window win, InputHandler in) {
     this.win = win;
     this.in = in;
-
     this.init();
   }
 
@@ -77,6 +78,7 @@ public class Game {
     moveables = new ArrayList<Moveable>();
     collidables = new ArrayList<Collidable>();
     ch = new CollisionsHandler(collidables);
+    gp = new GameSaveHandler(this, "game-save.json", System.currentTimeMillis());
   }
 
   public ArrayList<Renderable> getRenderables() {
@@ -98,7 +100,6 @@ public class Game {
     }
 
     ch.update();
-    GameProcess gp = new GameSaveHandler(this,"game-save.json");
     gp.update();
   }
 
