@@ -116,7 +116,7 @@ public class GameSaveHandler extends GameProcess {
           game.spawnLayout(layoutOutput);
           break;
         case "Button":
-          Button button = new Button();
+          Button button = new Button(new Window());
           System.out.println(jsonElement.toString());
           Button buttonOutput = (Button) button.fromJSON(jsonElement.toString());
           System.out.println(buttonOutput.toJSON());
@@ -147,7 +147,7 @@ public class GameSaveHandler extends GameProcess {
     Slab slab2 = new Slab(1, 1, 1, 1, 1, 1, 1, 1, new Window());
     Wall wall = new Wall(1, 1, 1, 1, 1, 1, new Window());
     Layout layout = new Layout(new Window());
-    layout.addLayoutElement(new Button());
+    layout.addLayoutElement(new Button(new Window()));
     layout.addLayoutElement(new TextBox(new Window()));
 
     // Create an ArrayList to store the game elements

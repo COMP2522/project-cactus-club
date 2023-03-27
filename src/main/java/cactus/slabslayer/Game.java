@@ -46,6 +46,16 @@ public class Game {
   ArrayList<Moveable> moveables;
 
   /**
+   * List of all Collidable objects.
+   */
+  ArrayList<Collidable> collidables;
+
+  /**
+   * GameProcess that handles collisions.
+   */
+  CollisionsHandler ch;
+
+  /**
    * Constructs a new Game object.
    */
   public Game(Window win, InputHandler in) {
@@ -65,6 +75,8 @@ public class Game {
     balls = new ArrayList<Ball>();
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
+    collidables = new ArrayList<Collidable>();
+    ch = new CollisionsHandler(collidables);
   }
 
   public ArrayList<Renderable> getRenderables() {
@@ -84,6 +96,8 @@ public class Game {
     for (Renderable r : renderables) {
       r.render();
     }
+
+    ch.update();
     GameProcess gp = new GameSaveHandler(this,"game-save.json");
     gp.update();
   }
@@ -95,6 +109,7 @@ public class Game {
     pad = new Paddle(win);
     renderables.add(pad);
     moveables.add(pad);
+    collidables.add(pad);
   }
 
   /**
@@ -104,6 +119,7 @@ public class Game {
     this.pad = pad;
     renderables.add(pad);
     moveables.add(pad);
+    collidables.add(pad);
   }
 
   /**
@@ -124,6 +140,7 @@ public class Game {
     balls.add(tmpball);
     renderables.add(tmpball);
     moveables.add(tmpball);
+    collidables.add(tmpball);
   }
 
   /**
@@ -152,6 +169,7 @@ public class Game {
     balls.add(ball);
     renderables.add(ball);
     moveables.add(ball);
+    collidables.add(ball);
   }
 
   /**
