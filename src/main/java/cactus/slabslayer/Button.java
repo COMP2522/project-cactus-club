@@ -123,6 +123,14 @@ public class Button extends GameElement {
   }
 
   /**
+   * Executes the button's given function if clicked.
+   */
+  public void execute() {
+    System.out.println("Executing button's function");
+    // to do
+  }
+
+  /**
    * Renders the button in the window.
    */
   @Override

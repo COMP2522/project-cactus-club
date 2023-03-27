@@ -92,7 +92,11 @@ public class InputHandler {
   public void checkPressButton() {
 
     for (Button b : Button.buttons) {
-      System.out.println(b.mouseInBounds());
+
+      if (b.mouseInBounds()) {
+        b.execute();
+      }
+
     }
 
   }
