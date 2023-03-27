@@ -1,19 +1,45 @@
 package cactus.slabslayer;
 
-import java.util.ArrayList;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static processing.core.PApplet.loadJSONArray;
 
 public class GameSaveHandler extends GameProcess {
+  private static final int AUTOSAVE_INTERVAL_MS = 5000;
+  private Game game;
+  private String saveDir;
+
+  private long lastAutosaveTime;
+
+  public GameSaveHandler(Game game, String saveDir) {
+    lastAutosaveTime = System.currentTimeMillis();
+    this.game = game;
+    this.saveDir = saveDir;
+  }
 
   @Override
   public void update() {
-    // TODO Auto-generated method stub
+    long currentTime = System.currentTimeMillis();
+    System.out.println("Current time: " + (currentTime - lastAutosaveTime));
+    if (currentTime - lastAutosaveTime >= AUTOSAVE_INTERVAL_MS) {
+      // Save the game elements periodically
+      saveGame(toJSONable(game.getRenderables()), saveDir);
+      System.out.println("Autosave completed.");
+      lastAutosaveTime = currentTime;
+    }
+  }
+  private ArrayList<JSONable> toJSONable(ArrayList<Renderable> element) {
+    ArrayList<JSONable> json = new ArrayList<JSONable>();
+    for (Object obj : element) {
+      json.add((JSONable) obj);
+    }
+    return json;
   }
 
   public void saveGame(ArrayList<JSONable> elements, String dir) {
@@ -23,6 +49,8 @@ public class GameSaveHandler extends GameProcess {
     }
     saveJSONArray(jsonElements, dir);
   }
+
+
 
   private void saveJSONArray(JSONArray jsonElements, String dir) {
     File file = new File(dir);
@@ -132,7 +160,7 @@ public class GameSaveHandler extends GameProcess {
     gameElements.add(layout);
 
     // Save the game elements to a file
-    GameSaveHandler saveHandler = new GameSaveHandler();
+    GameSaveHandler saveHandler = new GameSaveHandler(new Game(window, in), "game-save.json");
     saveHandler.saveGame(gameElements, "game-save.json");
 
     // Print a success message
