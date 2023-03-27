@@ -36,7 +36,9 @@ public class Window extends PApplet {
     ArrayList<JSONable> elements = new ArrayList<JSONable>();
     in = new InputHandler(this);
 
-    game = new Game(this, in);
+    game = Game.getGameInstance();
+    game.setWin(this);
+    game.setIn(in);
     game.init();
 
     game.spawnPaddle();

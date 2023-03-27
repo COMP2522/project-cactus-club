@@ -25,8 +25,7 @@ public class GameSaveHandlerTest {
 
   @BeforeEach
   public void setUp() {
-    in = new InputHandler(new Window());
-    Game game = new Game(new Window(), in);
+    Game game = Game.getGameInstance();
     saveHandler = new GameSaveHandler(game, "test-save.json");
     ball = new Ball(new Window());
     paddle = new Paddle(new Window());
