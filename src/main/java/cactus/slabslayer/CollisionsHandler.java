@@ -35,7 +35,7 @@ public class CollisionsHandler extends GameProcess {
     for (int i = 0; i < collidables.size() - 1; i++) {
       Collidable col1 = collidables.get(i);
 
-      for (int j = i + 1; j < collidables.size(); i++) {
+      for (int j = i + 1; j < collidables.size(); j++) {
         Collidable col2 = collidables.get(j);
         if (col1.isCollidingWith(col2)) {
           col1.doCollision(col2);
