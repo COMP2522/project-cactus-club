@@ -42,7 +42,7 @@ public class SoundManager {
     Path bouncePath = Paths.get("assets", "audio", "bounce.m4a");
     bounce = loadAudio(bouncePath);
 
-    Path powerupPath = Paths.get("assets", "audio", "powerup.m4a");
+    Path powerupPath = Paths.get("assets", "audio", "powerup.wav");
     powerup = loadAudio(powerupPath);
   }
 
