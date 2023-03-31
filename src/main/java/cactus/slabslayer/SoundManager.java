@@ -1,38 +1,35 @@
 package cactus.slabslayer;
 
+import javax.sound.sampled.*;
+
 /**
- * SoundManager
- * Creates and contains methods to play sounds.
+ * A class that handles playing sounds.
  *
  * @author Trevor
  */
 public class SoundManager {
-  private static SoundManager instance = null;
+  private Clip clip;
 
-  private SoundManager() {
-    // Exists only to defeat instantiation.
-  }
-
-  /**
-   * getInstance
-   * Returns the instance of the SoundManager.
-   *
-   * @return SoundManager
-   */
-  public static SoundManager getInstance() {
-    if (instance == null) {
-      instance = new SoundManager();
+  public SoundManager(String filePath) {
+    try {
+      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(filePath));
+      clip = AudioSystem.getClip();
+      clip.open(audioInputStream);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-    return instance;
   }
 
-    /**
-     * playSound
-     * Plays a sound.
-     *
-     * @param sound The name of the sound to play.
-     */
-  public void playSound(String sound) {
+  public void play() {
+    if (clip != null) {
+      clip.setFramePosition(0);
+      clip.start();
+    }
+  }
 
+  public void stop() {
+    if (clip != null) {
+      clip.stop();
+    }
   }
 }
