@@ -57,10 +57,23 @@ public class SoundManager {
     }
   }
 
+  /**
+   * Plays the background music.
+   */
   public void playBGM() {
     bgm.loop(Clip.LOOP_CONTINUOUSLY);
   }
 
+    /**
+     * Stops the background music.
+     */
+  public void stopBGM() {
+    bgm.stop();
+  }
+
+  /**
+   * Plays the ball sound.
+   */
   public void playBallSound() {
     if (ball != null) {
       ball.setFramePosition(0);
@@ -68,6 +81,9 @@ public class SoundManager {
     }
   }
 
+  /**
+   * Plays the bounce sound.
+   */
   public void playBounceSound() {
     if (bounce != null) {
       bounce.setFramePosition(0);
@@ -75,10 +91,22 @@ public class SoundManager {
     }
   }
 
+  /**
+   * Plays the powerup sound.
+   */
   public void playPowerupSound() {
     if (powerup != null) {
       powerup.setFramePosition(0);
       powerup.start();
     }
+  }
+
+  /**
+   * Checks if the background music is playing.
+   *
+   * @return boolean
+   */
+  public boolean isBGMPlaying() {
+    return bgm.isRunning();
   }
 }
