@@ -1,6 +1,7 @@
 package cactus.slabslayer;
 
 import javax.sound.sampled.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,7 +40,7 @@ public class SoundManager {
     Path ballPath = Paths.get("assets", "audio", "ball.wav");
     ball = loadAudio(ballPath);
 
-    Path bouncePath = Paths.get("assets", "audio", "bounce.m4a");
+    Path bouncePath = Paths.get("assets", "audio", "bounce.wav");
     bounce = loadAudio(bouncePath);
 
     Path powerupPath = Paths.get("assets", "audio", "powerup.wav");
@@ -48,7 +49,7 @@ public class SoundManager {
 
   Clip loadAudio(Path path) throws FileNotFoundException, LineUnavailableException {
     try {
-      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(path.toFile());
+      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path.toFile().toURI()));
       Clip clip = AudioSystem.getClip();
       clip.open(audioInputStream);
       return clip;
