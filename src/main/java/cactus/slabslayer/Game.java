@@ -26,6 +26,11 @@ public class Game {
   InputHandler in;
 
   /**
+   * Player's score.
+   */
+  int score;
+
+  /**
    * Paddle instance.
    */
   Paddle pad;
@@ -142,10 +147,34 @@ public class Game {
   }
 
   /**
+   * Gets the player's score.
+   * @return score as an int
+   */
+  public int getScore() {
+    return score;
+  }
+
+  /**
+   * Sets the player's score.
+   * @param score as an int
+   */
+  public void setScore(int score) {
+    this.score = score;
+  }
+
+  /**
+   * Increments the player's score by 1.`
+   */
+  public void incrementScore() {
+    score++;
+  }
+
+  /**
    * Initializes Game object to initial state.
    * clears all the collections and re-initializes all game processes
    */
   public void init() {
+    score = 0;
     pad = null;
     slabs = new ArrayList<Slab>();
     balls = new ArrayList<Ball>();
@@ -165,6 +194,8 @@ public class Game {
    */
   public void update() {
     win.background(200, 200, 255);
+
+    //System.out.println("score: " + score);
 
     for (Moveable m : moveables) {
       m.move(in);
@@ -282,6 +313,7 @@ public class Game {
     ArrayList<Slab> notDead = new ArrayList<Slab>();
     for (Slab s : slabs) {
       if (s.isDead()) {
+        score++;
         renderables.remove(s);
         collidables.remove(s);
         continue;
