@@ -63,10 +63,11 @@ public class TextBox extends GameElement {
    * @param localPos as a PVector
    * @param size     as an int
    */
-  public TextBox(String text, PVector localPos, int size) {
+  public TextBox(String text, PVector localPos, int size, Window window) {
     this.text = text;
     this.localPos = localPos;
     this.size = size;
+    this.window = window;
   }
 
   /**
