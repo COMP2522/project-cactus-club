@@ -1,8 +1,8 @@
 package cactus.slabslayer;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -44,6 +44,9 @@ public class Window extends PApplet {
     game.spawnPaddle();
     elements.add(new Paddle(this));
 
+    game.spawnTextBox(new TextBox("Hello", new PVector(15, 50), 50, this));
+
+
     /*
      * Spawn rows of slabs.
      */
@@ -66,11 +69,11 @@ public class Window extends PApplet {
     elements.add(new Ball(this));
 
     // Clearing everything to test save/load
-    game.init();
+//    game.init();
     // Used to load a game save
-    GameSaveHandler gsh = new GameSaveHandler(game, "game-save.json");
-    gsh.saveGame(elements, "game-save.json");
-    gsh.loadGame("game-save.json", this, in, game);
+//    GameSaveHandler gsh = new GameSaveHandler(game, "game-save.json");
+//    gsh.saveGame(elements, "game-save.json");
+//    gsh.loadGame("game-save.json", this, in, game);
   }
 
   /**

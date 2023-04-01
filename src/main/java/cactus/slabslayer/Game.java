@@ -201,6 +201,8 @@ public class Game {
       m.move(in);
     }
 
+    renderables.sort((o1, o2) -> o1.compareTo(o2));
+
     for (Renderable r : renderables) {
       r.render();
     }

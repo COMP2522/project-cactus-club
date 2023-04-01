@@ -1,6 +1,6 @@
 package cactus.slabslayer;
 
-public interface Renderable {
+public interface Renderable extends Comparable {
 
     boolean isActive = false;
 

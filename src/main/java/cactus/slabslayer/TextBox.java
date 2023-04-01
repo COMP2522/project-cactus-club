@@ -37,6 +37,7 @@ public class TextBox extends GameElement {
     localPos = new PVector(0, 0);
     size = 50;
     this.window = window;
+    this.renderPriority = 5;
   }
 
   /**
@@ -53,6 +54,7 @@ public class TextBox extends GameElement {
     this.localPos = new PVector(xPos, yPos);
     this.size = size;
     this.window = window;
+    this.renderPriority = 5;
   }
 
   /**
@@ -68,6 +70,7 @@ public class TextBox extends GameElement {
     this.localPos = localPos;
     this.size = size;
     this.window = window;
+    this.renderPriority = 5;
   }
 
   /**
