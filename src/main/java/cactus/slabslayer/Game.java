@@ -56,6 +56,11 @@ public class Game {
   ArrayList<Collidable> collidables;
 
   /**
+   * List of all JSONable objects.
+   */
+  ArrayList<JSONable> jsonables;
+
+  /**
    * GameProcess that handles collisions.
    */
   CollisionsHandler ch;
@@ -152,6 +157,7 @@ public class Game {
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
     collidables = new ArrayList<Collidable>();
+    jsonables = new ArrayList<JSONable>();
     ch = new CollisionsHandler(collidables);
     gp = new GameSaveHandler(this, "game-save.json", System.currentTimeMillis());
   }
@@ -188,6 +194,7 @@ public class Game {
     renderables.add(pad);
     moveables.add(pad);
     collidables.add(pad);
+    jsonables.add(pad);
   }
 
   /**
@@ -198,6 +205,7 @@ public class Game {
     renderables.add(pad);
     moveables.add(pad);
     collidables.add(pad);
+    jsonables.add(pad);
   }
 
   /**
@@ -209,6 +217,7 @@ public class Game {
     slabs.add(tmpSlab);
     renderables.add(tmpSlab);
     collidables.add(tmpSlab);
+    jsonables.add(tmpSlab);
   }
 
   /**
@@ -220,6 +229,7 @@ public class Game {
     renderables.add(tmpball);
     moveables.add(tmpball);
     collidables.add(tmpball);
+    jsonables.add(tmpball);
   }
 
   /**
@@ -229,6 +239,7 @@ public class Game {
     slabs.add(slab);
     renderables.add(slab);
     collidables.add(slab);
+    jsonables.add(slab);
   }
 
   public void spawnWall(Wall wall) {
@@ -250,6 +261,7 @@ public class Game {
     renderables.add(ball);
     moveables.add(ball);
     collidables.add(ball);
+    jsonables.add(ball);
   }
 
   /**
@@ -257,6 +269,7 @@ public class Game {
    */
   public void spawnLayout(Layout layout) {
     renderables.add(layout);
+    jsonables.add(layout);
   }
 
   /**
@@ -264,6 +277,7 @@ public class Game {
    */
   public void spawnButton(Button button) {
     renderables.add(button);
+    jsonables.add(button);
   }
 
   /**
@@ -271,6 +285,7 @@ public class Game {
    */
   public void spawnTextBox(TextBox textbox) {
     renderables.add(textbox);
+    jsonables.add(textbox);
   }
 
   /**
