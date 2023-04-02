@@ -61,24 +61,10 @@ public class GameSaveHandler extends GameProcess {
     long currentTime = System.currentTimeMillis();
     if (currentTime - lastAutosaveTime >= AUTOSAVE_INTERVAL_MS) {
       // Save the game elements periodically
-      saveGame(toJSONable(game.getRenderables()), saveDir);
+      saveGame(game.getJsonables(), saveDir);
       System.out.println("Autosave completed.");
       lastAutosaveTime = currentTime;
     }
-  }
-
-  /**
-   * Converts an ArrayList of Renderable objects to an ArrayList of JSONable objects.
-   *
-   * @param element the ArrayList of Renderable objects
-   * @return the ArrayList of JSONable objects
-   */
-  private ArrayList<JSONable> toJSONable(ArrayList<Renderable> element) {
-    ArrayList<JSONable> json = new ArrayList<JSONable>();
-    for (Object obj : element) {
-      json.add((JSONable) obj);
-    }
-    return json;
   }
 
   /**

@@ -75,7 +75,10 @@ public class Game {
    */
   CollisionsHandler ch;
 
-  GameProcess gp;
+  /**
+   * GameProcess that handles saving and loading saves, including levels
+   */
+  GameSaveHandler gsh;
 
   /**
    * Constructs a new Game object.
@@ -157,6 +160,15 @@ public class Game {
   }
 
   /**
+   * Gets the list of JSONables.
+   *
+   * @return jsonables as ArrayList
+   */
+  public ArrayList<JSONable> getJsonables() {
+    return jsonables;
+  }
+
+  /**
    * Gets the player's score.
    * @return score as an int
    */
@@ -212,7 +224,7 @@ public class Game {
     collidables = new ArrayList<Collidable>();
     jsonables = new ArrayList<JSONable>();
     ch = new CollisionsHandler(collidables);
-    gp = new GameSaveHandler(this, "game-save.json", System.currentTimeMillis());
+    gsh = new GameSaveHandler(this, "game-save.json", System.currentTimeMillis());
   }
 
   public ArrayList<Renderable> getRenderables() {
@@ -238,7 +250,7 @@ public class Game {
     checkDeadSlabs(slabs);
 
     ch.update();
-    gp.update();
+    gsh.update();
   }
 
   /**
@@ -345,7 +357,7 @@ public class Game {
 
   /**
    * Checks for dead Slabs and removes them.
-   *
+   *fthe
    * @param slabs the list of Slabs the check through
    */
   public void checkDeadSlabs(ArrayList<Slab> slabs) {
@@ -362,4 +374,11 @@ public class Game {
     this.slabs = notDead;
   }
 
+  /**
+   * Loads the first level. TODO: make more generic with multiple levels
+   */
+  public void loadLevel(int levelIndex) {
+    levelIndex = 1;
+    this.init();
+  }
 }
