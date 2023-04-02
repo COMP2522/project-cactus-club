@@ -26,9 +26,19 @@ public class Game {
   InputHandler in;
 
   /**
+   * Player's score.
+   */
+  int score;
+
+  /**
    * Paddle instance.
    */
   Paddle pad;
+
+  /**
+   * Score instance.
+   */
+  TextBox scoreBox;
 
   /**
    * List of all Slab objects
@@ -147,10 +157,53 @@ public class Game {
   }
 
   /**
+   * Gets the player's score.
+   * @return score as an int
+   */
+  public int getScore() {
+    return score;
+  }
+
+  /**
+   * Sets the player's score.
+   * @param score as an int
+   */
+  public void setScore(int score) {
+    this.score = score;
+  }
+
+  /**
+   * Increments the player's score by 1.`
+   */
+  public void incrementScore() {
+    score++;
+    scoreBox.setText("Score: " + score);
+  }
+
+  /**
+   * Get the text box that displays the score.
+   * @return scoreBox as a TextBox
+   */
+  public TextBox getScoreBox() {
+    return scoreBox;
+  }
+
+  /**
+   * Sets the text box that displays the score.
+   * @param scoreBox as a TextBox
+   */
+  public void setScoreBox(TextBox scoreBox) {
+
+    this.scoreBox = scoreBox;
+
+  }
+
+  /**
    * Initializes Game object to initial state.
    * clears all the collections and re-initializes all game processes
    */
   public void init() {
+    score = 0;
     pad = null;
     slabs = new ArrayList<Slab>();
     balls = new ArrayList<Ball>();
@@ -175,6 +228,8 @@ public class Game {
     for (Moveable m : moveables) {
       m.move(in);
     }
+
+    renderables.sort((o1, o2) -> o1.compareTo(o2));
 
     for (Renderable r : renderables) {
       r.render();
@@ -297,6 +352,7 @@ public class Game {
     ArrayList<Slab> notDead = new ArrayList<Slab>();
     for (Slab s : slabs) {
       if (s.isDead()) {
+        incrementScore();
         renderables.remove(s);
         collidables.remove(s);
         continue;
