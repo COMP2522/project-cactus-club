@@ -36,6 +36,11 @@ public class Game {
   Paddle pad;
 
   /**
+   * Score instance.
+   */
+  TextBox scoreBox;
+
+  /**
    * List of all Slab objects
    */
   ArrayList<Slab> slabs;
@@ -167,6 +172,25 @@ public class Game {
    */
   public void incrementScore() {
     score++;
+    scoreBox.setText("Score: " + score);
+  }
+
+  /**
+   * Get the text box that displays the score.
+   * @return scoreBox as a TextBox
+   */
+  public TextBox getScoreBox() {
+    return scoreBox;
+  }
+
+  /**
+   * Sets the text box that displays the score.
+   * @param scoreBox as a TextBox
+   */
+  public void setScoreBox(TextBox scoreBox) {
+
+    this.scoreBox = scoreBox;
+
   }
 
   /**
@@ -194,8 +218,6 @@ public class Game {
    */
   public void update() {
     win.background(200, 200, 255);
-
-    //System.out.println("score: " + score);
 
     for (Moveable m : moveables) {
       m.move(in);
@@ -315,7 +337,7 @@ public class Game {
     ArrayList<Slab> notDead = new ArrayList<Slab>();
     for (Slab s : slabs) {
       if (s.isDead()) {
-        score++;
+        incrementScore();
         renderables.remove(s);
         collidables.remove(s);
         continue;

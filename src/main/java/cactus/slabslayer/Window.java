@@ -44,7 +44,9 @@ public class Window extends PApplet {
     game.spawnPaddle();
     elements.add(new Paddle(this));
 
-    game.spawnTextBox(new TextBox("Hello", new PVector(15, 50), 50, this));
+    TextBox scoreBox = new TextBox("Score: " + game.getScore(), new PVector(15, 50), 50, this);
+    game.setScoreBox(scoreBox);
+    game.spawnTextBox(scoreBox);
 
 
     /*
