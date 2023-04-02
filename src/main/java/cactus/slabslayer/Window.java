@@ -33,7 +33,6 @@ public class Window extends PApplet {
    * Runs once at the start of execution.
    */
   public void setup() {
-    ArrayList<JSONable> elements = new ArrayList<JSONable>();
     in = new InputHandler(this);
 
     game = Game.getGameInstance();
@@ -42,40 +41,21 @@ public class Window extends PApplet {
     game.init();
 
     game.spawnPaddle();
-    elements.add(new Paddle(this));
 
-    TextBox scoreBox = new TextBox("Score: " + game.getScore(), new PVector(15, 50), 50, this);
-    game.setScoreBox(scoreBox);
-    game.spawnTextBox(scoreBox);
+    game.spawnBall();
+
+    game.spawnScoreBox();
+
+
 
 
     /*
      * Spawn rows of slabs.
      */
-    for (int i = 1; i <= 18; i++) {
-      game.spawnSlab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f, 5, 0, 0, this);
-      elements.add(new Slab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f, 5, 0, 0, this));
-    }
-
-    for (int i = 1; i <= 18; i++) {
-      game.spawnSlab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 1, 5, 0, 0, this);
-      elements.add(new Slab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 1, 5, 0, 0, this));
-    }
 
     for (int i = 1; i <= 18; i++) {
       game.spawnSlab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 2, 5, 0, 0, this);
-        elements.add(new Slab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 2, 5, 0, 0, this));
     }
-
-    game.spawnBall();
-    elements.add(new Ball(this));
-
-    // Clearing everything to test save/load
-//    game.init();
-    // Used to load a game save
-//    GameSaveHandler gsh = new GameSaveHandler(game, "game-save.json");
-//    gsh.saveGame(elements, "game-save.json");
-//    gsh.loadGame("game-save.json", this, in, game);
   }
 
   /**

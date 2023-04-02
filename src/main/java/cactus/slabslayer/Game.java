@@ -1,5 +1,7 @@
 package cactus.slabslayer;
 
+import processing.core.PVector;
+
 import java.util.ArrayList;
 
 /**
@@ -38,7 +40,7 @@ public class Game {
   /**
    * Score instance.
    */
-  TextBox scoreBox;
+  ScoreBox scoreBox;
 
   /**
    * List of all Slab objects
@@ -66,16 +68,25 @@ public class Game {
   ArrayList<Collidable> collidables;
 
   /**
+   * List of all JSONable objects.
+   */
+  ArrayList<JSONable> jsonables;
+
+  /**
    * GameProcess that handles collisions.
    */
   CollisionsHandler ch;
 
-  GameProcess gp;
+  /**
+   * GameProcess that handles saving and loading saves, including levels
+   */
+  GameSaveHandler gsh;
 
   /**
    * Constructs a new Game object.
    */
   private Game() {
+    score = 0;
     this.init();
   }
 
@@ -86,6 +97,7 @@ public class Game {
    * @param in as an InputHandler object
    */
   private Game(Window w, InputHandler in) {
+    score = 0;
     win = w;
     this.in = in;
     this.init();
@@ -152,6 +164,15 @@ public class Game {
   }
 
   /**
+   * Gets the list of JSONables.
+   *
+   * @return jsonables as ArrayList
+   */
+  public ArrayList<JSONable> getJsonables() {
+    return jsonables;
+  }
+
+  /**
    * Gets the player's score.
    * @return score as an int
    */
@@ -172,7 +193,7 @@ public class Game {
    */
   public void incrementScore() {
     score++;
-    scoreBox.setText("Score: " + score);
+    this.scoreBox.setText("Score: " + score);
   }
 
   /**
@@ -184,29 +205,19 @@ public class Game {
   }
 
   /**
-   * Sets the text box that displays the score.
-   * @param scoreBox as a TextBox
-   */
-  public void setScoreBox(TextBox scoreBox) {
-
-    this.scoreBox = scoreBox;
-
-  }
-
-  /**
    * Initializes Game object to initial state.
    * clears all the collections and re-initializes all game processes
    */
   public void init() {
-    score = 0;
     pad = null;
     slabs = new ArrayList<Slab>();
     balls = new ArrayList<Ball>();
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
     collidables = new ArrayList<Collidable>();
+    jsonables = new ArrayList<JSONable>();
     ch = new CollisionsHandler(collidables);
-    gp = new GameSaveHandler(this, "game-save.json", System.currentTimeMillis());
+    gsh = new GameSaveHandler(this, "game-save.json", System.currentTimeMillis());
   }
 
   public ArrayList<Renderable> getRenderables() {
@@ -232,7 +243,11 @@ public class Game {
     checkDeadSlabs(slabs);
 
     ch.update();
-    gp.update();
+    gsh.update();
+
+    if (slabs.size() == 0) {
+      this.loadLevel(1);
+    }
   }
 
   /**
@@ -243,6 +258,7 @@ public class Game {
     renderables.add(pad);
     moveables.add(pad);
     collidables.add(pad);
+    jsonables.add(pad);
   }
 
   /**
@@ -253,6 +269,7 @@ public class Game {
     renderables.add(pad);
     moveables.add(pad);
     collidables.add(pad);
+    jsonables.add(pad);
   }
 
   /**
@@ -264,6 +281,7 @@ public class Game {
     slabs.add(tmpSlab);
     renderables.add(tmpSlab);
     collidables.add(tmpSlab);
+    jsonables.add(tmpSlab);
   }
 
   /**
@@ -275,6 +293,7 @@ public class Game {
     renderables.add(tmpball);
     moveables.add(tmpball);
     collidables.add(tmpball);
+    jsonables.add(tmpball);
   }
 
   /**
@@ -284,6 +303,7 @@ public class Game {
     slabs.add(slab);
     renderables.add(slab);
     collidables.add(slab);
+    jsonables.add(slab);
   }
 
   public void spawnWall(Wall wall) {
@@ -305,6 +325,7 @@ public class Game {
     renderables.add(ball);
     moveables.add(ball);
     collidables.add(ball);
+    jsonables.add(ball);
   }
 
   /**
@@ -312,6 +333,7 @@ public class Game {
    */
   public void spawnLayout(Layout layout) {
     renderables.add(layout);
+    jsonables.add(layout);
   }
 
   /**
@@ -319,6 +341,7 @@ public class Game {
    */
   public void spawnButton(Button button) {
     renderables.add(button);
+    jsonables.add(button);
   }
 
   /**
@@ -326,11 +349,31 @@ public class Game {
    */
   public void spawnTextBox(TextBox textbox) {
     renderables.add(textbox);
+    jsonables.add(textbox);
+  }
+
+  /**
+   * Spawns a ScoreBox and adds it to any necessary ArrayLists
+   */
+  public void spawnScoreBox(ScoreBox sb) {
+    this.scoreBox = sb;
+    renderables.add(sb);
+    jsonables.add(sb);
+  }
+
+  /**
+   * Spawns a ScoreBox with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnScoreBox() {
+    ScoreBox sb = new ScoreBox("Score: " + score, new PVector(15, 50), 50, win);
+    this.scoreBox = sb;
+    renderables.add(sb);
+    jsonables.add(sb);
   }
 
   /**
    * Checks for dead Slabs and removes them.
-   *
+   *fthe
    * @param slabs the list of Slabs the check through
    */
   public void checkDeadSlabs(ArrayList<Slab> slabs) {
@@ -347,4 +390,13 @@ public class Game {
     this.slabs = notDead;
   }
 
+
+  /**
+   * Loads the first level. TODO: make more generic with multiple levels
+   */
+  public void loadLevel(int levelIndex) {
+    levelIndex = 1;
+    this.init();
+    gsh.loadGame("levels/temp.level1.json", win, in, this);
+  }
 }
