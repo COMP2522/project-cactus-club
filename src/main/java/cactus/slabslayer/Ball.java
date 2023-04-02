@@ -203,7 +203,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
       Slab s = (Slab) toCheck;
 
       // bottom edge check
-      for (int i = 0; i <= s.getWidth(); i += s.getWidth()/checkResolution) {
+      for (int i = 0; i <= s.getWidth(); i += Math.max(s.getWidth()/checkResolution, 1)) {
         PVector segPos = new PVector(s.getXpos() + i, s.getYpos() + s.getHeight());
         if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
           continue;
@@ -212,7 +212,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
       }
 
       // top edge check
-      for (int i = 0; i <= s.getWidth(); i += s.getWidth()/checkResolution) {
+      for (int i = 0; i <= s.getWidth(); i += Math.max(s.getWidth()/checkResolution, 1)) {
         PVector segPos = new PVector(s.getXpos() + i, s.getYpos());
         if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
           continue;
@@ -221,7 +221,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
       }
 
       // left edge check
-      for (int i = 0; i <= s.getHeight(); i += s.getHeight()/checkResolution) {
+      for (int i = 0; i <= s.getHeight(); i += Math.max(s.getHeight()/checkResolution, 1)) {
         PVector segPos = new PVector(s.getXpos(), s.getYpos() + i);
         if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
           continue;
@@ -230,7 +230,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
       }
 
       // right edge check
-      for (int i = 0; i <= s.getHeight(); i += s.getHeight()/checkResolution) {
+      for (int i = 0; i <= s.getHeight(); i += Math.max(s.getHeight()/checkResolution, 1)) {
         PVector segPos = new PVector(s.getXpos() + s.getWidth(), s.getYpos() + i);
         if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
           continue;
@@ -252,7 +252,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
     // reflects the ball at the appropriate angle
     if (collidedWith.getClass() == Paddle.class) {
       Paddle p = (Paddle) collidedWith;
-      for (int i = 0; i <= p.getWidth(); i += p.getWidth()/checkResolution) {
+      for (int i = 0; i <= p.getWidth(); i += Math.max(p.getWidth()/checkResolution, 1)) {
         PVector segPos = new PVector(p.getXpos() + i, p.getYpos());
         if (!(PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
