@@ -1,5 +1,7 @@
 package cactus.slabslayer;
 
+import processing.core.PVector;
+
 import java.util.ArrayList;
 
 /**
@@ -38,7 +40,7 @@ public class Game {
   /**
    * Score instance.
    */
-  TextBox scoreBox;
+  ScoreBox scoreBox;
 
   /**
    * List of all Slab objects
@@ -84,6 +86,7 @@ public class Game {
    * Constructs a new Game object.
    */
   private Game() {
+    score = 0;
     this.init();
   }
 
@@ -94,6 +97,7 @@ public class Game {
    * @param in as an InputHandler object
    */
   private Game(Window w, InputHandler in) {
+    score = 0;
     win = w;
     this.in = in;
     this.init();
@@ -189,7 +193,7 @@ public class Game {
    */
   public void incrementScore() {
     score++;
-    scoreBox.setText("Score: " + score);
+    this.scoreBox.setText("Score: " + score);
   }
 
   /**
@@ -201,21 +205,10 @@ public class Game {
   }
 
   /**
-   * Sets the text box that displays the score.
-   * @param scoreBox as a TextBox
-   */
-  public void setScoreBox(TextBox scoreBox) {
-
-    this.scoreBox = scoreBox;
-
-  }
-
-  /**
    * Initializes Game object to initial state.
    * clears all the collections and re-initializes all game processes
    */
   public void init() {
-    score = 0;
     pad = null;
     slabs = new ArrayList<Slab>();
     balls = new ArrayList<Ball>();
@@ -251,6 +244,10 @@ public class Game {
 
     ch.update();
     gsh.update();
+
+    if (slabs.size() == 0) {
+      this.loadLevel(1);
+    }
   }
 
   /**
@@ -356,6 +353,25 @@ public class Game {
   }
 
   /**
+   * Spawns a ScoreBox and adds it to any necessary ArrayLists
+   */
+  public void spawnScoreBox(ScoreBox sb) {
+    this.scoreBox = sb;
+    renderables.add(sb);
+    jsonables.add(sb);
+  }
+
+  /**
+   * Spawns a ScoreBox with no arguments and adds it to any necessary ArrayLists
+   */
+  public void spawnScoreBox() {
+    ScoreBox sb = new ScoreBox("Score: " + score, new PVector(15, 50), 50, win);
+    this.scoreBox = sb;
+    renderables.add(sb);
+    jsonables.add(sb);
+  }
+
+  /**
    * Checks for dead Slabs and removes them.
    *fthe
    * @param slabs the list of Slabs the check through
@@ -374,11 +390,13 @@ public class Game {
     this.slabs = notDead;
   }
 
+
   /**
    * Loads the first level. TODO: make more generic with multiple levels
    */
   public void loadLevel(int levelIndex) {
     levelIndex = 1;
     this.init();
+    gsh.loadGame("levels/temp.level1.json", win, in, this);
   }
 }

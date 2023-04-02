@@ -8,23 +8,23 @@ public class TextBox extends GameElement {
   /**
    * Text in the text box.
    */
-  private String text;
+  protected String text;
 
   /**
    * The font size for the text.
    */
-  private int size;
+  protected int size;
 
   /**
    * The x and y coordinates of this text box in relation
    * to the layout it's nested in.
    */
-  private PVector localPos;
+  protected PVector localPos;
 
   /**
    * The game window.
    */
-  private Window window;
+  protected Window window;
 
   /**
    * Constructs a new text box with a default message and size.

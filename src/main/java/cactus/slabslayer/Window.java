@@ -44,21 +44,14 @@ public class Window extends PApplet {
 
     game.spawnBall();
 
-    TextBox scoreBox = new TextBox("Score: " + game.getScore(), new PVector(15, 50), 50, this);
-    game.setScoreBox(scoreBox);
-    game.spawnTextBox(scoreBox);
+    game.spawnScoreBox();
+
+
 
 
     /*
      * Spawn rows of slabs.
      */
-    for (int i = 1; i <= 18; i++) {
-      game.spawnSlab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f, 5, 0, 0, this);
-    }
-
-    for (int i = 1; i <= 18; i++) {
-      game.spawnSlab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 1, 5, 0, 0, this);
-    }
 
     for (int i = 1; i <= 18; i++) {
       game.spawnSlab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 2, 5, 0, 0, this);

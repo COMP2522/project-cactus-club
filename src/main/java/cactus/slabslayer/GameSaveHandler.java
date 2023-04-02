@@ -1,5 +1,6 @@
 package cactus.slabslayer;
 
+import processing.core.PVector;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 
@@ -171,6 +172,13 @@ public class GameSaveHandler extends GameProcess {
           TextBox textboxOutput = (TextBox) textbox.fromJSON(jsonElement.toString());
           System.out.println(textboxOutput.toJSON());
           game.spawnTextBox(textboxOutput);
+          break;
+        case "ScoreBox":
+          ScoreBox scorebox = new ScoreBox(window);
+          System.out.println(jsonElement.toString());
+          ScoreBox scoreboxoutput = (ScoreBox) scorebox.fromJSON(jsonElement.toString());
+          System.out.println(scoreboxoutput.toJSON());
+          game.spawnScoreBox(scoreboxoutput);
           break;
         default:
           throw new IllegalArgumentException("Unknown game element type: " + type);
