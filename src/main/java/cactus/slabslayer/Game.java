@@ -391,13 +391,30 @@ public class Game {
   }
 
   /**
-   * Loads the first level. TODO: make more generic with multiple levels
+   * Loads the given level.
+   * @param levelIndex as an int
    */
   public void loadLevel(int levelIndex) {
-    levelIndex = 1;
     this.init();
-    gsh.loadGame("levels/temp.level1.json", win, in, this);
+    gsh.loadGame( String.format("levels/level%d.json", levelIndex), win, in, this );
   }
+
+
+  /**
+   * Loads the start screen.
+   */
+  public void loadStartScreen() {
+    this.init();
+  }
+
+
+  /**
+   * Loads the game over screen.
+   */
+  public void loadGameOverScreen() {
+    this.init();
+  }
+
 
   /**
    * Tells GameSaveHandler to save the current game state to a certain directory
