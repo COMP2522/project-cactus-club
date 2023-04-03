@@ -399,6 +399,23 @@ public class Game {
     gsh.loadGame("levels/temp.level1.json", win, in, this);
   }
 
+
+  /**
+   * Loads the start screen.
+   */
+  public void loadStartScreen() {
+    this.init();
+  }
+
+
+  /**
+   * Loads the game over screen.
+   */
+  public void loadGameOverScreen() {
+    this.init();
+  }
+
+
   /**
    * Tells GameSaveHandler to save the current game state to a certain directory
    *
