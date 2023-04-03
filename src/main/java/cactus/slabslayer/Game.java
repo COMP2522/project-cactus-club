@@ -42,6 +42,11 @@ public class Game {
   State currState;
 
   /**
+   * Current level.
+   */
+  int currLevel;
+
+  /**
    * Player's score.
    */
   int score;
@@ -102,6 +107,7 @@ public class Game {
   private Game() {
     score = 0;
     currState = State.START;
+    currLevel = 0;
     loadStartScreen();
   }
 
@@ -116,6 +122,7 @@ public class Game {
     win = w;
     this.in = in;
     currState = State.START;
+    currLevel = 0;
     loadStartScreen();
   }
 
@@ -262,7 +269,7 @@ public class Game {
     gsh.update();
 
     if (currState == State.PLAYING && slabs.size() == 0) {
-      this.loadLevel(1);
+      this.loadNextLevel();
     }
 
   }
@@ -412,10 +419,19 @@ public class Game {
    * @param levelIndex as an int
    */
   public void loadLevel(int levelIndex) {
+    currLevel = levelIndex;
     this.init();
-    gsh.loadGame( String.format("levels/level%d.json", levelIndex), win, in, this );
+    gsh.loadGame( String.format("levels/level%d.json", currLevel), win, in, this );
   }
 
+  /**
+   * Loads the next level in the sequence.
+   */
+  public void loadNextLevel() {
+    currLevel++;
+    this.init();
+    gsh.loadGame( String.format("levels/level%d.json", currLevel), win, in, this );
+  }
 
   /**
    * Loads the start screen.
