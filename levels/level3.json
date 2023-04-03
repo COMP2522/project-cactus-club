@@ -17,6 +17,15 @@
     }
   },
   {
+    "type": "ScoreBox",
+    "constructorVars": {
+      "yPos": 50,
+      "size": 50,
+      "text": "Score: 0",
+      "xPos": 15
+    }
+  },
+  {
     "type": "Slab",
     "constructorVars": {
       "vx": 0,
