@@ -441,6 +441,7 @@ public class Game {
         incrementScore();
         renderables.remove(s);
         collidables.remove(s);
+        jsonables.remove(s);
         continue;
       }
       notDead.add(s);
