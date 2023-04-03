@@ -168,7 +168,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
   /**
    * Moves the ball, reverses velocity if boundary is hit.
    */
-  public void move(InputHandler in) {
+  public void move(InputHandler in) throws InterruptedException {
     xpos += vx;
     ypos += vy;
 
@@ -178,7 +178,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
   /**
    * Executes different code depending on which edge the ball hits
    */
-  private void edgeDetect() {
+  private void edgeDetect() throws InterruptedException {
     // top edge
     if (ypos < 0) {
       vy *= -1;

@@ -1,5 +1,6 @@
 package cactus.slabslayer;
 
+import com.mongodb.client.MongoDatabase;
 import processing.core.PVector;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -30,12 +31,17 @@ public class GameSaveHandler extends GameProcess {
   private long lastAutosaveTime;
 
   /**
+   * The singleton instance of the database handler.
+   */
+  private DatabaseHandler dbh = DatabaseHandler.getInstance();
+
+  /**
    * Constructs a new GameSaveHandler.
    *
    * @param game    the game to save
    * @param saveDir the directory to save the game to
    */
-  public GameSaveHandler(Game game, String saveDir) {
+  public GameSaveHandler(Game game, String saveDir) throws InterruptedException {
     lastAutosaveTime = System.currentTimeMillis();
     this.game = game;
     this.saveDir = saveDir;
@@ -48,7 +54,7 @@ public class GameSaveHandler extends GameProcess {
    * @param saveDir          the directory to save the game to
    * @param lastAutosaveTime the time of the last autosave
    */
-  public GameSaveHandler(Game game, String saveDir, long lastAutosaveTime) {
+  public GameSaveHandler(Game game, String saveDir, long lastAutosaveTime) throws InterruptedException {
     this.lastAutosaveTime = lastAutosaveTime;
     this.game = game;
     this.saveDir = saveDir;
@@ -65,6 +71,8 @@ public class GameSaveHandler extends GameProcess {
       saveGame(game.getJsonables(), saveDir);
       System.out.println("Autosave completed.");
       lastAutosaveTime = currentTime;
+      MongoDatabase db = dbh.getDatabase();
+      DatabaseHandler.save(db, "game-save.json");
     }
   }
 
@@ -191,7 +199,7 @@ public class GameSaveHandler extends GameProcess {
    *
    * @param args the command line arguments
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
     // Create a window and input handler
     Window window = new Window();
     InputHandler in = new InputHandler(window);

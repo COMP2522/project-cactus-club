@@ -36,10 +36,18 @@ public class Window extends PApplet {
 
     in = new InputHandler(this);
 
-    game = Game.getGameInstance();
+    try {
+      game = Game.getGameInstance();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
     game.setWin(this);
     game.setIn(in);
-    game.init();
+    try {
+      game.init();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
 
   }
 
@@ -47,7 +55,11 @@ public class Window extends PApplet {
    * Periodically runs during program execution.
    */
   public void draw() {
-    game.update();
+    try {
+      game.update();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**

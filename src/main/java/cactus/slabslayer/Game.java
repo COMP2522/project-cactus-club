@@ -128,7 +128,7 @@ public class Game {
    * Gets the game instance.
    * @return gameInstance as a Game object
    */
-  public static Game getGameInstance() {
+  public static Game getGameInstance() throws InterruptedException {
 
     if (gameInstance == null) {
       gameInstance = new Game();
@@ -142,7 +142,7 @@ public class Game {
    * Gets the game instance.
    * @return gameInstance as a Game object
    */
-  public static Game getGameInstance(Window w, InputHandler in) {
+  public static Game getGameInstance(Window w, InputHandler in) throws InterruptedException {
 
     if (gameInstance == null) {
       gameInstance = new Game(w, in);
@@ -245,7 +245,7 @@ public class Game {
    * Initializes Game object to initial state.
    * clears all the collections and re-initializes all game processes
    */
-  public void init() {
+  public void init() throws InterruptedException {
     pad = null;
     slabs = new ArrayList<Slab>();
     balls = new ArrayList<Ball>();
@@ -264,7 +264,7 @@ public class Game {
   /**
    * Runs periodically in the processing main loop. Handles timing of all process execution.
    */
-  public void update() {
+  public void update() throws InterruptedException {
     win.background(200, 200, 255);
 
     for (Moveable m : moveables) {
@@ -452,7 +452,7 @@ public class Game {
    * Loads the given level.
    * @param levelIndex as an int
    */
-  public void loadLevel(int levelIndex) {
+  public void loadLevel(int levelIndex) throws InterruptedException {
     currLevel = levelIndex;
     this.init();
     gsh.loadGame( String.format("levels/level%d.json", currLevel), win, in, this );
@@ -461,7 +461,7 @@ public class Game {
   /**
    * Loads the next level in the sequence.
    */
-  public void loadNextLevel() {
+  public void loadNextLevel() throws InterruptedException {
     currLevel++;
     this.init();
     gsh.loadGame( String.format("levels/level%d.json", currLevel), win, in, this );
@@ -470,7 +470,7 @@ public class Game {
   /**
    * Loads the start screen.
    */
-  public void loadStartScreen() {
+  public void loadStartScreen() throws InterruptedException {
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout startScreen = new Layout(win);
@@ -486,7 +486,7 @@ public class Game {
   /**
    * Loads the game over screen.
    */
-  public void loadGameOverScreen() {
+  public void loadGameOverScreen() throws InterruptedException {
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout endScreen = new Layout(win);
