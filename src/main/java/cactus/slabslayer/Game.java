@@ -28,6 +28,25 @@ public class Game {
   InputHandler in;
 
   /**
+   * Possible states that the player's game can be in.
+   */
+  static enum State {
+    START,
+    PLAYING,
+    GAMEOVER
+  }
+
+  /**
+   * Current state of the game.
+   */
+  State currState;
+
+  /**
+   * Current level.
+   */
+  int currLevel;
+
+  /**
    * Player's score.
    */
   int score;
@@ -87,7 +106,8 @@ public class Game {
    */
   private Game() {
     score = 0;
-    this.init();
+    currState = State.START;
+    currLevel = 0;
   }
 
   /**
@@ -100,7 +120,8 @@ public class Game {
     score = 0;
     win = w;
     this.in = in;
-    this.init();
+    currState = State.START;
+    currLevel = 0;
   }
 
   /**
@@ -170,6 +191,22 @@ public class Game {
    */
   public ArrayList<JSONable> getJsonables() {
     return jsonables;
+  }
+
+  /**
+   * Gets the current state.
+   * @return currState as a State enum
+   */
+  public State getCurrState() {
+    return currState;
+  }
+
+  /**
+   * Set the current state.
+   * @param currState as a State enum
+   */
+  public void setCurrState(State currState) {
+    this.currState = currState;
   }
 
   /**
@@ -245,9 +282,30 @@ public class Game {
     ch.update();
     gsh.update();
 
-    if (slabs.size() == 0) {
-      this.loadLevel(1);
+    if (currState == State.START) {
+
+      if (win.mousePressed) {
+        currState = State.PLAYING;
+      } else {
+        loadStartScreen();
+      }
+
     }
+
+    if (currState == State.PLAYING && slabs.size() == 0) {
+      loadNextLevel();
+    }
+
+    if (currState == State.GAMEOVER) {
+      loadGameOverScreen();
+
+      if (win.mousePressed) {
+        score = 0;
+        currLevel = 0;
+        currState = State.PLAYING;
+      }
+    }
+
   }
 
   /**
@@ -395,16 +453,33 @@ public class Game {
    * @param levelIndex as an int
    */
   public void loadLevel(int levelIndex) {
+    currLevel = levelIndex;
     this.init();
-    gsh.loadGame( String.format("levels/level%d.json", levelIndex), win, in, this );
+    gsh.loadGame( String.format("levels/level%d.json", currLevel), win, in, this );
   }
 
+  /**
+   * Loads the next level in the sequence.
+   */
+  public void loadNextLevel() {
+    currLevel++;
+    this.init();
+    gsh.loadGame( String.format("levels/level%d.json", currLevel), win, in, this );
+  }
 
   /**
    * Loads the start screen.
    */
   public void loadStartScreen() {
     this.init();
+//    gsh.loadGame("levels/startscreen.json", win, in, this);
+    Layout startScreen = new Layout(win);
+    spawnLayout(startScreen);
+    TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, win);
+    startScreen.addLayoutElement(title);
+    TextBox desc = new TextBox("Press left mouse button to start...", new PVector(195, 300), 30, win);
+    startScreen.addLayoutElement(desc);
+//    save("levels/startscreen.json");
   }
 
 
@@ -413,6 +488,19 @@ public class Game {
    */
   public void loadGameOverScreen() {
     this.init();
+//    gsh.loadGame("levels/startscreen.json", win, in, this);
+    Layout endScreen = new Layout(win);
+    spawnLayout(endScreen);
+
+    TextBox title = new TextBox("GAME OVER", new PVector(205, 250), 80, win);
+    endScreen.addLayoutElement(title);
+
+    TextBox finalScore = new TextBox("Your score: " + score, new PVector(320, 300), 30, win);
+    endScreen.addLayoutElement(finalScore);
+
+    TextBox desc = new TextBox("Press left mouse button to play again...", new PVector(160, 350), 30, win);
+    endScreen.addLayoutElement(desc);
+//    save("levels/gameoverscreen.json");
   }
 
 
