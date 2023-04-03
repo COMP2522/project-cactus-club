@@ -28,6 +28,20 @@ public class Game {
   InputHandler in;
 
   /**
+   * Possible states that the player's game can be in.
+   */
+  enum State {
+    START,
+    PLAYING,
+    GAMEOVER
+  }
+
+  /**
+   * Current state of the game.
+   */
+  State currState;
+
+  /**
    * Player's score.
    */
   int score;
@@ -87,7 +101,8 @@ public class Game {
    */
   private Game() {
     score = 0;
-    this.init();
+    currState = State.START;
+    loadStartScreen();
   }
 
   /**
@@ -100,7 +115,8 @@ public class Game {
     score = 0;
     win = w;
     this.in = in;
-    this.init();
+    currState = State.START;
+    loadStartScreen();
   }
 
   /**
@@ -245,9 +261,10 @@ public class Game {
     ch.update();
     gsh.update();
 
-    if (slabs.size() == 0) {
+    if (currState == State.PLAYING && slabs.size() == 0) {
       this.loadLevel(1);
     }
+
   }
 
   /**
