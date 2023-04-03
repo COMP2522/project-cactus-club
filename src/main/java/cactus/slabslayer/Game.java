@@ -1,5 +1,6 @@
 package cactus.slabslayer;
 
+import com.mongodb.client.MongoDatabase;
 import processing.core.PVector;
 
 import java.util.ArrayList;
@@ -102,9 +103,14 @@ public class Game {
   GameSaveHandler gsh;
 
   /**
+   * Instance of DatabaseHandler for saving to MongoDB.
+   */
+  private DatabaseHandler dbh = DatabaseHandler.getInstance();
+
+  /**
    * Constructs a new Game object.
    */
-  private Game() {
+  private Game() throws InterruptedException {
     score = 0;
     currState = State.START;
     currLevel = 0;
@@ -116,7 +122,7 @@ public class Game {
    * @param w as a Window object
    * @param in as an InputHandler object
    */
-  private Game(Window w, InputHandler in) {
+  private Game(Window w, InputHandler in) throws InterruptedException {
     score = 0;
     win = w;
     this.in = in;
@@ -305,6 +311,8 @@ public class Game {
         currState = State.PLAYING;
       }
     }
+    MongoDatabase db = dbh.getDatabase();
+    DatabaseHandler.save(db, "game-save.json");
 
   }
 
