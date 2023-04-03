@@ -33,6 +33,7 @@ public class Window extends PApplet {
    * Runs once at the start of execution.
    */
   public void setup() {
+
     in = new InputHandler(this);
 
     game = Game.getGameInstance();
@@ -40,22 +41,6 @@ public class Window extends PApplet {
     game.setIn(in);
     game.init();
 
-    game.spawnPaddle();
-
-    game.spawnBall();
-
-    game.spawnScoreBox();
-
-
-
-
-    /*
-     * Spawn rows of slabs.
-     */
-
-    for (int i = 1; i <= 18; i++) {
-      game.spawnSlab(this.width / 20f, this.height / 35f, 1, (this.width / 20f) * i, this.height / 20f + this.height / 35f * 2, 5, 0, 0, this);
-    }
   }
 
   /**
