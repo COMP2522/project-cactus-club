@@ -108,7 +108,6 @@ public class Game {
     score = 0;
     currState = State.START;
     currLevel = 0;
-    loadStartScreen();
   }
 
   /**
@@ -123,7 +122,6 @@ public class Game {
     this.in = in;
     currState = State.START;
     currLevel = 0;
-    loadStartScreen();
   }
 
   /**
@@ -283,6 +281,16 @@ public class Game {
 
     ch.update();
     gsh.update();
+
+    if (currState == State.START) {
+
+      if (win.keyPressed) {
+        currState = State.PLAYING;
+      } else {
+        loadStartScreen();
+      }
+
+    }
 
     if (currState == State.PLAYING && slabs.size() == 0) {
       loadNextLevel();
@@ -458,6 +466,14 @@ public class Game {
    */
   public void loadStartScreen() {
     this.init();
+//    gsh.loadGame("levels/startscreen.json", win, in, this);
+    Layout startScreen = new Layout(win);
+    spawnLayout(startScreen);
+    TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, win);
+    startScreen.addLayoutElement(title);
+    TextBox desc = new TextBox("Press any key to start...", new PVector(255, 300), 30, win);
+    startScreen.addLayoutElement(desc);
+//    save("levels/startscreen.json");
   }
 
 
