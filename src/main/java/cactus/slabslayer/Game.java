@@ -390,7 +390,6 @@ public class Game {
     this.slabs = notDead;
   }
 
-
   /**
    * Loads the first level. TODO: make more generic with multiple levels
    */
@@ -398,5 +397,14 @@ public class Game {
     levelIndex = 1;
     this.init();
     gsh.loadGame("levels/temp.level1.json", win, in, this);
+  }
+
+  /**
+   * Tells GameSaveHandler to save the current game state to a certain directory
+   *
+   * @params dir directory to store the .json save file
+   */
+  public void save(String dir) {
+    gsh.saveGame(jsonables, dir);
   }
 }
