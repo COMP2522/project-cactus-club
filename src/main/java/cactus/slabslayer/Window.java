@@ -78,6 +78,12 @@ public class Window extends PApplet {
    */
   public static void main(String[] args) {
     String[] processingArgs = {"window"};
+    try {
+      SoundManager soundManager = SoundManager.getInstance();
+      soundManager.playBGM();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     Window window = new Window();
     PApplet.runSketch(processingArgs, window);
   }

@@ -13,6 +13,11 @@ import java.nio.file.Paths;
  */
 public class SoundManager {
   /**
+   * The singleton instance of the sound manager.
+   */
+  private static SoundManager instance;
+
+  /**
    * The background music.
    */
   private final Clip bgm;
@@ -33,7 +38,13 @@ public class SoundManager {
   private final Clip powerup;
 
 
-  public SoundManager() throws FileNotFoundException, LineUnavailableException {
+  /**
+   * Constructs a new sound manager.
+   *
+   * @throws FileNotFoundException if the audio file is not found
+   * @throws LineUnavailableException if the audio line is unavailable
+   */
+  private SoundManager() throws FileNotFoundException, LineUnavailableException {
     Path bgmPath = Paths.get("assets", "audio", "bgm.wav");
     bgm = loadAudio(bgmPath);
 
@@ -47,6 +58,28 @@ public class SoundManager {
     powerup = loadAudio(powerupPath);
   }
 
+  /**
+   * Gets the singleton instance of the sound manager.
+   *
+   * @return the singleton instance of the sound manager
+   * @throws FileNotFoundException if the audio file is not found
+   * @throws LineUnavailableException if the audio line is unavailable
+   */
+  public static SoundManager getInstance() throws FileNotFoundException, LineUnavailableException {
+    if(instance == null) {
+      instance = new SoundManager();
+    }
+    return instance;
+  }
+
+  /**
+   * Loads an audio file.
+   *
+   * @param path the path to the audio file
+   * @return the audio clip
+   * @throws FileNotFoundException if the audio file is not found
+   * @throws LineUnavailableException if the audio line is unavailable
+   */
   Clip loadAudio(Path path) throws FileNotFoundException, LineUnavailableException {
     try {
       AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path.toFile().toURI()));
