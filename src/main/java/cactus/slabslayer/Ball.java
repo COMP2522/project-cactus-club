@@ -192,7 +192,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
     // bottom edge
 
     if (ypos > window.height) {
-      // do something
+      Game.getGameInstance().setCurrState(Game.State.GAMEOVER);
     }
   }
 

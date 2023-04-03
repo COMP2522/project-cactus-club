@@ -30,7 +30,7 @@ public class Game {
   /**
    * Possible states that the player's game can be in.
    */
-  enum State {
+  static enum State {
     START,
     PLAYING,
     GAMEOVER
@@ -196,6 +196,22 @@ public class Game {
   }
 
   /**
+   * Gets the current state.
+   * @return currState as a State enum
+   */
+  public State getCurrState() {
+    return currState;
+  }
+
+  /**
+   * Set the current state.
+   * @param currState as a State enum
+   */
+  public void setCurrState(State currState) {
+    this.currState = currState;
+  }
+
+  /**
    * Gets the player's score.
    * @return score as an int
    */
@@ -269,7 +285,11 @@ public class Game {
     gsh.update();
 
     if (currState == State.PLAYING && slabs.size() == 0) {
-      this.loadNextLevel();
+      loadNextLevel();
+    }
+
+    if (currState == State.GAMEOVER) {
+      loadGameOverScreen();
     }
 
   }
