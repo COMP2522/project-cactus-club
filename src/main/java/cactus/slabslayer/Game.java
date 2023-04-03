@@ -284,7 +284,7 @@ public class Game {
 
     if (currState == State.START) {
 
-      if (win.keyPressed) {
+      if (win.mousePressed) {
         currState = State.PLAYING;
       } else {
         loadStartScreen();
@@ -298,6 +298,12 @@ public class Game {
 
     if (currState == State.GAMEOVER) {
       loadGameOverScreen();
+
+      if (win.mousePressed) {
+        score = 0;
+        currLevel = 0;
+        currState = State.PLAYING;
+      }
     }
 
   }
@@ -471,7 +477,7 @@ public class Game {
     spawnLayout(startScreen);
     TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, win);
     startScreen.addLayoutElement(title);
-    TextBox desc = new TextBox("Press any key to start...", new PVector(255, 300), 30, win);
+    TextBox desc = new TextBox("Press left mouse button to start...", new PVector(195, 300), 30, win);
     startScreen.addLayoutElement(desc);
 //    save("levels/startscreen.json");
   }
@@ -482,6 +488,19 @@ public class Game {
    */
   public void loadGameOverScreen() {
     this.init();
+//    gsh.loadGame("levels/startscreen.json", win, in, this);
+    Layout endScreen = new Layout(win);
+    spawnLayout(endScreen);
+
+    TextBox title = new TextBox("GAME OVER", new PVector(205, 250), 80, win);
+    endScreen.addLayoutElement(title);
+
+    TextBox finalScore = new TextBox("Your score: " + score, new PVector(320, 300), 30, win);
+    endScreen.addLayoutElement(finalScore);
+
+    TextBox desc = new TextBox("Press left mouse button to play again...", new PVector(160, 350), 30, win);
+    endScreen.addLayoutElement(desc);
+//    save("levels/gameoverscreen.json");
   }
 
 

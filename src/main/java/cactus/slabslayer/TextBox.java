@@ -141,6 +141,7 @@ public class TextBox extends GameElement {
    */
   @Override
   public void render() {
+    window.fill(255);
     window.textSize(size);
     window.text(text, localPos.x, localPos.y);
   }
