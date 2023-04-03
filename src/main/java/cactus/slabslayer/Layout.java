@@ -62,16 +62,9 @@ public class Layout extends GameElement implements JSONable{
    */
   @Override
   public void render() {
-    // to do
-
-    System.out.println("My Layout");
-
     for (GameElement elem : layoutElements) {
-
       elem.render();
-
     }
-
   }
 
   /**
@@ -86,13 +79,11 @@ public class Layout extends GameElement implements JSONable{
     JSONObject constructorVars = new JSONObject();
     JSONArray layoutElementsArr = new JSONArray();
     for (GameElement elem : layoutElements) {
-//      System.out.println(elem.toJSON());
       layoutElementsArr.append(JSONObject.parse(elem.toJSON()));
     }
     constructorVars.setJSONArray("layoutElements", layoutElementsArr);
     json.setJSONObject("constructorVars", constructorVars);
     return json.toString();
-//    return null;
   }
 
   /**
@@ -157,9 +148,6 @@ public class Layout extends GameElement implements JSONable{
     l2.addLayoutElement(new Layout(new Window()));
 
     l1.addLayoutElement(l2);
-
-//    l1.render();
-
   }
 
 }
