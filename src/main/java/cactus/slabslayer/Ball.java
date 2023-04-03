@@ -172,12 +172,27 @@ public class Ball extends GameElement implements Moveable, Collidable {
     xpos += vx;
     ypos += vy;
 
+    edgeDetect();
+  }
+
+  /**
+   * Executes different code depending on which edge the ball hits
+   */
+  private void edgeDetect() {
+    // top edge
+    if (ypos < 0) {
+      vy *= -1;
+    }
+
+    // left and right edges
     if (xpos < 0 || xpos > window.width) {
       vx *= -1;
     }
 
-    if (ypos < 0 || ypos > window.height) {
-      vy *= -1;
+    // bottom edge
+
+    if (ypos > window.height) {
+      // do something
     }
   }
 
