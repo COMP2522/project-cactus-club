@@ -72,6 +72,11 @@ public class Game {
   ArrayList<Ball> balls;
 
   /**
+   * List of all PowerUp objects.
+   */
+  ArrayList<PowerUp> powerUps;
+
+  /**
    * List of all Renderable objects
    */
   ArrayList<Renderable> renderables;
@@ -249,6 +254,7 @@ public class Game {
     pad = null;
     slabs = new ArrayList<Slab>();
     balls = new ArrayList<Ball>();
+    powerUps = new ArrayList<PowerUp>();
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
     collidables = new ArrayList<Collidable>();
@@ -372,7 +378,10 @@ public class Game {
    * Spawns a PowerUp with no arguments and adds it to any necessary ArrayLists
    */
   public void spawnPowerUp(PowerUp powerUp) {
+    powerUps.add(powerUp);
     renderables.add(powerUp);
+    moveables.add(powerUp);
+    jsonables.add(powerUp);
   }
 
   /**
@@ -439,6 +448,9 @@ public class Game {
     for (Slab s : slabs) {
       if (s.isDead()) {
         incrementScore();
+        if (Math.random() <= s.getPdropChance() / 100) {
+          spawnPowerUp(new PowerUp(0, s.getXpos() + s.getWidth() / 2, s.getYpos() + s.getHeight() / 2, 5, 10, win));
+        }
         renderables.remove(s);
         collidables.remove(s);
         jsonables.remove(s);

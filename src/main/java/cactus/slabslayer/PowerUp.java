@@ -32,6 +32,15 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    */
   float diameter;
 
+  public PowerUp(int type, float xpos, float ypos, float yvel, float diameter, Window window) {
+    this.type = type;
+    this.xpos = xpos;
+    this.ypos = ypos;
+    this.yvel = yvel;
+    this.diameter = diameter;
+    this.window = window;
+  }
+
   /**
    * Set the type of power up.
    *
@@ -150,7 +159,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
   public void render() {
     window.stroke(0);
     window.strokeWeight(4);
-    window.fill(100, 100, 255);
+    window.fill(255, 255, 128);
     window.ellipse(xpos, ypos, diameter, diameter);
   }
 
