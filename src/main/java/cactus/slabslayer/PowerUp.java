@@ -69,7 +69,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
     this.type = randomType.nextInt(4);
     this.xpos = 0;
     this.ypos = 0;
-    this.yvel = 5;
+    this.yvel = 2;
     this.diameter = 10;
   }
 
@@ -150,7 +150,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    */
   @Override
   public void move(InputHandler in) {
-
+    ypos += yvel;
   }
 
   /**
