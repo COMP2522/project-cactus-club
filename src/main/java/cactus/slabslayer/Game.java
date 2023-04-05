@@ -449,7 +449,8 @@ public class Game {
       if (s.isDead()) {
         incrementScore();
         if (Math.random() <= s.getPdropChance() / 100) {
-          spawnPowerUp(new PowerUp(0, s.getXpos() + s.getWidth() / 2, s.getYpos() + s.getHeight() / 2, 5, 10, win));
+          spawnPowerUp(new PowerUp(0, s.getXpos() + s.getWidth() / 2, s.getYpos() + s.getHeight() / 2,
+                  2, 10, win));
         }
         renderables.remove(s);
         collidables.remove(s);
