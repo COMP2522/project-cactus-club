@@ -450,7 +450,7 @@ public class Game {
     for (Slab s : slabs) {
       if (s.isDead()) {
         incrementScore();
-        if (Math.random() <= s.getPdropChance() ) {
+        if (Math.random() <= s.getPdropChance() ) { //divide s.getPdropChance() by 100 to get a percentage, left alone for testing
           spawnPowerUp(new PowerUp(0, s.getXpos() + s.getWidth() / 2, s.getYpos() + s.getHeight() / 2,
                   2, 10, win));
         }
