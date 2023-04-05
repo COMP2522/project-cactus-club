@@ -284,6 +284,7 @@ public class Game {
     }
 
     checkDeadSlabs(slabs);
+    checkPowerUpCollisions(powerUps);
 
     ch.update();
     gsh.update();
@@ -381,6 +382,7 @@ public class Game {
     powerUps.add(powerUp);
     renderables.add(powerUp);
     moveables.add(powerUp);
+    collidables.add(powerUp);
     jsonables.add(powerUp);
   }
 
@@ -448,7 +450,7 @@ public class Game {
     for (Slab s : slabs) {
       if (s.isDead()) {
         incrementScore();
-        if (Math.random() <= s.getPdropChance() / 100) {
+        if (Math.random() <= s.getPdropChance() ) {
           spawnPowerUp(new PowerUp(0, s.getXpos() + s.getWidth() / 2, s.getYpos() + s.getHeight() / 2,
                   2, 10, win));
         }
@@ -460,6 +462,18 @@ public class Game {
       notDead.add(s);
     }
     this.slabs = notDead;
+  }
+
+  public void checkPowerUpCollisions(ArrayList<PowerUp> powerUps) {
+    for (PowerUp p : powerUps) {
+      if (p.isCollidingWith(pad)) {
+        spawnBall();
+        renderables.remove(p);
+        collidables.remove(p);
+        moveables.remove(p);
+        jsonables.remove(p);
+      }
+    }
   }
 
   /**

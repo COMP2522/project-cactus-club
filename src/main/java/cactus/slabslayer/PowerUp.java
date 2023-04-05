@@ -2,6 +2,7 @@ package cactus.slabslayer;
 
 import java.util.Random;
 
+import processing.core.PVector;
 import processing.data.JSONObject;
 
 public class PowerUp extends GameElement implements Moveable, Collidable, JSONable {
@@ -32,6 +33,8 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    */
   float diameter;
 
+  int health;
+
   public PowerUp(int type, float xpos, float ypos, float yvel, float diameter, Window window) {
     this.type = type;
     this.xpos = xpos;
@@ -39,6 +42,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
     this.yvel = yvel;
     this.diameter = diameter;
     this.window = window;
+    health = 1;
   }
 
   /**
@@ -171,8 +175,29 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    */
   @Override
   public boolean isCollidingWith(Object toCheck) {
-    // to do
+    if (toCheck.getClass() == Paddle.class) {
+      if (this.xpos + this.diameter / 2 > ((Paddle) toCheck).getXpos() - ((Paddle) toCheck).getWidth() / 2
+          && this.xpos - this.diameter / 2 < ((Paddle) toCheck).getXpos() + ((Paddle) toCheck).getWidth() / 2
+          && this.ypos + this.diameter / 2 > ((Paddle) toCheck).getYpos() - ((Paddle) toCheck).getHeight() / 2
+          && this.ypos - this.diameter / 2 < ((Paddle) toCheck).getYpos() + ((Paddle) toCheck).getHeight() / 2) {
+        System.out.println("PowerUp collided with paddle");
+        return true;
+      }
+    }
     return false;
+//    if (toCheck.getClass() == Paddle.class) {
+//        Paddle p = (Paddle) toCheck;
+//        // top edge check
+//        for (int i = 0; i <= p.getWidth(); i += Math.max(p.getWidth()/100, 1)) {
+//        PVector segPos = new PVector(p.getXpos() + i, p.getYpos());
+//        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
+//          continue;
+//        }
+//        System.out.println("PowerUp collided with paddle");
+//        return true;
+//      }
+//    }
+//    return false;
   }
 
   /**
@@ -182,7 +207,14 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    */
   @Override
   public void doCollision(Object collidedWith) {
-    // to do
+    if (collidedWith.getClass() == Paddle.class) {
+      health--;
+      switch (this.type) {
+        case 1:
+          //something here to spawn a new ball.
+          break;
+      }
+    }
   }
 
   /**
@@ -224,6 +256,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
       float ypos = constructorVars.getFloat("ypos");
       float yvel = constructorVars.getFloat("yvel");
       float diameter = constructorVars.getFloat("diameter");
+      int health = constructorVars.getInt("health");
 
       PowerUp powerUp = new PowerUp();
 //      powerUp.setRadius(radius);
@@ -232,12 +265,17 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
       powerUp.setYpos(ypos);
       powerUp.setYvel(yvel);
       powerUp.setDiameter(diameter);
+      powerUp.setHealth(health);
 
       return powerUp;
     }
     // handle other types here
 
     throw new IllegalArgumentException("Unknown type: " + type);
+  }
+
+  private void setHealth(int health) {
+    this.health = health;
   }
 
   public static void main(String[] args) {
