@@ -5,20 +5,32 @@ import java.util.Random;
 import processing.data.JSONObject;
 
 public class PowerUp extends GameElement implements Moveable, Collidable, JSONable {
-  float radius;
+//  float radius;
+
+  /**
+   * Type of power up.
+   */
   int type;
+
+  /**
+   * x-position of power up.
+   */
   float xpos;
+
+  /**
+   * y-position of power up.
+   */
   float ypos;
+
+  /**
+   * y-velocity of power up.
+   */
   float yvel;
 
   /**
-   * Set the radius of the power up.
-   *
-   * @param radius radius
+   * Diameter of power up.
    */
-  public void setRadius(float radius) {
-    this.radius = radius;
-  }
+  float diameter;
 
   /**
    * Set the type of power up.
@@ -46,20 +58,10 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    */
   public PowerUp() {
     this.type = randomType.nextInt(4);
-    this.radius = 10;
     this.xpos = 0;
     this.ypos = 0;
     this.yvel = 5;
-
-  }
-
-  /**
-   * Gets the radius of the power up.
-   *
-   * @return radius
-   */
-  public float getRadius() {
-    return radius;
+    this.diameter = 10;
   }
 
   /**
@@ -126,6 +128,15 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
   }
 
   /**
+   * Set the diameter of the power up.
+   *
+   * @param diameter diameter
+   */
+  public void setDiameter(float diameter) {
+    this.diameter = diameter;
+  }
+
+  /**
    * Controls power up movement.
    */
   @Override
@@ -134,11 +145,13 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
   }
 
   /**
-   * Renders the power up in the window.
+   * Renders the power-up in the window.
    */
-  @Override
   public void render() {
-
+    window.stroke(0);
+    window.strokeWeight(4);
+    window.fill(100, 100, 255);
+    window.ellipse(xpos, ypos, diameter, diameter);
   }
 
   /**
@@ -173,11 +186,12 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
-    constructorVars.setFloat("radius", radius);
+//    constructorVars.setFloat("radius", radius);
     constructorVars.setInt("type", type);
     constructorVars.setFloat("xpos", xpos);
     constructorVars.setFloat("ypos", ypos);
     constructorVars.setFloat("yvel", yvel);
+    constructorVars.setFloat("diameter", diameter);
     json.setJSONObject("constructorVars", constructorVars);
     return json.toString();
   }
@@ -195,18 +209,20 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
 
     if ("PowerUp".equals(type)) {
       JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
-      float radius = constructorVars.getFloat("radius");
+//      float radius = constructorVars.getFloat("radius");
       int typeInt = constructorVars.getInt("type");
       float xpos = constructorVars.getFloat("xpos");
       float ypos = constructorVars.getFloat("ypos");
       float yvel = constructorVars.getFloat("yvel");
+      float diameter = constructorVars.getFloat("diameter");
 
       PowerUp powerUp = new PowerUp();
-      powerUp.setRadius(radius);
+//      powerUp.setRadius(radius);
       powerUp.setType(typeInt);
       powerUp.setXpos(xpos);
       powerUp.setYpos(ypos);
       powerUp.setYvel(yvel);
+      powerUp.setDiameter(diameter);
 
       return powerUp;
     }
