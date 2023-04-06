@@ -150,6 +150,22 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
   }
 
   /**
+   * Get the health of the power up.
+   */
+  public int getHealth() {
+    return health;
+  }
+
+  /**
+   * Gets diameter of power up.
+   *
+   * @return diameter
+   */
+  public float getDiameter() {
+    return diameter;
+  }
+
+  /**
    * Controls power up movement.
    */
   @Override
@@ -176,6 +192,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
   @Override
   public boolean isCollidingWith(Object toCheck) {
     if (toCheck.getClass() == Paddle.class) {
+      Paddle p = (Paddle) toCheck;
       if (this.xpos + this.diameter / 2 > ((Paddle) toCheck).getXpos() - ((Paddle) toCheck).getWidth() / 2
           && this.xpos - this.diameter / 2 < ((Paddle) toCheck).getXpos() + ((Paddle) toCheck).getWidth() / 2
           && this.ypos + this.diameter / 2 > ((Paddle) toCheck).getYpos() - ((Paddle) toCheck).getHeight() / 2
@@ -209,11 +226,12 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
   public void doCollision(Object collidedWith) {
     if (collidedWith.getClass() == Paddle.class) {
       health--;
-      switch (this.type) {
-        case 1:
-          //something here to spawn a new ball.
-          break;
-      }
+      //for use with different powerups, relocate to Game.java
+//      switch (this.type) {
+//        case 1:
+//          //something here to spawn a new ball.
+//          break;
+//      }
     }
   }
 

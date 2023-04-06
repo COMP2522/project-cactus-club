@@ -285,6 +285,7 @@ public class Game {
 
     checkDeadSlabs(slabs);
     checkPowerUpCollisions(powerUps);
+    checkDeadBalls(balls);
 
     ch.update();
     gsh.update();
@@ -301,6 +302,10 @@ public class Game {
 
     if (currState == State.PLAYING && slabs.size() == 0) {
       loadNextLevel();
+    }
+
+    if (currState == State.PLAYING && balls.size() == 0) {
+      currState = State.GAMEOVER;
     }
 
     if (currState == State.GAMEOVER) {
@@ -450,7 +455,7 @@ public class Game {
     for (Slab s : slabs) {
       if (s.isDead()) {
         incrementScore();
-        if (Math.random() <= s.getPdropChance() ) { //divide s.getPdropChance() by 100 to get a percentage, left alone for testing
+        if (Math.random() <= s.getPdropChance() / 100) { //divide s.getPdropChance() by 100 to get a percentage, left alone for testing
           spawnPowerUp(new PowerUp(0, s.getXpos() + s.getWidth() / 2, s.getYpos() + s.getHeight() / 2,
                   2, 10, win));
         }
@@ -465,15 +470,42 @@ public class Game {
   }
 
   public void checkPowerUpCollisions(ArrayList<PowerUp> powerUps) {
+    ArrayList<PowerUp> notDead = new ArrayList<PowerUp>();
     for (PowerUp p : powerUps) {
-      if (p.isCollidingWith(pad)) {
-        spawnBall();
-        renderables.remove(p);
+//      if (p.isCollidingWith(pad)) {
+//        collidables.remove(p);
+//        renderables.remove(p);
+//        moveables.remove(p);
+//        jsonables.remove(p);
+//        spawnBall();
+//      }
+      if (p.getHealth() < 1) {
+        incrementScore();
         collidables.remove(p);
+        renderables.remove(p);
         moveables.remove(p);
         jsonables.remove(p);
+        spawnBall();
+        continue;
       }
+      notDead.add(p);
     }
+    this.powerUps = notDead;
+  }
+
+  public void checkDeadBalls(ArrayList<Ball> balls) {
+    ArrayList<Ball> notDead = new ArrayList<Ball>();
+    for (Ball b : balls) {
+      if (b.getYpos() > win.height) {
+        collidables.remove(b);
+        renderables.remove(b);
+        moveables.remove(b);
+        jsonables.remove(b);
+        continue;
+      }
+      notDead.add(b);
+    }
+    this.balls = notDead;
   }
 
   /**
