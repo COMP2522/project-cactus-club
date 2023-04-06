@@ -222,6 +222,15 @@ public class Paddle extends GameElement implements Moveable, Collidable {
         return true;
       }
     }
+    if (toCheck.getClass() == PowerUp.class) {
+      PowerUp pu = (PowerUp) toCheck;
+      if (pu.xpos + pu.getDiameter()/2 > this.xpos &&
+              pu.xpos + pu.getDiameter()/2 < this.xpos + width &&
+              pu.ypos + pu.getDiameter()/2 > this.ypos &&
+              pu.ypos + pu.getDiameter()/2 < this.ypos + height) {
+        return true;
+      }
+    }
     return false;
   }
 
