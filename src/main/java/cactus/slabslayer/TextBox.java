@@ -3,6 +3,9 @@ package cactus.slabslayer;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
+/**
+ * Represents a text box.
+ */
 public class TextBox extends GameElement {
 
   /**
@@ -50,13 +53,13 @@ public class TextBox extends GameElement {
    * a custom message, position, and size.
    *
    * @param text as a String
-   * @param xPos as an int
-   * @param yPos as an int
+   * @param xpos as an int
+   * @param ypos as an int
    * @param size as an int
    */
-  public TextBox(String text, int xPos, int yPos, int size, int rgb, Window window) {
+  public TextBox(String text, int xpos, int ypos, int size, int rgb, Window window) {
     this.text = text;
-    this.localPos = new PVector(xPos, yPos);
+    this.localPos = new PVector(xpos, ypos);
     this.size = size;
     this.rgb = rgb;
     this.window = window;
@@ -118,6 +121,7 @@ public class TextBox extends GameElement {
 
   /**
    * Get the RGB values of the text.
+   *
    * @return rgb as an int
    */
   public int getRgb() {
@@ -126,6 +130,7 @@ public class TextBox extends GameElement {
 
   /**
    * Set the RGB values of the text.
+   *
    * @param rgb as an int
    */
   public void setRgb(int rgb) {
@@ -146,7 +151,7 @@ public class TextBox extends GameElement {
    *
    * @param posX as an int
    */
-  public void setLocalXPos(int posX) {
+  public void setLocalXpos(int posX) {
     this.localPos.x = posX;
   }
 
@@ -155,7 +160,7 @@ public class TextBox extends GameElement {
    *
    * @param posY as an int
    */
-  public void setLocalYPos(int posY) {
+  public void setLocalYpos(int posY) {
     this.localPos.y = posY;
   }
 
@@ -173,9 +178,6 @@ public class TextBox extends GameElement {
    * Converts this object to a JSON string.
    *
    * @return JSON string
-   * text = "Text goes here!";
-   * localPos = new PVector(0, 0);
-   * size = 50;
    */
   @Override
   public String toJson() {
@@ -205,21 +207,12 @@ public class TextBox extends GameElement {
     if ("TextBox".equals(type)) {
       JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
       String text = constructorVars.getString("text");
-      int xPos = constructorVars.getInt("xPos");
-      int yPos = constructorVars.getInt("yPos");
+      int xpos = constructorVars.getInt("xPos");
+      int ypos = constructorVars.getInt("yPos");
       int size = constructorVars.getInt("size");
-      return new TextBox(text, new PVector(xPos, yPos), size, rgb, window);
+      return new TextBox(text, new PVector(xpos, ypos), size, rgb, window);
     }
     // handle other types here
     throw new IllegalArgumentException("Unknown type: " + type);
   }
-
-  public static void main(String[] args) {
-    Window window = new Window();
-    TextBox textBox = new TextBox("here", 100, 100, 50, 255, window);
-    System.out.println(textBox.toJson());
-    TextBox textBox1 = (TextBox) textBox.fromJson(textBox.toJson());
-    System.out.println(textBox1.toJson());
-  }
-
 }
