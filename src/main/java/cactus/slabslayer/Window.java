@@ -43,7 +43,11 @@ public class Window extends PApplet {
    * Periodically runs during program execution.
    */
   public void draw() {
-    game.update();
+    try {
+      game.update();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**

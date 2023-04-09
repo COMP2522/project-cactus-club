@@ -5,5 +5,5 @@ package cactus.slabslayer;
  * to be called periodically.
  */
 public abstract class GameProcess {
-  public abstract void update();
+  public abstract void update() throws InterruptedException;
 }

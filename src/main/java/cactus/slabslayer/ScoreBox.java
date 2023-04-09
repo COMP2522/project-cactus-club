@@ -50,7 +50,7 @@ public class ScoreBox extends TextBox {
    * @return text box
    */
   @Override
-  public Object fromJson(String json) {
+  public ScoreBox fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type  = jsonObject.getString("type");
 

@@ -121,7 +121,7 @@ public class Wall extends GameElement {
    * @return Slab object
    */
   @Override
-  public Object fromJson(String json) {
+  public Wall fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 

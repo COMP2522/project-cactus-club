@@ -317,7 +317,7 @@ public class Slab extends GameElement implements Collidable {
    * @return Slab object
    */
   @Override
-  public Object fromJson(String json) {
+  public Slab fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 

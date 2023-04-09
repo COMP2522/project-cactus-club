@@ -1,6 +1,9 @@
 package cactus.slabslayer;
 
-import static processing.core.PApplet.loadJSONArray;
+import com.mongodb.client.MongoDatabase;
+import processing.core.PVector;
+import processing.data.JSONArray;
+import processing.data.JSONObject;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +16,9 @@ import processing.data.JSONObject;
  * Represents the game process that handles saving and loading
  * the game.
  */
+import static processing.core.PApplet.loadJSONArray;
+import static processing.core.PApplet.loadJSONObject;
+
 public class GameSaveHandler extends GameProcess {
   /**
    * The interval between autosaves in milliseconds.
@@ -60,13 +66,21 @@ public class GameSaveHandler extends GameProcess {
    * Updates the save file.
    */
   @Override
-  public void update() {
+  public void update() throws InterruptedException {
     long currentTime = System.currentTimeMillis();
     if (currentTime - lastAutosaveTime >= AUTOSAVE_INTERVAL_MS) {
       // Save the game elements periodically
       saveGame(game.getJsonables(), saveDir);
       System.out.println("Autosave completed.");
       lastAutosaveTime = currentTime;
+
+      JSONArray jsonArray = loadJSONArray(new File(saveDir));// create the JSON object to save
+      MongoDatabase db = DatabaseHandler.getInstance().getDatabase();
+
+      Thread saveThread = new Thread(() -> {
+        DatabaseHandler.save(db, jsonArray);
+      });
+      saveThread.start();
     }
   }
 
@@ -110,8 +124,6 @@ public class GameSaveHandler extends GameProcess {
    * @param game   the game to load
    */
   public void loadGame(String dir, Window window, InputHandler in, Game game) {
-    // TODO Remove print statements once we are done testing
-
     JSONArray jsonElements = loadJSONArray(new File(dir));
     for (int i = 0; i < jsonElements.size(); i++) {
       JSONObject jsonElement = jsonElements.getJSONObject(i);
@@ -121,66 +133,39 @@ public class GameSaveHandler extends GameProcess {
       switch (type) {
         case "Paddle":
           Paddle pad = new Paddle(window);
-          System.out.println(jsonElement.toString());
-          Paddle padOutput = (Paddle) pad.fromJson(jsonElement.toString());
-          System.out.println(padOutput.toJson());
-          game.spawnPaddle(padOutput);
+          game.spawnPaddle(pad.fromJSON(jsonElement.toString()));
           break;
         case "PowerUp":
           PowerUp powerUp = new PowerUp();
-          System.out.println(jsonElement.toString());
-          PowerUp powOutput = (PowerUp) powerUp.fromJson(jsonElement.toString());
-          System.out.println(powOutput.toJson());
-          game.spawnPowerUp(powOutput);
+          game.spawnPowerUp(powerUp.fromJSON(jsonElement.toString()));
           break;
         case "Ball":
           Ball ball = new Ball(window);
-          System.out.println(jsonElement.toString());
-          Ball ballOutput = (Ball) ball.fromJson(jsonElement.toString());
-          System.out.println(ballOutput.toJson());
-          game.spawnBall(ballOutput);
+          game.spawnBall(ball.fromJSON(jsonElement.toString()));
           break;
         case "Slab":
           Slab slab = new Slab(1, 1, 1, 1, 1, 1, 1, 1, window);
-          System.out.println(jsonElement.toString());
-          Slab slabOutput = (Slab) slab.fromJson(jsonElement.toString());
-          System.out.println(slabOutput.toJson());
-          game.spawnSlab(slabOutput);
+          game.spawnSlab(slab.fromJSON(jsonElement.toString()));
           break;
         case "Wall":
           Wall wall = new Wall(1f, 1f, 1f, 1f, 1f, 1f, window);
-          System.out.println(jsonElement.toString());
-          Wall wallOutput = (Wall) wall.fromJson(jsonElement.toString());
-          System.out.println(wallOutput.toJson());
-          game.spawnWall(wallOutput);
+          game.spawnWall(wall.fromJSON(jsonElement.toString()));
           break;
         case "Layout":
           Layout layout = new Layout(window);
-          System.out.println(jsonElement.toString());
-          Layout layoutOutput = (Layout) layout.fromJson(jsonElement.toString());
-          System.out.println(layoutOutput.toJson());
-          game.spawnLayout(layoutOutput);
+          game.spawnLayout(layout.fromJSON(jsonElement.toString()));
           break;
         case "Button":
           Button button = new Button(new Window());
-          System.out.println(jsonElement.toString());
-          Button buttonOutput = (Button) button.fromJson(jsonElement.toString());
-          System.out.println(buttonOutput.toJson());
-          game.spawnButton(buttonOutput);
+          game.spawnButton(button.fromJSON(jsonElement.toString()));
           break;
         case "TextBox":
           TextBox textbox = new TextBox(window);
-          System.out.println(jsonElement.toString());
-          TextBox textboxOutput = (TextBox) textbox.fromJson(jsonElement.toString());
-          System.out.println(textboxOutput.toJson());
-          game.spawnTextBox(textboxOutput);
+          game.spawnTextBox(textbox.fromJSON(jsonElement.toString()));
           break;
         case "ScoreBox":
           ScoreBox scorebox = new ScoreBox(window);
-          System.out.println(jsonElement.toString());
-          ScoreBox scoreboxoutput = (ScoreBox) scorebox.fromJson(jsonElement.toString());
-          System.out.println(scoreboxoutput.toJson());
-          game.spawnScoreBox(scoreboxoutput);
+          game.spawnScoreBox(scorebox.fromJSON(jsonElement.toString()));
           break;
         default:
           throw new IllegalArgumentException("Unknown game element type: " + type);

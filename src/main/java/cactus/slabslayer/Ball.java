@@ -59,8 +59,8 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * @param scene the Window object in which the ball will be rendered and moved
    */
   public Ball(Window scene) {
-    xpos = scene.width / 2f;
-    ypos = scene.height / 2f;
+    xpos = scene.width / 2;
+    ypos = scene.height / 2;
 
     vy = 7;
     vx = 2;
@@ -313,7 +313,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * @return new Ball object
    */
   @Override
-  public Object fromJson(String json) {
+  public Ball fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
