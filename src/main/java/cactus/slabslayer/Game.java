@@ -430,7 +430,7 @@ public class Game {
    * Spawns a ScoreBox with no arguments and adds it to any necessary ArrayLists
    */
   public void spawnScoreBox() {
-    ScoreBox sb = new ScoreBox("Score: " + score, new PVector(15, 50), 50, win);
+    ScoreBox sb = new ScoreBox("Score: " + score, new PVector(15, 50), 50, 255, win);
     this.scoreBox = sb;
     renderables.add(sb);
     jsonables.add(sb);
@@ -515,9 +515,9 @@ public class Game {
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout startScreen = new Layout(win);
     spawnLayout(startScreen);
-    TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, win);
+    TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, 255, win);
     startScreen.addLayoutElement(title);
-    TextBox desc = new TextBox("Press left mouse button to start...", new PVector(195, 300), 30, win);
+    TextBox desc = new TextBox("Press left mouse button to start...", new PVector(195, 300), 30, 255, win);
     startScreen.addLayoutElement(desc);
 //    save("levels/startscreen.json");
   }
@@ -540,13 +540,13 @@ public class Game {
     Layout endScreen = new Layout(win);
     spawnLayout(endScreen);
 
-    TextBox title = new TextBox("GAME OVER", new PVector(205, 250), 80, win);
+    TextBox title = new TextBox("GAME OVER", new PVector(205, 250), 80, 255, win);
     endScreen.addLayoutElement(title);
 
-    TextBox finalScore = new TextBox("Your score: " + score, new PVector(320, 300), 30, win);
+    TextBox finalScore = new TextBox("Your score: " + score, new PVector(320, 300), 30, 255, win);
     endScreen.addLayoutElement(finalScore);
 
-    TextBox desc = new TextBox("Press left mouse button to play again...", new PVector(160, 350), 30, win);
+    TextBox desc = new TextBox("Press left mouse button to play again...", new PVector(160, 350), 30, 255, win);
     endScreen.addLayoutElement(desc);
 //    save("levels/gameoverscreen.json");
   }
