@@ -535,9 +535,9 @@ public class Game {
     spawnLayout(startScreen);
     TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, 40, win);
     startScreen.addLayoutElement(title);
-    StartButton sb = new StartButton("Start", 150, 50, new PVector(325, 270), win);
-    startScreen.addLayoutElement(sb);
-    spawnButton(sb);
+    PlayButton pb = new PlayButton("Start", 150, 50, new PVector(325, 270), win);
+    startScreen.addLayoutElement(pb);
+    spawnButton(pb);
 //    save("levels/startscreen.json");
 
   }
@@ -559,9 +559,9 @@ public class Game {
     TextBox finalScore = new TextBox("Your score: " + score, new PVector(300, 300), 40, 0, win);
     endScreen.addLayoutElement(finalScore);
 
-    StartButton sb = new StartButton("Replay", 150, 50, new PVector(325, 320), win);
-    endScreen.addLayoutElement(sb);
-    spawnButton(sb);
+    PlayButton pb = new PlayButton("Replay", 150, 50, new PVector(325, 320), win);
+    endScreen.addLayoutElement(pb);
+    spawnButton(pb);
 
 //    save("levels/gameoverscreen.json");
   }
