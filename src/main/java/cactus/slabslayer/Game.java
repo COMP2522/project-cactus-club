@@ -291,13 +291,7 @@ public class Game {
     gsh.update();
 
     if (currState == State.START) {
-
-      if (win.mousePressed) {
-        currState = State.PLAYING;
-      } else {
-        loadStartScreen();
-      }
-
+      loadStartScreen();
     }
 
     if (currState == State.PLAYING && slabs.size() == 0) {
@@ -310,12 +304,6 @@ public class Game {
 
     if (currState == State.GAMEOVER) {
       loadGameOverScreen();
-
-      if (win.mousePressed) {
-        score = 0;
-        currLevel = 0;
-        currState = State.PLAYING;
-      }
     }
 
   }
@@ -531,6 +519,12 @@ public class Game {
    * Loads the start screen.
    */
   public void loadStartScreen() {
+
+    if (win.mousePressed) {
+      currState = State.PLAYING;
+      return;
+    }
+
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout startScreen = new Layout(win);
@@ -547,6 +541,14 @@ public class Game {
    * Loads the game over screen.
    */
   public void loadGameOverScreen() {
+
+    if (win.mousePressed) {
+      score = 0;
+      currLevel = 0;
+      currState = State.PLAYING;
+      return;
+    }
+
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout endScreen = new Layout(win);
