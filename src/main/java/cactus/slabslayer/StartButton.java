@@ -31,6 +31,8 @@ public class StartButton extends Button {
      */
     @Override
     public void execute() {
+        Game.getGameInstance().setScore(0);
+        Game.getGameInstance().setCurrLevel(0);
         Game.getGameInstance().currState = Game.State.PLAYING;
     }
 

@@ -117,9 +117,7 @@ public class Game {
    * Constructs a new Game object.
    */
   private Game() {
-    score = 0;
     currState = State.START;
-    currLevel = 0;
   }
 
   /**
@@ -129,11 +127,9 @@ public class Game {
    * @param in as an InputHandler object
    */
   private Game(Window w, InputHandler in) {
-    score = 0;
     win = w;
     this.in = in;
     currState = State.START;
-    currLevel = 0;
   }
 
   /**
@@ -228,6 +224,24 @@ public class Game {
    */
   public void setCurrState(State currState) {
     this.currState = currState;
+  }
+
+  /**
+   * Get the current level.
+   *
+   * @return currLevel as an int
+   */
+  public int getCurrLevel() {
+    return currLevel;
+  }
+
+  /**
+   * Sets the current level.
+   *
+   * @param currLevel as an int
+   */
+  public void setCurrLevel(int currLevel) {
+    this.currLevel = currLevel;
   }
 
   /**
@@ -534,26 +548,21 @@ public class Game {
    */
   public void loadGameOverScreen() {
 
-    if (win.mousePressed) {
-      score = 0;
-      currLevel = 0;
-      currState = State.PLAYING;
-      return;
-    }
-
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout endScreen = new Layout(win);
     spawnLayout(endScreen);
 
-    TextBox title = new TextBox("GAME OVER", new PVector(205, 250), 80, 255, win);
+    TextBox title = new TextBox("GAME OVER", new PVector(205, 250), 80, 0, win);
     endScreen.addLayoutElement(title);
 
-    TextBox finalScore = new TextBox("Your score: " + score, new PVector(320, 300), 30, 255, win);
+    TextBox finalScore = new TextBox("Your score: " + score, new PVector(300, 300), 40, 0, win);
     endScreen.addLayoutElement(finalScore);
 
-    TextBox desc = new TextBox("Press left mouse button to play again...", new PVector(160, 350), 30, 255, win);
-    endScreen.addLayoutElement(desc);
+    StartButton sb = new StartButton("Replay", 150, 50, new PVector(325, 320), win);
+    endScreen.addLayoutElement(sb);
+    spawnButton(sb);
+
 //    save("levels/gameoverscreen.json");
   }
 
