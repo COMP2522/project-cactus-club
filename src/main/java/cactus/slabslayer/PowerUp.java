@@ -1,12 +1,12 @@
 package cactus.slabslayer;
 
 import java.util.Random;
-
 import processing.data.JSONObject;
 
+/**
+ * Represents a PowerUp object.
+ */
 public class PowerUp extends GameElement implements Moveable, Collidable, Jsonable {
-//  float radius;
-
   /**
    * Type of power up.
    */
@@ -34,6 +34,16 @@ public class PowerUp extends GameElement implements Moveable, Collidable, Jsonab
 
   int health;
 
+  /**
+   * Constructs a PowerUp object with the given parameters.
+   *
+   * @param type type
+   * @param xpos x-position
+   * @param ypos y-position
+   * @param yvel y-velocity
+   * @param diameter diameter
+   * @param window window
+   */
   public PowerUp(int type, float xpos, float ypos, float yvel, float diameter, Window window) {
     this.type = type;
     this.xpos = xpos;
@@ -192,10 +202,14 @@ public class PowerUp extends GameElement implements Moveable, Collidable, Jsonab
   public boolean isCollidingWith(Object toCheck) {
     if (toCheck.getClass() == Paddle.class) {
       Paddle p = (Paddle) toCheck;
-      if (this.xpos + this.diameter / 2 > ((Paddle) toCheck).getXpos() - ((Paddle) toCheck).getWidth() / 2
-          && this.xpos - this.diameter / 2 < ((Paddle) toCheck).getXpos() + ((Paddle) toCheck).getWidth() / 2
-          && this.ypos + this.diameter / 2 > ((Paddle) toCheck).getYpos() - ((Paddle) toCheck).getHeight() / 2
-          && this.ypos - this.diameter / 2 < ((Paddle) toCheck).getYpos() + ((Paddle) toCheck).getHeight() / 2) {
+      if (this.xpos + this.diameter / 2
+          > ((Paddle) toCheck).getXpos() - ((Paddle) toCheck).getWidth() / 2
+          && this.xpos - this.diameter / 2 < (
+              (Paddle) toCheck).getXpos() + ((Paddle) toCheck).getWidth() / 2
+          && this.ypos + this.diameter / 2 > (
+              (Paddle) toCheck).getYpos() - ((Paddle) toCheck).getHeight() / 2
+          && this.ypos - this.diameter / 2 < (
+              (Paddle) toCheck).getYpos() + ((Paddle) toCheck).getHeight() / 2) {
         System.out.println("PowerUp collided with paddle");
         return true;
       }
@@ -291,24 +305,13 @@ public class PowerUp extends GameElement implements Moveable, Collidable, Jsonab
     throw new IllegalArgumentException("Unknown type: " + type);
   }
 
+  /**
+   * Set the health of the power up.
+   *
+   * @param health health
+   */
   private void setHealth(int health) {
     this.health = health;
   }
-
-  public static void main(String[] args) {
-    // create a new power up
-    PowerUp powerUp = new PowerUp();
-    powerUp.setXpos(100);
-    powerUp.setYpos(100);
-
-    // serialize the power up to JSON
-    String json = powerUp.toJson();
-    System.out.println(json);
-
-    // deserialize the JSON string to a new power up object
-    PowerUp newPowerUp = (PowerUp) powerUp.fromJson(json);
-    System.out.println(newPowerUp.toJson());
-  }
-
 }
 
