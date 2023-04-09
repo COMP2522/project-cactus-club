@@ -2,10 +2,16 @@ package cactus.slabslayer;
 
 import static processing.core.PApplet.loadJSONArray;
 
-import com.mongodb.*;
-import com.mongodb.client.*;
+import com.mongodb.BasicDBObject;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.ServerApi;
+import com.mongodb.ServerApiVersion;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.io.File;
-import java.util.concurrent.CompletableFuture;
 import org.bson.Document;
 import processing.data.JSONArray;
 
@@ -83,7 +89,6 @@ public class DatabaseHandler {
    *
    * @param db the database
    * @param filePath the file path
-   * @return a CompletableFuture that completes when the save is done
    */
   public static void save(MongoDatabase db, String filePath) {
     Thread thread = new Thread(() -> {
@@ -141,14 +146,15 @@ public class DatabaseHandler {
    * Reads the most recent game save from the database.
    *
    * @param db the database
-   * @return a CompletableFuture that completes with the most recent game save
    */
   public static void read(MongoDatabase db) {
     Thread thread = new Thread(() -> {
       MongoCollection<Document> collection = db.getCollection("saves");
-      Document mostRecentDoc = collection.find().sort(new BasicDBObject("$natural", -1)).limit(1).first();
+      Document mostRecentDoc = collection.find().sort(
+          new BasicDBObject("$natural", -1)).limit(1).first();
       String mostRecentDocString = mostRecentDoc.toJson();
-      mostRecentDocString = mostRecentDocString.substring(59, mostRecentDocString.length() - 2).replaceAll("", "");
+      mostRecentDocString = mostRecentDocString.substring(59,
+          mostRecentDocString.length() - 2).replaceAll("", "");
       System.out.println(mostRecentDocString);
     });
     thread.start();
