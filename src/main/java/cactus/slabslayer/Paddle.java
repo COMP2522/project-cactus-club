@@ -3,8 +3,6 @@ package cactus.slabslayer;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
-import java.awt.*;
-
 /**
  * Represents a paddle object.
  */
@@ -252,7 +250,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    * @return JSON string
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -270,7 +268,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    * @return paddle
    */
   @Override
-  public Object fromJSON(String json) {
+  public Object fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
@@ -304,15 +302,15 @@ public class Paddle extends GameElement implements Moveable, Collidable {
             "}";
 
     // Serialize Paddle instance to JSON
-    String json = paddle.toJSON();
+    String json = paddle.toJson();
     System.out.println(json);
 
     System.out.println(jsonPaddle);
 
     // Deserialize JSON to Paddle instance
-    Paddle newPaddle2 = (Paddle) paddle.fromJSON(jsonPaddle);
+    Paddle newPaddle2 = (Paddle) paddle.fromJson(jsonPaddle);
 //    Paddle newPaddle = (Paddle) paddle.fromJSON(json);
 
-    System.out.println(newPaddle2.toJSON());
+    System.out.println(newPaddle2.toJson());
   }
 }

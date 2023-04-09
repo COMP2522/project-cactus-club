@@ -24,7 +24,7 @@ public class LayoutJSONTest {
 
   @Test
   public void testToJSON() {
-    String json = layout.toJSON();
+    String json = layout.toJson();
     JSONObject jsonObject = JSONObject.parse(json);
 
     assertEquals(layout.getClass().getSimpleName(), jsonObject.getString("type"));
@@ -42,8 +42,8 @@ public class LayoutJSONTest {
 
   @Test
   public void testFromJSON() {
-    String json = layout.toJSON();
-    Layout newLayout = (Layout) layout.fromJSON(json);
+    String json = layout.toJson();
+    Layout newLayout = (Layout) layout.fromJson(json);
 
     assertEquals(layout.getClass().getSimpleName(), newLayout.getClass().getSimpleName());
 

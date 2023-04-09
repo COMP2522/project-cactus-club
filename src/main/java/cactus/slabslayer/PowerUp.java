@@ -2,10 +2,9 @@ package cactus.slabslayer;
 
 import java.util.Random;
 
-import processing.core.PVector;
 import processing.data.JSONObject;
 
-public class PowerUp extends GameElement implements Moveable, Collidable, JSONable {
+public class PowerUp extends GameElement implements Moveable, Collidable, Jsonable {
 //  float radius;
 
   /**
@@ -241,7 +240,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    * @return JSON string
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -262,7 +261,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    * @return powerup object
    */
   @Override
-  public Object fromJSON(String json) {
+  public Object fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
@@ -303,12 +302,12 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
     powerUp.setYpos(100);
 
     // serialize the power up to JSON
-    String json = powerUp.toJSON();
+    String json = powerUp.toJson();
     System.out.println(json);
 
     // deserialize the JSON string to a new power up object
-    PowerUp newPowerUp = (PowerUp) powerUp.fromJSON(json);
-    System.out.println(newPowerUp.toJSON());
+    PowerUp newPowerUp = (PowerUp) powerUp.fromJson(json);
+    System.out.println(newPowerUp.toJson());
   }
 
 }

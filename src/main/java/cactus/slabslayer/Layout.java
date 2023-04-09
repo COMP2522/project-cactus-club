@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import processing.data.JSONObject;
 import processing.data.JSONArray;
 
-public class Layout extends GameElement implements JSONable{
+public class Layout extends GameElement implements Jsonable {
 
   /**
    * The list of all elements contained in the layout.
@@ -73,13 +73,13 @@ public class Layout extends GameElement implements JSONable{
    * @return JSON string
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
     JSONArray layoutElementsArr = new JSONArray();
     for (GameElement elem : layoutElements) {
-      layoutElementsArr.append(JSONObject.parse(elem.toJSON()));
+      layoutElementsArr.append(JSONObject.parse(elem.toJson()));
     }
     constructorVars.setJSONArray("layoutElements", layoutElementsArr);
     json.setJSONObject("constructorVars", constructorVars);
@@ -93,7 +93,7 @@ public class Layout extends GameElement implements JSONable{
    * @return layout
    */
   @Override
-  public Object fromJSON(String json) {
+  public Object fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
@@ -107,11 +107,11 @@ public class Layout extends GameElement implements JSONable{
         switch (typeInner) {
           case "Button":
             Button button = new Button(new Window());
-            layout.addLayoutElement((Button) (button.fromJSON(elemJson.toString())));
+            layout.addLayoutElement((Button) (button.fromJson(elemJson.toString())));
             break;
           case "TextBox":
             TextBox textBox = new TextBox(new Window());
-            layout.addLayoutElement((TextBox) (textBox.fromJSON(elemJson.toString())));
+            layout.addLayoutElement((TextBox) (textBox.fromJson(elemJson.toString())));
             break;
           default:
             throw new IllegalArgumentException("Unknown type: " + typeInner);
@@ -131,9 +131,9 @@ public class Layout extends GameElement implements JSONable{
     l1.addLayoutElement(new Button(new Window()));
     l1.addLayoutElement(new TextBox(new Window()));
 
-    System.out.println(l1.toJSON());
-    Layout l1Copy = (Layout) l1.fromJSON(l1.toJSON());
-    System.out.println(l1Copy.toJSON());
+    System.out.println(l1.toJson());
+    Layout l1Copy = (Layout) l1.fromJson(l1.toJson());
+    System.out.println(l1Copy.toJson());
 
 
     Button b = new Button(new Window());

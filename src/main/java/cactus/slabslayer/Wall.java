@@ -101,7 +101,7 @@ public class Wall extends GameElement {
    * @return JSON string
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -122,7 +122,7 @@ public class Wall extends GameElement {
    * @return Slab object
    */
   @Override
-  public Object fromJSON(String json) {
+  public Object fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
@@ -147,12 +147,12 @@ public class Wall extends GameElement {
     Wall wall = new Wall(10, 10, 10, 10, 10, 10, window);
 
     // test toJSON() method
-    String json = wall.toJSON();
+    String json = wall.toJson();
     System.out.println(json);
 
     // test fromJSON() method
-    Wall newSlab = (Wall) wall.fromJSON(json);
-    System.out.println(newSlab.toJSON());
+    Wall newSlab = (Wall) wall.fromJson(json);
+    System.out.println(newSlab.toJson());
   }
 }
 

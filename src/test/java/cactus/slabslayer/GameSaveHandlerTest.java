@@ -7,8 +7,6 @@ import processing.data.JSONArray;
 import processing.data.JSONObject;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +16,7 @@ public class GameSaveHandlerTest {
   private Ball ball;
   private Paddle paddle;
   private Slab slab;
-  private ArrayList<JSONable> gameElements;
+  private ArrayList<Jsonable> gameElements;
   private Game game;
   private String saveDir;
   private InputHandler in;
@@ -43,7 +41,7 @@ public class GameSaveHandlerTest {
     JSONArray loadedJsonElements = PApplet.loadJSONArray(new File(dir));
     assertEquals(gameElements.size(), loadedJsonElements.size());
     for (int i = 0; i < gameElements.size(); i++) {
-      JSONObject expected = JSONObject.parse(gameElements.get(i).toJSON());
+      JSONObject expected = JSONObject.parse(gameElements.get(i).toJson());
       JSONObject actual = loadedJsonElements.getJSONObject(i);
 
       if (expected.getString("type").equals("Ball")) {

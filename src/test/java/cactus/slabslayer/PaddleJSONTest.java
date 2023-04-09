@@ -19,7 +19,7 @@ public class PaddleJSONTest {
 
   @Test
   public void testToJSON() {
-    String json = paddle.toJSON();
+    String json = paddle.toJson();
     JSONObject jsonObject = JSONObject.parse(json);
     assertEquals(paddle.width, jsonObject.getJSONObject("constructorVars").getFloat("width"), 0.01f);
     assertEquals(paddle.height, jsonObject.getJSONObject("constructorVars").getFloat("height"), 0.01f);
@@ -28,9 +28,9 @@ public class PaddleJSONTest {
 
   @Test
   public void testFromJSON() {
-    String json = paddle.toJSON();
+    String json = paddle.toJson();
     JSONObject jsonObject = JSONObject.parse(json);
-    Paddle newPaddle = (Paddle) paddle.fromJSON(json);
+    Paddle newPaddle = (Paddle) paddle.fromJson(json);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("width"), newPaddle.width, 0.01f);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("height"), newPaddle.height, 0.01f);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("xpos"), newPaddle.xpos, 0.01f);

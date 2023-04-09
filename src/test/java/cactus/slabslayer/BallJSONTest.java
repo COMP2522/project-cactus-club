@@ -1,6 +1,5 @@
 package cactus.slabslayer;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +20,7 @@ public class BallJSONTest {
 
   @Test
   public void testToJSON() {
-    String json = ball.toJSON();
+    String json = ball.toJson();
     JSONObject jsonObject = JSONObject.parse(json);
     assertEquals(ball.getXpos(), jsonObject.getJSONObject("constructorVars").getFloat("xPos"), 0.01f);
     assertEquals(ball.getYpos(), jsonObject.getJSONObject("constructorVars").getFloat("yPos"), 0.01f);
@@ -32,9 +31,9 @@ public class BallJSONTest {
 
   @Test
   public void testFromJSON() {
-    String json = ball.toJSON();
+    String json = ball.toJson();
     JSONObject jsonObject = JSONObject.parse(json);
-    Ball newBall = (Ball) ball.fromJSON(json);
+    Ball newBall = (Ball) ball.fromJson(json);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("xPos"), newBall.getXpos(), 0.01f);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("yPos"), newBall.getYpos(), 0.01f);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("vx"), newBall.getVx(), 0.01f);

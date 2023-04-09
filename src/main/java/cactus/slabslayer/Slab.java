@@ -294,7 +294,7 @@ public class Slab extends GameElement implements Collidable {
    * @return JSON string
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -317,7 +317,7 @@ public class Slab extends GameElement implements Collidable {
    * @return Slab object
    */
   @Override
-  public Object fromJSON(String json) {
+  public Object fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
@@ -361,15 +361,15 @@ public class Slab extends GameElement implements Collidable {
             "  }\n" +
             "}";
     // test toJSON() method
-    String json = slab.toJSON();
+    String json = slab.toJson();
 
     System.out.println(json);
     System.out.println(jsonSlab);
 
     // test fromJSON() method
     // Slab newSlab = (Slab) slab.fromJSON(json);
-    Slab newSlab2 = (Slab) slab.fromJSON(jsonSlab);
-    System.out.println(newSlab2.toJSON());
+    Slab newSlab2 = (Slab) slab.fromJson(jsonSlab);
+    System.out.println(newSlab2.toJson());
   }
 
   /**

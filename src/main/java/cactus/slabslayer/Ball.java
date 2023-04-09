@@ -295,7 +295,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
   }
 
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -314,7 +314,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * @return new Ball object
    */
   @Override
-  public Object fromJSON(String json) {
+  public Object fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 

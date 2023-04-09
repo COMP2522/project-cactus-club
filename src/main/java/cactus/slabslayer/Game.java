@@ -100,7 +100,7 @@ public class Game {
   /**
    * List of all JSONable objects.
    */
-  ArrayList<JSONable> jsonables;
+  ArrayList<Jsonable> jsonables;
 
   /**
    * GameProcess that handles collisions.
@@ -203,7 +203,7 @@ public class Game {
    *
    * @return jsonables as ArrayList
    */
-  public ArrayList<JSONable> getJsonables() {
+  public ArrayList<Jsonable> getJsonables() {
     return jsonables;
   }
 
@@ -300,7 +300,7 @@ public class Game {
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
     collidables = new ArrayList<Collidable>();
-    jsonables = new ArrayList<JSONable>();
+    jsonables = new ArrayList<Jsonable>();
     ch = new CollisionsHandler(collidables);
     gsh = new GameSaveHandler(this, "game-save.json", System.currentTimeMillis());
   }

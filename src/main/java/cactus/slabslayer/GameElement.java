@@ -6,7 +6,7 @@ import processing.core.PVector;
  * Represents a game element, containing common methods and attributes between
  * all game elements.
  */
-public abstract class GameElement implements Renderable, JSONable {
+public abstract class GameElement implements Renderable, Jsonable {
   private PVector position;
   private Window window;
 

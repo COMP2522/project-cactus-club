@@ -20,7 +20,7 @@ public class SlabJSONTest {
 
   @Test
   public void testToJSON() {
-    String json = slab.toJSON();
+    String json = slab.toJson();
     JSONObject jsonObject = JSONObject.parse(json);
     assertEquals(slab.width, jsonObject.getJSONObject("constructorVars").getFloat("width"), 0.01f);
     assertEquals(slab.height, jsonObject.getJSONObject("constructorVars").getFloat("height"), 0.01f);
@@ -34,9 +34,9 @@ public class SlabJSONTest {
 
   @Test
   public void testFromJSON() {
-    String json = slab.toJSON();
+    String json = slab.toJson();
     JSONObject jsonObject = JSONObject.parse(json);
-    Slab newSlab = (Slab) slab.fromJSON(json);
+    Slab newSlab = (Slab) slab.fromJson(json);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("width"), newSlab.width, 0.01f);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("height"), newSlab.height, 0.01f);
     assertEquals(jsonObject.getJSONObject("constructorVars").getInt("health"), newSlab.health);

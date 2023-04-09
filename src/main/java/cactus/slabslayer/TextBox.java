@@ -178,7 +178,7 @@ public class TextBox extends GameElement {
    * size = 50;
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -198,7 +198,7 @@ public class TextBox extends GameElement {
    * @return text box
    */
   @Override
-  public Object fromJSON(String json) {
+  public Object fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type  = jsonObject.getString("type");
 
@@ -217,9 +217,9 @@ public class TextBox extends GameElement {
   public static void main(String[] args) {
     Window window = new Window();
     TextBox textBox = new TextBox("here", 100, 100, 50, 255, window);
-    System.out.println(textBox.toJSON());
-    TextBox textBox1 = (TextBox) textBox.fromJSON(textBox.toJSON());
-    System.out.println(textBox1.toJSON());
+    System.out.println(textBox.toJson());
+    TextBox textBox1 = (TextBox) textBox.fromJson(textBox.toJson());
+    System.out.println(textBox1.toJson());
   }
 
 }
