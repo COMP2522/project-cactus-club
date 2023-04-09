@@ -1,5 +1,5 @@
 package cactus.slabslayer;
 
 public abstract class GameProcess {
-  public abstract void update();
+  public abstract void update() throws InterruptedException;
 }

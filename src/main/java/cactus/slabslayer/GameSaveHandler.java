@@ -1,5 +1,6 @@
 package cactus.slabslayer;
 
+import com.mongodb.client.MongoDatabase;
 import processing.core.PVector;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static processing.core.PApplet.loadJSONArray;
+import static processing.core.PApplet.loadJSONObject;
 
 public class GameSaveHandler extends GameProcess {
   /**
@@ -58,13 +60,21 @@ public class GameSaveHandler extends GameProcess {
    * Updates the save file.
    */
   @Override
-  public void update() {
+  public void update() throws InterruptedException {
     long currentTime = System.currentTimeMillis();
     if (currentTime - lastAutosaveTime >= AUTOSAVE_INTERVAL_MS) {
       // Save the game elements periodically
       saveGame(game.getJsonables(), saveDir);
       System.out.println("Autosave completed.");
       lastAutosaveTime = currentTime;
+
+      JSONArray jsonArray = loadJSONArray(new File(saveDir));// create the JSON object to save
+      MongoDatabase db = DatabaseHandler.getInstance().getDatabase();
+
+      Thread saveThread = new Thread(() -> {
+        DatabaseHandler.save(db, jsonArray);
+      });
+      saveThread.start();
     }
   }
 
