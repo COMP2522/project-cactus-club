@@ -64,7 +64,7 @@ public class Game {
   /**
    * List of all Slab objects
    */
-  ArrayList<Slab> slabs;
+  SlabCollection slabs;
 
   /**
    * List of all Ball objects.
@@ -199,6 +199,15 @@ public class Game {
   }
 
   /**
+   * Gets the list of Collidables.
+   *
+   * @return collidables as ArrayList
+   */
+  public ArrayList<Collidable> getCollidables() {
+    return collidables;
+  }
+
+  /**
    * Gets the current state.
    * @return currState as a State enum
    */
@@ -252,7 +261,7 @@ public class Game {
    */
   public void init() {
     pad = null;
-    slabs = new ArrayList<Slab>();
+    slabs = new SlabCollection();
     balls = new ArrayList<Ball>();
     powerUps = new ArrayList<PowerUp>();
     renderables = new ArrayList<Renderable>();
@@ -283,7 +292,7 @@ public class Game {
       r.render();
     }
 
-    checkDeadSlabs(slabs);
+    slabs.checkDeadSlabs();
     checkPowerUpCollisions(powerUps);
     checkDeadBalls(balls);
 
@@ -331,15 +340,12 @@ public class Game {
   }
 
   /**
-   * Spawns a Slab and adds it to any necessary ArrayLists
+   * Spawns a Slab.
    */
   public void spawnSlab(float width, float height, int health, float xpos, float ypos, float pdropChance,
                         float vx, float vy, Window window) {
-    Slab tmpSlab = new Slab(width, height, health, xpos, ypos, pdropChance, vx, vy, window);
-    slabs.add(tmpSlab);
-    renderables.add(tmpSlab);
-    collidables.add(tmpSlab);
-    jsonables.add(tmpSlab);
+
+    slabs.spawnSlab(width, height, health, xpos, ypos, pdropChance, vx, vy, window);
   }
 
   /**
@@ -355,13 +361,10 @@ public class Game {
   }
 
   /**
-   * Spawns a Slab with arguments and adds it to any necessary ArrayLists
+   * Spawns a Slab with arguments.
    */
   public void spawnSlab(Slab slab) {
-    slabs.add(slab);
-    renderables.add(slab);
-    collidables.add(slab);
-    jsonables.add(slab);
+    slabs.spawnSlab(slab);
   }
 
   public void spawnWall(Wall wall) {
@@ -435,26 +438,9 @@ public class Game {
 
   /**
    * Checks for dead Slabs and removes them.
-   *fthe
-   * @param slabs the list of Slabs the check through
    */
-  public void checkDeadSlabs(ArrayList<Slab> slabs) {
-    ArrayList<Slab> notDead = new ArrayList<Slab>();
-    for (Slab s : slabs) {
-      if (s.isDead()) {
-        incrementScore();
-        if (Math.random() <= s.getPdropChance() / 100) { //divide s.getPdropChance() by 100 to get a percentage, left alone for testing
-          spawnPowerUp(new PowerUp(0, s.getXpos() + s.getWidth() / 2, s.getYpos() + s.getHeight() / 2,
-                  2, 10, win));
-        }
-        renderables.remove(s);
-        collidables.remove(s);
-        jsonables.remove(s);
-        continue;
-      }
-      notDead.add(s);
-    }
-    this.slabs = notDead;
+  public void checkDeadSlabs() {
+    slabs.checkDeadSlabs();
   }
 
   public void checkPowerUpCollisions(ArrayList<PowerUp> powerUps) {
