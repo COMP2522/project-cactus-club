@@ -85,21 +85,21 @@ public class DatabaseHandler {
     mongoClient.close();
   }
 
-/**
- * Saves the game to the database.  This method is asynchronous.
- *
- * @param db the database
- * @param jsonArray the game save
- */
-public static void save(MongoDatabase db, JSONArray jsonArray) {
-  Thread thread = new Thread(() -> {
-    Document document = new Document();
-    document.append("saveData", jsonArray.toString());
-    db.getCollection("saves").insertOne(document);
-    System.out.println("Uploaded save data to database!");
-  });
-  thread.start();
-}
+  /**
+   * Saves the game to the database.  This method is asynchronous.
+   *
+   * @param db the database
+   * @param jsonArray the game save
+   */
+  public static void save(MongoDatabase db, JSONArray jsonArray) {
+    Thread thread = new Thread(() -> {
+      Document document = new Document();
+      document.append("saveData", jsonArray.toString());
+      db.getCollection("saves").insertOne(document);
+      System.out.println("Uploaded save data to database!");
+    });
+    thread.start();
+  }
 
 
 

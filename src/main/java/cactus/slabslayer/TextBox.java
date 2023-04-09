@@ -151,7 +151,7 @@ public class TextBox extends GameElement {
    *
    * @return local x pos as an int
    */
-  public int getLocalXPos() {
+  public int getlocalxpos() {
     return (int) localPos.x;
   }
 
@@ -160,7 +160,7 @@ public class TextBox extends GameElement {
    *
    * @return local y pos as an int
    */
-  public int getLocalYPos() {
+  public int getLocalYpos() {
     return (int) localPos.y;
   }
 
@@ -203,13 +203,12 @@ public class TextBox extends GameElement {
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
     constructorVars.setString("text", text);
-    constructorVars.setInt("xPos", getLocalXPos());
-    constructorVars.setInt("yPos", getLocalYPos());
+    constructorVars.setInt("xPos", getlocalxpos());
+    constructorVars.setInt("yPos", getLocalYpos());
     constructorVars.setInt("size", size);
     json.setJSONObject("constructorVars", constructorVars);
     return json.toString();
   }
-
 
   /**
    * Converts a JSON string to a text box object.
@@ -218,7 +217,7 @@ public class TextBox extends GameElement {
    * @return text box
    */
   @Override
-  public TextBox fromJSON(String json) {
+  public Object fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type  = jsonObject.getString("type");
 

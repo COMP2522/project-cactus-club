@@ -212,7 +212,7 @@ public class Button extends GameElement {
    * @return button
    */
   @Override
-  public Button fromJSON(String json) {
+  public Object fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 

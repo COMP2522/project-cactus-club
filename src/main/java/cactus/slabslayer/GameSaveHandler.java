@@ -1,14 +1,14 @@
 package cactus.slabslayer;
 
-import com.mongodb.client.MongoDatabase;
-import processing.core.PVector;
-import processing.data.JSONArray;
-import processing.data.JSONObject;
+import static processing.core.PApplet.loadJSONArray;
+import static processing.core.PApplet.loadJSONObject;
 
+import com.mongodb.client.MongoDatabase;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import processing.core.PVector;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 
@@ -16,9 +16,6 @@ import processing.data.JSONObject;
  * Represents the game process that handles saving and loading
  * the game.
  */
-import static processing.core.PApplet.loadJSONArray;
-import static processing.core.PApplet.loadJSONObject;
-
 public class GameSaveHandler extends GameProcess {
   /**
    * The interval between autosaves in milliseconds.
@@ -74,7 +71,7 @@ public class GameSaveHandler extends GameProcess {
       System.out.println("Autosave completed.");
       lastAutosaveTime = currentTime;
 
-      JSONArray jsonArray = loadJSONArray(new File(saveDir));// create the JSON object to save
+      JSONArray jsonArray = loadJSONArray(new File(saveDir)); // create the JSON object to save
       MongoDatabase db = DatabaseHandler.getInstance().getDatabase();
 
       Thread saveThread = new Thread(() -> {
@@ -133,39 +130,39 @@ public class GameSaveHandler extends GameProcess {
       switch (type) {
         case "Paddle":
           Paddle pad = new Paddle(window);
-          game.spawnPaddle(pad.fromJSON(jsonElement.toString()));
+          game.spawnPaddle(pad.fromJson(jsonElement.toString()));
           break;
         case "PowerUp":
           PowerUp powerUp = new PowerUp();
-          game.spawnPowerUp(powerUp.fromJSON(jsonElement.toString()));
+          game.spawnPowerUp(powerUp.fromJson(jsonElement.toString()));
           break;
         case "Ball":
           Ball ball = new Ball(window);
-          game.spawnBall(ball.fromJSON(jsonElement.toString()));
+          game.spawnBall((Ball) ball.fromJson(jsonElement.toString()));
           break;
         case "Slab":
           Slab slab = new Slab(1, 1, 1, 1, 1, 1, 1, 1, window);
-          game.spawnSlab(slab.fromJSON(jsonElement.toString()));
+          game.spawnSlab(slab.fromJson(jsonElement.toString()));
           break;
         case "Wall":
           Wall wall = new Wall(1f, 1f, 1f, 1f, 1f, 1f, window);
-          game.spawnWall(wall.fromJSON(jsonElement.toString()));
+          game.spawnWall((Wall) wall.fromJson(jsonElement.toString()));
           break;
         case "Layout":
           Layout layout = new Layout(window);
-          game.spawnLayout(layout.fromJSON(jsonElement.toString()));
+          game.spawnLayout(layout.fromJson(jsonElement.toString()));
           break;
         case "Button":
           Button button = new Button(new Window());
-          game.spawnButton(button.fromJSON(jsonElement.toString()));
+          game.spawnButton((Button) button.fromJson(jsonElement.toString()));
           break;
         case "TextBox":
           TextBox textbox = new TextBox(window);
-          game.spawnTextBox(textbox.fromJSON(jsonElement.toString()));
+          game.spawnTextBox((TextBox) textbox.fromJson(jsonElement.toString()));
           break;
         case "ScoreBox":
           ScoreBox scorebox = new ScoreBox(window);
-          game.spawnScoreBox(scorebox.fromJSON(jsonElement.toString()));
+          game.spawnScoreBox(scorebox.fromJson(jsonElement.toString()));
           break;
         default:
           throw new IllegalArgumentException("Unknown game element type: " + type);
