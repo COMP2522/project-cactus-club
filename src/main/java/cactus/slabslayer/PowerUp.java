@@ -245,12 +245,12 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
-//    constructorVars.setFloat("radius", radius);
     constructorVars.setInt("type", type);
     constructorVars.setFloat("xpos", xpos);
     constructorVars.setFloat("ypos", ypos);
     constructorVars.setFloat("yvel", yvel);
     constructorVars.setFloat("diameter", diameter);
+    constructorVars.setInt("health", health);
     json.setJSONObject("constructorVars", constructorVars);
     return json.toString();
   }
@@ -268,7 +268,6 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
 
     if ("PowerUp".equals(type)) {
       JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
-//      float radius = constructorVars.getFloat("radius");
       int typeInt = constructorVars.getInt("type");
       float xpos = constructorVars.getFloat("xpos");
       float ypos = constructorVars.getFloat("ypos");
@@ -277,7 +276,6 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
       int health = constructorVars.getInt("health");
 
       PowerUp powerUp = new PowerUp();
-//      powerUp.setRadius(radius);
       powerUp.setType(typeInt);
       powerUp.setXpos(xpos);
       powerUp.setYpos(ypos);
@@ -298,7 +296,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
 
   public static void main(String[] args) {
     // create a new power up
-    PowerUp powerUp = new PowerUp();
+    PowerUp powerUp = new PowerUp(1, 100, 100, 0, 20, new Window());
     powerUp.setXpos(100);
     powerUp.setYpos(100);
 
