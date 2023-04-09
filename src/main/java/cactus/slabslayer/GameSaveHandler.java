@@ -1,16 +1,18 @@
 package cactus.slabslayer;
 
-import processing.core.PVector;
-import processing.data.JSONArray;
-import processing.data.JSONObject;
+import static processing.core.PApplet.loadJSONArray;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import processing.data.JSONArray;
+import processing.data.JSONObject;
 
-import static processing.core.PApplet.loadJSONArray;
-
+/**
+ * Represents the game process that handles saving and loading
+ * the game.
+ */
 public class GameSaveHandler extends GameProcess {
   /**
    * The interval between autosaves in milliseconds.
@@ -79,7 +81,7 @@ public class GameSaveHandler extends GameProcess {
     for (JSONable element : elements) {
       jsonElements.append(JSONObject.parse(element.toJSON()));
     }
-    saveJSONArray(jsonElements, dir);
+    saveJsonArray(jsonElements, dir);
   }
 
   /**
@@ -88,7 +90,7 @@ public class GameSaveHandler extends GameProcess {
    * @param jsonElements the JSONArray to save
    * @param dir          the directory to save the game to
    */
-  private void saveJSONArray(JSONArray jsonElements, String dir) {
+  private void saveJsonArray(JSONArray jsonElements, String dir) {
     File file = new File(dir);
     try {
       FileWriter writer = new FileWriter(file);
@@ -185,47 +187,4 @@ public class GameSaveHandler extends GameProcess {
       }
     }
   }
-
-  /**
-   * tests the save and load functions.
-   *
-   * @param args the command line arguments
-   */
-  public static void main(String[] args) {
-    // Create a window and input handler
-    Window window = new Window();
-    InputHandler in = new InputHandler(window);
-
-    // Create some game elements to save
-    Ball ball = new Ball(new Window());
-    Paddle paddle = new Paddle(new Window());
-    Slab slab = new Slab(200f, 200f, 1, 100f, 100f, 1.0f, 1.0f, 1.0f, new Window());
-    Slab slab2 = new Slab(1, 1, 1, 1, 1, 1, 1, 1, new Window());
-    Wall wall = new Wall(1, 1, 1, 1, 1, 1, new Window());
-    Layout layout = new Layout(new Window());
-    layout.addLayoutElement(new Button(new Window()));
-    layout.addLayoutElement(new TextBox(new Window()));
-
-    // Create an ArrayList to store the game elements
-    ArrayList<JSONable> gameElements = new ArrayList<>();
-    gameElements.add(ball);
-    gameElements.add(paddle);
-    gameElements.add(slab);
-    gameElements.add(slab2);
-    gameElements.add(wall);
-    gameElements.add(layout);
-
-    // Save the game elements to a file
-    GameSaveHandler saveHandler = new GameSaveHandler(Game.getGameInstance(window, in), "game-save.json");
-    saveHandler.saveGame(gameElements, "game-save.json");
-
-    // Print a success message
-    System.out.println("Game elements saved successfully.");
-    saveHandler.loadGame("game-save.json", window, in, Game.getGameInstance(window, in));
-  }
 }
-
-
-
-
-
