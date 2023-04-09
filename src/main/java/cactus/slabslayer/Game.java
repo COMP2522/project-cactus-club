@@ -519,11 +519,9 @@ public class Game {
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout startScreen = new Layout(win);
     spawnLayout(startScreen);
-    TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, 255, win);
+    TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, 40, win);
     startScreen.addLayoutElement(title);
-    TextBox desc = new TextBox("Press left mouse button to start...", new PVector(195, 300), 30, 255, win);
-    startScreen.addLayoutElement(desc);
-    StartButton sb = new StartButton(win);
+    StartButton sb = new StartButton("Start", 150, 50, new PVector(325, 270), win);
     startScreen.addLayoutElement(sb);
     spawnButton(sb);
 //    save("levels/startscreen.json");
