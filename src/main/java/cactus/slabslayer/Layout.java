@@ -1,9 +1,12 @@
 package cactus.slabslayer;
 
 import java.util.ArrayList;
-import processing.data.JSONObject;
 import processing.data.JSONArray;
+import processing.data.JSONObject;
 
+/**
+ * Contains a list of UI game elements to be rendered in the game window.
+ */
 public class Layout extends GameElement implements Jsonable {
 
   /**
@@ -18,6 +21,7 @@ public class Layout extends GameElement implements Jsonable {
 
   /**
    * Constructs a new Layout.
+   *
    * @param window the game window
    */
   public Layout(Window window) {
@@ -35,20 +39,25 @@ public class Layout extends GameElement implements Jsonable {
 
   /**
    * Adds new layout element to layoutElements ArrayList.
+   *
    * @param toAdd the new GameElement to add to the ArrayList
    */
   public void addLayoutElement(GameElement toAdd) {
-
     if (!(toAdd instanceof Layout) && !(toAdd instanceof Button) && !(toAdd instanceof TextBox)) {
-      throw new IllegalArgumentException("Layout element must be of class Layout, Button, or TextBox!");
+      throw new IllegalArgumentException(
+          "Layout element must be of class Layout, Button, or TextBox!");
     }
 
     layoutElements.add(toAdd);
 
   }
 
+  /**
+   * Removes a layout element from the layoutElements ArrayList.
+   *
+   * @param toRemove the GameElement to remove from the ArrayList
+   */
   public void removeLayoutElement(GameElement toRemove) {
-
     if (!layoutElements.contains(toRemove)) {
       throw new NullPointerException("No such element is in this layout.");
     }
@@ -122,32 +131,4 @@ public class Layout extends GameElement implements Jsonable {
 
     throw new IllegalArgumentException("Unknown type: " + type);
   }
-
-
-  public static void main(String[] args) {
-    
-    Layout l1 = new Layout(new Window());
-
-    l1.addLayoutElement(new Button(new Window()));
-    l1.addLayoutElement(new TextBox(new Window()));
-
-    System.out.println(l1.toJson());
-    Layout l1Copy = (Layout) l1.fromJson(l1.toJson());
-    System.out.println(l1Copy.toJson());
-
-
-    Button b = new Button(new Window());
-
-    l1.addLayoutElement(b);
-    l1.removeLayoutElement(b);
-
-    Layout l2 = new Layout(new Window());
-    l2.addLayoutElement(new TextBox(new Window()));
-    l2.addLayoutElement(new Button(new Window()));
-
-    l2.addLayoutElement(new Layout(new Window()));
-
-    l1.addLayoutElement(l2);
-  }
-
 }
