@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.concurrent.CompletableFuture;
 import org.bson.Document;
 import processing.data.JSONArray;
+import processing.data.JSONObject;
 
 /**
  * Connects to the MongoDB database and handles all database operations.
@@ -78,63 +79,22 @@ public class DatabaseHandler {
     mongoClient.close();
   }
 
-  /**
-   * Saves the game to the database.
-   *
-   * @param db the database
-   * @param filePath the file path
-   * @return a CompletableFuture that completes when the save is done
-   */
-  public static void save(MongoDatabase db, String filePath) {
-    Thread thread = new Thread(() -> {
-      Document document = new Document();
-      JSONArray json = new JSONArray();
-      String filename = "game-save.json";
+/**
+ * Saves the game to the database.  This method is asynchronous.
+ *
+ * @param db the database
+ * @param jsonArray the game save
+ */
+public static void save(MongoDatabase db, JSONArray jsonArray) {
+  Thread thread = new Thread(() -> {
+    Document document = new Document();
+    document.append("saveData", jsonArray.toString());
+    db.getCollection("saves").insertOne(document);
+    System.out.println("Uploaded save data to database!");
+  });
+  thread.start();
+}
 
-      json = loadJSONArray(new File(filename));
-
-      String jsonString = json.toString();
-
-      document.append("saveData", jsonString);
-      db.getCollection("saves").insertOne(document);
-      System.out.println("Uploaded save data to database!");
-    });
-    thread.start();
-  }
-
-//  public static CompletableFuture<Void> save(MongoDatabase db, String filePath) {
-//    return CompletableFuture.runAsync(() -> {
-//      Document document = new Document();
-//      JSONArray json = new JSONArray();
-//      String filename = "game-save.json";
-//
-//      json = loadJSONArray(new File(filename));
-//
-//      String jsonString = json.toString();
-//
-//      document.append("saveData", jsonString);
-//      db.getCollection("saves").insertOne(document);
-//    });
-//  }
-
-  //  /**
-  //   * Saves the game to the database.
-  //   *
-  //   * @param db the database
-  //   * @param filePath the file path
-  //   */
-  //  public static void save(MongoDatabase db, String filePath) {
-  //    Document document = new Document();
-  //    JSONArray json = new JSONArray();
-  //    String filename = "game-save.json";
-  //
-  //    json = loadJSONArray(new File(filename));
-  //
-  //    String jsonString = json.toString();
-  //
-  //    document.append("saveData", jsonString);
-  //    db.getCollection("saves").insertOne(document);
-  //  }
 
 
   /**
@@ -154,30 +114,6 @@ public class DatabaseHandler {
     thread.start();
   }
 
-//  public static CompletableFuture<String> read(MongoDatabase db) {
-//    return CompletableFuture.supplyAsync(() -> {
-//      MongoCollection<Document> collection = db.getCollection("saves");
-//      Document mostRecentDoc = collection.find().sort(new BasicDBObject("$natural", -1)).limit(1).first();
-//      String mostRecentDocString = mostRecentDoc.toJson();
-//      mostRecentDocString = mostRecentDocString.substring(59, mostRecentDocString.length() - 2).replaceAll("", "");
-//      return mostRecentDocString;
-//    });
-//  }
-
-  //  /**
-  //   * Reads the most recent game save from the database.
-  //   *
-  //   * @param db the database
-  //   * @return the most recent game save
-  //   */
-  //  public static void read(MongoDatabase db) {
-  //    MongoCollection<Document> collection = db.getCollection("saves");
-  //    Document mostRecentDoc = collection.find().sort(new BasicDBObject("$natural", -1)).limit(1).first();
-  //    String mostRecentDocString = mostRecentDoc.toJson();
-  //    mostRecentDocString = mostRecentDocString.substring(59, mostRecentDocString.length() - 2).replaceAll("", "");
-  //    System.out.println(mostRecentDocString);
-  //  }
-
   /**
    * Drives the program.
    *
@@ -192,7 +128,7 @@ public class DatabaseHandler {
     ////    save(database, filePath);
     ////    read(database);
     //    databaseHandler.close();
-    save(getInstance().getDatabase(), "game-save.json");
+    //save(getInstance().getDatabase(), "game-save.json");
     read(getInstance().getDatabase());
   }
 }
