@@ -301,7 +301,7 @@ public class Game {
   /**
    * Runs periodically in the processing main loop. Handles timing of all process execution.
    */
-  public void update() {
+  public void update() throws InterruptedException {
     win.background(200, 200, 255);
 
     for (Moveable m : moveables) {
