@@ -3,7 +3,7 @@ package cactus.slabslayer;
 import java.util.ArrayList;
 
 /**
- * CollisionHandler checks for and executes collisions between GameElements in Game
+ * CollisionHandler checks for and executes collisions between GameElements in Game.
  *
  * @author justin
  * @version 1.0.1
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class CollisionsHandler extends GameProcess {
 
   /**
-   * Local reference to list of all collidables GameElements
+   * Local reference to list of all collidables GameElements.
    */
   ArrayList<Collidable> collidables;
 
