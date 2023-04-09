@@ -3,6 +3,8 @@ package cactus.slabslayer;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
+import java.awt.*;
+
 public class TextBox extends GameElement {
 
   /**
@@ -14,6 +16,11 @@ public class TextBox extends GameElement {
    * The font size for the text.
    */
   protected int size;
+
+  /**
+   * The RGB values of the text's color.
+   */
+  protected int rgb;
 
   /**
    * The x and y coordinates of this text box in relation
@@ -49,10 +56,11 @@ public class TextBox extends GameElement {
    * @param yPos as an int
    * @param size as an int
    */
-  public TextBox(String text, int xPos, int yPos, int size, Window window) {
+  public TextBox(String text, int xPos, int yPos, int size, int rgb, Window window) {
     this.text = text;
     this.localPos = new PVector(xPos, yPos);
     this.size = size;
+    this.rgb = rgb;
     this.window = window;
     this.renderPriority = 5;
   }
@@ -65,10 +73,11 @@ public class TextBox extends GameElement {
    * @param localPos as a PVector
    * @param size     as an int
    */
-  public TextBox(String text, PVector localPos, int size, Window window) {
+  public TextBox(String text, PVector localPos, int size, int rgb, Window window) {
     this.text = text;
     this.localPos = localPos;
     this.size = size;
+    this.rgb = rgb;
     this.window = window;
     this.renderPriority = 5;
   }
@@ -110,6 +119,22 @@ public class TextBox extends GameElement {
   }
 
   /**
+   * Get the RGB values of the text.
+   * @return rgb as an int
+   */
+  public int getRgb() {
+    return rgb;
+  }
+
+  /**
+   * Set the RGB values of the text.
+   * @param rgb as an int
+   */
+  public void setRgb(int rgb) {
+    this.rgb = rgb;
+  }
+
+  /**
    * Gets the local position in relation to its layout.
    *
    * @return localPos as a PVector
@@ -141,7 +166,7 @@ public class TextBox extends GameElement {
    */
   @Override
   public void render() {
-    window.fill(255);
+    window.fill(rgb);
     window.textSize(size);
     window.text(text, localPos.x, localPos.y);
   }
@@ -185,7 +210,7 @@ public class TextBox extends GameElement {
       int xPos = constructorVars.getInt("xPos");
       int yPos = constructorVars.getInt("yPos");
       int size = constructorVars.getInt("size");
-      return new TextBox(text, xPos, yPos, size, window);
+      return new TextBox(text, xPos, yPos, size, rgb, window);
     }
     // handle other types here
     throw new IllegalArgumentException("Unknown type: " + type);
@@ -193,7 +218,7 @@ public class TextBox extends GameElement {
 
   public static void main(String[] args) {
     Window window = new Window();
-    TextBox textBox = new TextBox("here", 100, 100, 50, window);
+    TextBox textBox = new TextBox("here", 100, 100, 50, 255, window);
     System.out.println(textBox.toJSON());
     TextBox textBox1 = (TextBox) textBox.fromJSON(textBox.toJSON());
     System.out.println(textBox1.toJSON());
