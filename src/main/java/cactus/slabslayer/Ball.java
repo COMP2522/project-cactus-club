@@ -1,6 +1,5 @@
 package cactus.slabslayer;
 
-import processing.core.PApplet;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
@@ -270,7 +269,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
         }
         PVector reflectionAngle = new PVector(-1, 0);
         reflectionAngle.setMag(new PVector(vx, vy).mag());
-        float theta = PApplet.map(i, 0, p.getWidth(), window.PI / funnelFactor,
+        float theta = window.map(i, 0, p.getWidth(), window.PI / funnelFactor,
             window.PI - window.PI / funnelFactor);
         reflectionAngle.rotate(theta);
 
