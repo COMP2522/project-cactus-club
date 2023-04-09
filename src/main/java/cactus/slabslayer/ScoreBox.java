@@ -25,7 +25,7 @@ public class ScoreBox extends TextBox {
    * @param size as an int
    */
   public ScoreBox(String text, int xPos, int yPos, int size, int rgb, Window window) {
-    super(text, xPos, yPos, size, rgb, window);
+    super(text, new PVector(xPos, yPos), size, rgb, window);
   }
 
   /**
@@ -57,7 +57,7 @@ public class ScoreBox extends TextBox {
       int xPos = constructorVars.getInt("xPos");
       int yPos = constructorVars.getInt("yPos");
       int size = constructorVars.getInt("size");
-      return new ScoreBox(text, xPos, yPos, size, rgb, window);
+      return new ScoreBox(text, new PVector(xPos, yPos), size, rgb, window);
     }
     // handle other types here
     throw new IllegalArgumentException("Unknown type: " + type);

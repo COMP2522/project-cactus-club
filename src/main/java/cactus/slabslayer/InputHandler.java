@@ -91,7 +91,7 @@ public class InputHandler {
    */
   public void checkPressButton() {
 
-    for (Button b : Button.buttons) {
+    for (Button b : Game.getGameInstance().buttons) {
 
       if (b.mouseInBounds()) {
         b.execute();

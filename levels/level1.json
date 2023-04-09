@@ -19,7 +19,7 @@
   {
     "type": "ScoreBox",
     "constructorVars": {
-      "yPos": 50,
+      "yPos": 60,
       "size": 50,
       "text": "Score: 0",
       "xPos": 15

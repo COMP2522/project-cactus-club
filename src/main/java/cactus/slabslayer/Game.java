@@ -77,6 +77,13 @@ public class Game {
   ArrayList<PowerUp> powerUps;
 
   /**
+   * A list of all buttons that currently exist.
+   * Used for input handler to check if mouse is clicked
+   * in each button's bounds.
+   */
+  ArrayList<Button> buttons;
+
+  /**
    * List of all Renderable objects
    */
   ArrayList<Renderable> renderables;
@@ -110,9 +117,7 @@ public class Game {
    * Constructs a new Game object.
    */
   private Game() {
-    score = 0;
     currState = State.START;
-    currLevel = 0;
   }
 
   /**
@@ -122,11 +127,9 @@ public class Game {
    * @param in as an InputHandler object
    */
   private Game(Window w, InputHandler in) {
-    score = 0;
     win = w;
     this.in = in;
     currState = State.START;
-    currLevel = 0;
   }
 
   /**
@@ -224,6 +227,24 @@ public class Game {
   }
 
   /**
+   * Get the current level.
+   *
+   * @return currLevel as an int
+   */
+  public int getCurrLevel() {
+    return currLevel;
+  }
+
+  /**
+   * Sets the current level.
+   *
+   * @param currLevel as an int
+   */
+  public void setCurrLevel(int currLevel) {
+    this.currLevel = currLevel;
+  }
+
+  /**
    * Gets the player's score.
    * @return score as an int
    */
@@ -264,6 +285,7 @@ public class Game {
     slabs = new SlabCollection();
     balls = new ArrayList<Ball>();
     powerUps = new ArrayList<PowerUp>();
+    buttons = new ArrayList<Button>();
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
     collidables = new ArrayList<Collidable>();
@@ -405,6 +427,7 @@ public class Game {
    * Spawns a Button with no arguments and adds it to any necessary ArrayLists
    */
   public void spawnButton(Button button) {
+    buttons.add(button);
     renderables.add(button);
     jsonables.add(button);
   }
@@ -506,20 +529,17 @@ public class Game {
    */
   public void loadStartScreen() {
 
-    if (win.mousePressed) {
-      currState = State.PLAYING;
-      return;
-    }
-
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout startScreen = new Layout(win);
     spawnLayout(startScreen);
-    TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, 255, win);
+    TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, 40, win);
     startScreen.addLayoutElement(title);
-    TextBox desc = new TextBox("Press left mouse button to start...", new PVector(195, 300), 30, 255, win);
-    startScreen.addLayoutElement(desc);
+    PlayButton pb = new PlayButton("Start", 150, 50, new PVector(325, 270), win);
+    startScreen.addLayoutElement(pb);
+    spawnButton(pb);
 //    save("levels/startscreen.json");
+
   }
 
 
@@ -528,26 +548,21 @@ public class Game {
    */
   public void loadGameOverScreen() {
 
-    if (win.mousePressed) {
-      score = 0;
-      currLevel = 0;
-      currState = State.PLAYING;
-      return;
-    }
-
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout endScreen = new Layout(win);
     spawnLayout(endScreen);
 
-    TextBox title = new TextBox("GAME OVER", new PVector(205, 250), 80, 255, win);
+    TextBox title = new TextBox("GAME OVER", new PVector(205, 250), 80, 0, win);
     endScreen.addLayoutElement(title);
 
-    TextBox finalScore = new TextBox("Your score: " + score, new PVector(320, 300), 30, 255, win);
+    TextBox finalScore = new TextBox("Your score: " + score, new PVector(300, 300), 40, 0, win);
     endScreen.addLayoutElement(finalScore);
 
-    TextBox desc = new TextBox("Press left mouse button to play again...", new PVector(160, 350), 30, 255, win);
-    endScreen.addLayoutElement(desc);
+    PlayButton pb = new PlayButton("Replay", 150, 50, new PVector(325, 320), win);
+    endScreen.addLayoutElement(pb);
+    spawnButton(pb);
+
 //    save("levels/gameoverscreen.json");
   }
 

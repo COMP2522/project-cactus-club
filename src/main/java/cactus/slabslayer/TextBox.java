@@ -3,8 +3,6 @@ package cactus.slabslayer;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
-import java.awt.*;
-
 public class TextBox extends GameElement {
 
   /**
@@ -210,7 +208,7 @@ public class TextBox extends GameElement {
       int xPos = constructorVars.getInt("xPos");
       int yPos = constructorVars.getInt("yPos");
       int size = constructorVars.getInt("size");
-      return new TextBox(text, xPos, yPos, size, rgb, window);
+      return new TextBox(text, new PVector(xPos, yPos), size, rgb, window);
     }
     // handle other types here
     throw new IllegalArgumentException("Unknown type: " + type);
