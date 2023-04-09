@@ -3,8 +3,6 @@ package cactus.slabslayer;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
-import java.util.ArrayList;
-
 public class Button extends GameElement {
 
   /**
@@ -29,17 +27,9 @@ public class Button extends GameElement {
   private Window window;
 
   /**
-   * A list of all buttons that currently exist.
-   * Used for input handler to check if mouse is clicked
-   * in each button's bounds.
-   */
-  public static ArrayList<Button> buttons = new ArrayList<>();
-
-  /**
    * Constructs a new button.
    */
   public Button(Window window) {
-    buttons.add(this);
     width = 300;
     height = 150;
     this.window = window;
@@ -134,10 +124,11 @@ public class Button extends GameElement {
 
   /**
    * Executes the button's given function if clicked.
+   *
+   * Default button has no assigned function to execute.
    */
   public void execute() {
-    System.out.println("Executing button's function");
-    // to do
+    System.out.println("No function assigned to this button.");
   }
 
   /**

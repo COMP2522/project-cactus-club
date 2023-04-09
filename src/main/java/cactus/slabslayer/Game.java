@@ -77,6 +77,13 @@ public class Game {
   ArrayList<PowerUp> powerUps;
 
   /**
+   * A list of all buttons that currently exist.
+   * Used for input handler to check if mouse is clicked
+   * in each button's bounds.
+   */
+  ArrayList<Button> buttons;
+
+  /**
    * List of all Renderable objects
    */
   ArrayList<Renderable> renderables;
@@ -264,6 +271,7 @@ public class Game {
     slabs = new SlabCollection();
     balls = new ArrayList<Ball>();
     powerUps = new ArrayList<PowerUp>();
+    buttons = new ArrayList<Button>();
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
     collidables = new ArrayList<Collidable>();
@@ -405,6 +413,7 @@ public class Game {
    * Spawns a Button with no arguments and adds it to any necessary ArrayLists
    */
   public void spawnButton(Button button) {
+    buttons.add(button);
     renderables.add(button);
     jsonables.add(button);
   }
@@ -506,11 +515,6 @@ public class Game {
    */
   public void loadStartScreen() {
 
-    if (win.mousePressed) {
-      currState = State.PLAYING;
-      return;
-    }
-
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout startScreen = new Layout(win);
@@ -519,7 +523,11 @@ public class Game {
     startScreen.addLayoutElement(title);
     TextBox desc = new TextBox("Press left mouse button to start...", new PVector(195, 300), 30, 255, win);
     startScreen.addLayoutElement(desc);
+    StartButton sb = new StartButton(win);
+    startScreen.addLayoutElement(sb);
+    spawnButton(sb);
 //    save("levels/startscreen.json");
+
   }
 
 
