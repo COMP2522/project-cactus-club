@@ -119,66 +119,39 @@ public class GameSaveHandler extends GameProcess {
       switch (type) {
         case "Paddle":
           Paddle pad = new Paddle(window);
-          System.out.println(jsonElement.toString());
-          Paddle padOutput = (Paddle) pad.fromJSON(jsonElement.toString());
-          System.out.println(padOutput.toJSON());
-          game.spawnPaddle(padOutput);
+          game.spawnPaddle(pad.fromJSON(jsonElement.toString()));
           break;
         case "PowerUp":
           PowerUp powerUp = new PowerUp();
-          System.out.println(jsonElement.toString());
-          PowerUp powOutput = (PowerUp) powerUp.fromJSON(jsonElement.toString());
-          System.out.println(powOutput.toJSON());
-          game.spawnPowerUp(powOutput);
+          game.spawnPowerUp(powerUp.fromJSON(jsonElement.toString()));
           break;
         case "Ball":
           Ball ball = new Ball(window);
-          System.out.println(jsonElement.toString());
-          Ball ballOutput = (Ball) ball.fromJSON(jsonElement.toString());
-          System.out.println(ballOutput.toJSON());
-          game.spawnBall(ballOutput);
+          game.spawnBall(ball.fromJSON(jsonElement.toString()));
           break;
         case "Slab":
           Slab slab = new Slab(1, 1, 1, 1, 1, 1, 1, 1, window);
-          System.out.println(jsonElement.toString());
-          Slab slabOutput = (Slab) slab.fromJSON(jsonElement.toString());
-          System.out.println(slabOutput.toJSON());
-          game.spawnSlab(slabOutput);
+          game.spawnSlab(slab.fromJSON(jsonElement.toString()));
           break;
         case "Wall":
           Wall wall = new Wall(1f, 1f, 1f, 1f, 1f, 1f, window);
-          System.out.println(jsonElement.toString());
-          Wall wallOutput = (Wall) wall.fromJSON(jsonElement.toString());
-          System.out.println(wallOutput.toJSON());
-          game.spawnWall(wallOutput);
+          game.spawnWall(wall.fromJSON(jsonElement.toString()));
           break;
         case "Layout":
           Layout layout = new Layout(window);
-          System.out.println(jsonElement.toString());
-          Layout layoutOutput = (Layout) layout.fromJSON(jsonElement.toString());
-          System.out.println(layoutOutput.toJSON());
-          game.spawnLayout(layoutOutput);
+          game.spawnLayout(layout.fromJSON(jsonElement.toString()));
           break;
         case "Button":
           Button button = new Button(new Window());
-          System.out.println(jsonElement.toString());
-          Button buttonOutput = (Button) button.fromJSON(jsonElement.toString());
-          System.out.println(buttonOutput.toJSON());
-          game.spawnButton(buttonOutput);
+          game.spawnButton(button.fromJSON(jsonElement.toString()));
           break;
         case "TextBox":
           TextBox textbox = new TextBox(window);
-          System.out.println(jsonElement.toString());
-          TextBox textboxOutput = (TextBox) textbox.fromJSON(jsonElement.toString());
-          System.out.println(textboxOutput.toJSON());
-          game.spawnTextBox(textboxOutput);
+          game.spawnTextBox(textbox.fromJSON(jsonElement.toString()));
           break;
         case "ScoreBox":
           ScoreBox scorebox = new ScoreBox(window);
-          System.out.println(jsonElement.toString());
-          ScoreBox scoreboxoutput = (ScoreBox) scorebox.fromJSON(jsonElement.toString());
-          System.out.println(scoreboxoutput.toJSON());
-          game.spawnScoreBox(scoreboxoutput);
+          game.spawnScoreBox(scorebox.fromJSON(jsonElement.toString()));
           break;
         default:
           throw new IllegalArgumentException("Unknown game element type: " + type);
