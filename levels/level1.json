@@ -21,7 +21,7 @@
     "constructorVars": {
       "yPos": 50,
       "size": 50,
-      "text": "Score: 2",
+      "text": "Score: 0",
       "xPos": 15
     }
   },
@@ -632,7 +632,7 @@
       "vy": 0,
       "xpos": 440,
       "width": 40,
-      "health": 0,
+      "health": 1,
       "height": 17.14285659790039
     }
   },
@@ -723,7 +723,7 @@
       "vy": 0,
       "xpos": 720,
       "width": 40,
-      "health": 0,
+      "health": 1,
       "height": 17.14285659790039
     }
   }
