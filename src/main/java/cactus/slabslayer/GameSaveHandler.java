@@ -108,8 +108,6 @@ public class GameSaveHandler extends GameProcess {
    * @param game   the game to load
    */
   public void loadGame(String dir, Window window, InputHandler in, Game game) {
-    // TODO Remove print statements once we are done testing
-
     JSONArray jsonElements = loadJSONArray(new File(dir));
     for (int i = 0; i < jsonElements.size(); i++) {
       JSONObject jsonElement = jsonElements.getJSONObject(i);
