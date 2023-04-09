@@ -262,7 +262,7 @@ public class PowerUp extends GameElement implements Moveable, Collidable, JSONab
    * @return powerup object
    */
   @Override
-  public Object fromJSON(String json) {
+  public PowerUp fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 

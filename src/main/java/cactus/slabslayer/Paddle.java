@@ -270,7 +270,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    * @return paddle
    */
   @Override
-  public Object fromJSON(String json) {
+  public Paddle fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 

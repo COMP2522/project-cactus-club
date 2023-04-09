@@ -93,7 +93,7 @@ public class Layout extends GameElement implements JSONable{
    * @return layout
    */
   @Override
-  public Object fromJSON(String json) {
+  public Layout fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 

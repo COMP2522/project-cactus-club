@@ -198,7 +198,7 @@ public class TextBox extends GameElement {
    * @return text box
    */
   @Override
-  public Object fromJSON(String json) {
+  public TextBox fromJSON(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type  = jsonObject.getString("type");
 
