@@ -1,39 +1,75 @@
 package cactus.slabslayer;
 
+import processing.core.PConstants;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
 public class Button extends GameElement {
 
   /**
+   * Text in the button.
+   */
+  protected String text;
+
+  /**
    * The width of the button.
    */
-  private int width;
+  protected int width;
 
   /**
    * The height of the button.
    */
-  private int height;
+  protected int height;
 
   /**
    * The x and y coordinates of this button in relation
    * to the layout it's nested in.
    */
-  private PVector localPos;
+  protected PVector localPos;
 
   /**
    * The game window.
    */
-  private Window window;
+  protected Window window;
 
   /**
    * Constructs a new button.
    */
   public Button(Window window) {
+    text = "My Button";
     width = 300;
     height = 150;
     this.window = window;
     localPos = new PVector(50, 50);
+  }
+
+  /**
+   * Constructs a new button.
+   */
+  public Button(String text, int width, int height, PVector localPos, Window window) {
+    this.text = text;
+    this.width = width;
+    this.height = height;
+    this.window = window;
+    this.localPos = localPos;
+  }
+
+  /**
+   * Returns the text in this text box.
+   *
+   * @return text as a String
+   */
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * Sets the text to a new String.
+   *
+   * @param text as a String
+   */
+  public void setText(String text) {
+    this.text = text;
   }
 
   /**
@@ -136,7 +172,16 @@ public class Button extends GameElement {
    */
   @Override
   public void render() {
+
+    window.fill(255);
     window.rect(localPos.x, localPos.y, width, height);
+
+    window.fill(0);
+    window.textSize(width/5);
+    window.textAlign(PConstants.CENTER, PConstants.CENTER);
+    window.text(text, localPos.x + (width/2), localPos.y + (height/2.5f));
+    window.textAlign(PConstants.LEFT, PConstants.BOTTOM);
+
   }
 
   /**
@@ -156,6 +201,7 @@ public class Button extends GameElement {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
+    constructorVars.setString("text", text);
     constructorVars.setInt("width", width);
     constructorVars.setInt("height", height);
     constructorVars.setFloat("localXPos", localPos.x);
@@ -177,11 +223,13 @@ public class Button extends GameElement {
 
     if ("Button".equals(type)) {
       JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
+      String text = constructorVars.getString("text");
       int width = constructorVars.getInt("width");
       int height = constructorVars.getInt("height");
       int localXPos = constructorVars.getInt("localXPos");
       int localYPos = constructorVars.getInt("localYPos");
       Button button = new Button(window);
+      button.setText(text);
       button.setWidth(width);
       button.setHeight(height);
       button.setLocalXPos(localXPos);
