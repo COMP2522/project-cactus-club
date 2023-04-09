@@ -22,7 +22,7 @@ public class GameSaveHandlerTest {
   private Layout layout;
   private Button button;
   private Wall wall;
-  private ArrayList<JSONable> gameElements;
+  private ArrayList<Jsonable> gameElements;
   private Game game;
   private Window window;
 
@@ -62,7 +62,7 @@ public class GameSaveHandlerTest {
     JSONArray loadedJsonElements = PApplet.loadJSONArray(new File(dir));
     assertEquals(gameElements.size(), loadedJsonElements.size());
     for (int i = 0; i < gameElements.size(); i++) {
-      JSONObject expected = JSONObject.parse(gameElements.get(i).toJSON());
+      JSONObject expected = JSONObject.parse(gameElements.get(i).toJson());
       JSONObject actual = loadedJsonElements.getJSONObject(i);
 
       if (expected.getString("type").equals("Ball")) {

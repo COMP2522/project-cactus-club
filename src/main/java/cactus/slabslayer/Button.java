@@ -4,6 +4,9 @@ import processing.core.PConstants;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
+/**
+ * Represents a clickable button in the game.
+ */
 public class Button extends GameElement {
 
   /**
@@ -123,7 +126,7 @@ public class Button extends GameElement {
    *
    * @param posX as an int
    */
-  public void setLocalXPos(int posX) {
+  public void setLocalXpos(int posX) {
     this.localPos.x = posX;
   }
 
@@ -132,7 +135,7 @@ public class Button extends GameElement {
    *
    * @param posY as an int
    */
-  public void setLocalYPos(int posY) {
+  public void setLocalYpos(int posY) {
     this.localPos.y = posY;
   }
 
@@ -153,14 +156,13 @@ public class Button extends GameElement {
    */
   public boolean mouseInBounds() {
 
-    return window.mouseX >= localPos.x && window.mouseX <= localPos.x + width &&
-            window.mouseY >= localPos.y && window.mouseY <= localPos.y + height;
+    return window.mouseX >= localPos.x && window.mouseX <= localPos.x + width
+        && window.mouseY >= localPos.y && window.mouseY <= localPos.y + height;
 
   }
 
   /**
    * Executes the button's given function if clicked.
-   *
    * Default button has no assigned function to execute.
    */
   public void execute() {
@@ -177,9 +179,9 @@ public class Button extends GameElement {
     window.rect(localPos.x, localPos.y, width, height);
 
     window.fill(0);
-    window.textSize(width/5);
+    window.textSize(width / 5f);
     window.textAlign(PConstants.CENTER, PConstants.CENTER);
-    window.text(text, localPos.x + (width/2), localPos.y + (height/2.5f));
+    window.text(text, localPos.x + (width / 2f), localPos.y + (height / 2.5f));
     window.textAlign(PConstants.LEFT, PConstants.BOTTOM);
 
   }
@@ -188,16 +190,9 @@ public class Button extends GameElement {
    * Converts this object to a JSON string.
    *
    * @return JSON string
-   * public Button(Window window) {
-   * buttons.add(this);
-   * width = 300;
-   * height = 150;
-   * this.window = window;
-   * localPos = new PVector(50, 50);
-   * }
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -217,7 +212,7 @@ public class Button extends GameElement {
    * @return button
    */
   @Override
-  public Button fromJSON(String json) {
+  public Button fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
@@ -226,24 +221,17 @@ public class Button extends GameElement {
       String text = constructorVars.getString("text");
       int width = constructorVars.getInt("width");
       int height = constructorVars.getInt("height");
-      int localXPos = constructorVars.getInt("localXPos");
-      int localYPos = constructorVars.getInt("localYPos");
+      int localXpos = constructorVars.getInt("localXPos");
+      int localYpos = constructorVars.getInt("localYPos");
       Button button = new Button(window);
       button.setText(text);
       button.setWidth(width);
       button.setHeight(height);
-      button.setLocalXPos(localXPos);
-      button.setLocalYPos(localYPos);
+      button.setLocalXpos(localXpos);
+      button.setLocalYpos(localYpos);
       return button;
     }
 
     throw new IllegalArgumentException("Unknown type: " + type);
-  }
-
-  public static void main(String[] args) {
-    Button button = new Button(new Window());
-    System.out.println(button.toJSON());
-    Button output = (Button) button.fromJSON(button.toJSON());
-    System.out.println(output.toJSON());
   }
 }

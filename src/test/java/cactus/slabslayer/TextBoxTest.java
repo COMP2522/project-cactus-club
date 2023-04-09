@@ -87,7 +87,7 @@ public class TextBoxTest {
   @Test
   void testSetLocalXPosWithDefaultConstructor() {
     textBox = new TextBox(window);
-    textBox.setLocalXPos(10);
+    textBox.setLocalXpos(10);
     assertEquals(10, textBox.getLocalPos().x);
   }
 
@@ -95,7 +95,7 @@ public class TextBoxTest {
   void testSetLocalXPosWithIntsConstructor() {
     String text = "Hello World!";
     textBox = new TextBox(text, 10, 10, 10, 255, window);
-    textBox.setLocalXPos(10);
+    textBox.setLocalXpos(10);
     assertEquals(10, textBox.getLocalPos().x);
   }
 
@@ -103,14 +103,14 @@ public class TextBoxTest {
   void testSetLocalXPosWithPVectorConstructor() {
     String text = "Hello World!";
     textBox = new TextBox(text, pos, 10, 255, window);
-    textBox.setLocalXPos(10);
+    textBox.setLocalXpos(10);
     assertEquals(10, textBox.getLocalPos().x);
   }
 
   @Test
   void testSetLocalYPosWithDefaultConstructor() {
     textBox = new TextBox(window);
-    textBox.setLocalYPos(10);
+    textBox.setLocalYpos(10);
     assertEquals(10, textBox.getLocalPos().y);
   }
 
@@ -118,7 +118,7 @@ public class TextBoxTest {
   void testSetLocalYPosWithIntsConstructor() {
     String text = "Hello World!";
     textBox = new TextBox(text, 10, 10, 10, 255, window);
-    textBox.setLocalYPos(10);
+    textBox.setLocalYpos(10);
     assertEquals(10, textBox.getLocalPos().y);
   }
 
@@ -126,7 +126,7 @@ public class TextBoxTest {
   void testSetLocalYPosWithPVectorConstructor() {
     String text = "Hello World!";
     textBox = new TextBox(text, pos, 10, 255, window);
-    textBox.setLocalYPos(10);
+    textBox.setLocalYpos(10);
     assertEquals(10, textBox.getLocalPos().y);
   }
 

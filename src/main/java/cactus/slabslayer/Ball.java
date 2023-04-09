@@ -39,7 +39,6 @@ public class Ball extends GameElement implements Moveable, Collidable {
 
   /**
    * How funneled the refletion angle is between ball and paddle.
-   *
    * Bigger is wider max angle.
    */
   int funnelFactor = 10;
@@ -60,8 +59,8 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * @param scene the Window object in which the ball will be rendered and moved
    */
   public Ball(Window scene) {
-    xpos = scene.width/2;
-    ypos = scene.height/2;
+    xpos = scene.width / 2;
+    ypos = scene.height / 2;
 
     vy = 7;
     vx = 2;
@@ -128,11 +127,11 @@ public class Ball extends GameElement implements Moveable, Collidable {
     this.xpos = xpos;
   }
 
-    /**
-     * Setter for y-coordinate of ball.
-     *
-     * @param ypos y-coordinate
-     */
+  /**
+   * Setter for y-coordinate of ball.
+   *
+   * @param ypos y-coordinate
+   */
   public void setYpos(float ypos) {
     this.ypos = ypos;
   }
@@ -176,7 +175,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
   }
 
   /**
-   * Executes different code depending on which edge the ball hits
+   * Executes different code depending on which edge the ball hits.
    */
   private void edgeDetect() {
     // top edge
@@ -188,16 +187,11 @@ public class Ball extends GameElement implements Moveable, Collidable {
     if (xpos < 0 || xpos > window.width) {
       vx *= -1;
     }
-
-    // bottom edge
-
-//    if (ypos > window.height) {
-//      Game.getGameInstance().setCurrState(Game.State.GAMEOVER);
-//    }
   }
 
   /**
    * Checks if colliding with another object.
+   *
    * @param toCheck the Object to check
    * @return true/false if colliding
    */
@@ -218,36 +212,36 @@ public class Ball extends GameElement implements Moveable, Collidable {
       Slab s = (Slab) toCheck;
 
       // bottom edge check
-      for (int i = 0; i <= s.getWidth(); i += Math.max(s.getWidth()/checkResolution, 1)) {
+      for (int i = 0; i <= s.getWidth(); i += Math.max(s.getWidth() / checkResolution, 1)) {
         PVector segPos = new PVector(s.getXpos() + i, s.getYpos() + s.getHeight());
-        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
         }
         return true;
       }
 
       // top edge check
-      for (int i = 0; i <= s.getWidth(); i += Math.max(s.getWidth()/checkResolution, 1)) {
+      for (int i = 0; i <= s.getWidth(); i += Math.max(s.getWidth() / checkResolution, 1)) {
         PVector segPos = new PVector(s.getXpos() + i, s.getYpos());
-        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
         }
         return true;
       }
 
       // left edge check
-      for (int i = 0; i <= s.getHeight(); i += Math.max(s.getHeight()/checkResolution, 1)) {
+      for (int i = 0; i <= s.getHeight(); i += Math.max(s.getHeight() / checkResolution, 1)) {
         PVector segPos = new PVector(s.getXpos(), s.getYpos() + i);
-        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
         }
         return true;
       }
 
       // right edge check
-      for (int i = 0; i <= s.getHeight(); i += Math.max(s.getHeight()/checkResolution, 1)) {
+      for (int i = 0; i <= s.getHeight(); i += Math.max(s.getHeight() / checkResolution, 1)) {
         PVector segPos = new PVector(s.getXpos() + s.getWidth(), s.getYpos() + i);
-        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
         }
         return true;
@@ -259,6 +253,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
 
   /**
    * Executes collision with another object.
+   *
    * @param collidedWith the Object to collide with
    */
   @Override
@@ -267,14 +262,15 @@ public class Ball extends GameElement implements Moveable, Collidable {
     // reflects the ball at the appropriate angle
     if (collidedWith.getClass() == Paddle.class) {
       Paddle p = (Paddle) collidedWith;
-      for (int i = 0; i <= p.getWidth(); i += Math.max(p.getWidth()/checkResolution, 1)) {
+      for (int i = 0; i <= p.getWidth(); i += Math.max(p.getWidth() / checkResolution, 1)) {
         PVector segPos = new PVector(p.getXpos() + i, p.getYpos());
         if (!(PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
         }
         PVector reflectionAngle = new PVector(-1, 0);
         reflectionAngle.setMag(new PVector(vx, vy).mag());
-        float theta = window.map(i, 0, p.getWidth(), window.PI / funnelFactor, window.PI - window.PI / funnelFactor);
+        float theta = window.map(i, 0, p.getWidth(), window.PI / funnelFactor,
+            window.PI - window.PI / funnelFactor);
         reflectionAngle.rotate(theta);
 
         setVx(reflectionAngle.x);
@@ -298,7 +294,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
   }
 
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -317,19 +313,19 @@ public class Ball extends GameElement implements Moveable, Collidable {
    * @return new Ball object
    */
   @Override
-  public Ball fromJSON(String json) {
+  public Ball fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
     if ("Ball".equals(type)) {
       JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
-      float xPos = constructorVars.getFloat("xPos");
-      float yPos = constructorVars.getFloat("yPos");
+      float xpos = constructorVars.getFloat("xPos");
+      float ypos = constructorVars.getFloat("yPos");
       float vy = constructorVars.getFloat("vy");
       float vx = constructorVars.getFloat("vx");
       Ball ball = new Ball(window);
-      ball.setXpos(xPos);
-      ball.setYpos(yPos);
+      ball.setXpos(xpos);
+      ball.setYpos(ypos);
       ball.setVy(vy);
       ball.setVx(vx);
       return ball;
@@ -337,13 +333,5 @@ public class Ball extends GameElement implements Moveable, Collidable {
     // handle other types here
 
     throw new IllegalArgumentException("Unknown type: " + type);
-  }
-
-
-  public static void main(String[] args) {
-    Ball ball = new Ball(new Window());
-    System.out.println(ball.toJSON());
-    Ball newBall = (Ball) ball.fromJSON(ball.toJSON());
-    System.out.println(newBall.toJSON());
   }
 }

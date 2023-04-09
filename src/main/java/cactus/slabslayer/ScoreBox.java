@@ -3,6 +3,9 @@ package cactus.slabslayer;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
+/**
+ * Represents a text box containing the player's score.
+ */
 public class ScoreBox extends TextBox {
 
   /**
@@ -20,12 +23,12 @@ public class ScoreBox extends TextBox {
    * a custom message, position, and size.
    *
    * @param text as a String
-   * @param xPos as an int
-   * @param yPos as an int
+   * @param xpos as an int
+   * @param ypos as an int
    * @param size as an int
    */
-  public ScoreBox(String text, int xPos, int yPos, int size, int rgb, Window window) {
-    super(text, new PVector(xPos, yPos), size, rgb, window);
+  public ScoreBox(String text, int xpos, int ypos, int size, int rgb, Window window) {
+    super(text, new PVector(xpos, ypos), size, rgb, window);
   }
 
   /**
@@ -47,17 +50,17 @@ public class ScoreBox extends TextBox {
    * @return text box
    */
   @Override
-  public ScoreBox fromJSON(String json) {
+  public ScoreBox fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type  = jsonObject.getString("type");
 
     if ("ScoreBox".equals(type)) {
       JSONObject constructorVars = jsonObject.getJSONObject("constructorVars");
       String text = constructorVars.getString("text");
-      int xPos = constructorVars.getInt("xPos");
-      int yPos = constructorVars.getInt("yPos");
+      int xpos = constructorVars.getInt("xPos");
+      int ypos = constructorVars.getInt("yPos");
       int size = constructorVars.getInt("size");
-      return new ScoreBox(text, new PVector(xPos, yPos), size, rgb, window);
+      return new ScoreBox(text, new PVector(xpos, ypos), size, rgb, window);
     }
     // handle other types here
     throw new IllegalArgumentException("Unknown type: " + type);

@@ -1,9 +1,6 @@
 package cactus.slabslayer;
 
 import processing.core.PApplet;
-import processing.core.PVector;
-
-import java.util.ArrayList;
 
 /**
  * Window is the main class to run processing projects.
@@ -40,7 +37,6 @@ public class Window extends PApplet {
     game.setWin(this);
     game.setIn(in);
     game.init();
-
   }
 
   /**
@@ -84,7 +80,7 @@ public class Window extends PApplet {
     String[] processingArgs = {"window"};
     try {
       SoundManager soundManager = SoundManager.getInstance();
-      soundManager.playBGM();
+      soundManager.playBgm();
     } catch (Exception e) {
       e.printStackTrace();
     }

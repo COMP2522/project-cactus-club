@@ -1,8 +1,7 @@
 package cactus.slabslayer;
 
-import processing.core.PVector;
-
 import java.util.ArrayList;
+import processing.core.PVector;
 
 /**
  * Game will have collections of game elements, and game processing that affect game elements.
@@ -62,7 +61,7 @@ public class Game {
   ScoreBox scoreBox;
 
   /**
-   * List of all Slab objects
+   * List of all Slab objects.
    */
   SlabCollection slabs;
 
@@ -84,7 +83,7 @@ public class Game {
   ArrayList<Button> buttons;
 
   /**
-   * List of all Renderable objects
+   * List of all Renderable objects.
    */
   ArrayList<Renderable> renderables;
 
@@ -101,7 +100,7 @@ public class Game {
   /**
    * List of all JSONable objects.
    */
-  ArrayList<JSONable> jsonables;
+  ArrayList<Jsonable> jsonables;
 
   /**
    * GameProcess that handles collisions.
@@ -109,7 +108,7 @@ public class Game {
   CollisionsHandler ch;
 
   /**
-   * GameProcess that handles saving and loading saves, including levels
+   * GameProcess that handles saving and loading saves, including levels.
    */
   GameSaveHandler gsh;
 
@@ -123,6 +122,7 @@ public class Game {
   /**
    * Constructs a new Game object
    * with a window and input handler.
+   *
    * @param w as a Window object
    * @param in as an InputHandler object
    */
@@ -134,6 +134,7 @@ public class Game {
 
   /**
    * Gets the game instance.
+   *
    * @return gameInstance as a Game object
    */
   public static Game getGameInstance() {
@@ -148,6 +149,7 @@ public class Game {
 
   /**
    * Gets the game instance.
+   *
    * @return gameInstance as a Game object
    */
   public static Game getGameInstance(Window w, InputHandler in) {
@@ -162,6 +164,7 @@ public class Game {
 
   /**
    * Gets the window.
+   *
    * @return win as a Window object
    */
   public Window getWin() {
@@ -170,6 +173,7 @@ public class Game {
 
   /**
    * Sets the window.
+   *
    * @param win as a Window object
    */
   public void setWin(Window win) {
@@ -178,6 +182,7 @@ public class Game {
 
   /**
    * Gets the input handler.
+   *
    * @return in as an InputHandler object
    */
   public InputHandler getIn() {
@@ -186,6 +191,7 @@ public class Game {
 
   /**
    * Sets the input handler.
+   *
    * @param in as an InputHandler object
    */
   public void setIn(InputHandler in) {
@@ -197,7 +203,7 @@ public class Game {
    *
    * @return jsonables as ArrayList
    */
-  public ArrayList<JSONable> getJsonables() {
+  public ArrayList<Jsonable> getJsonables() {
     return jsonables;
   }
 
@@ -212,6 +218,7 @@ public class Game {
 
   /**
    * Gets the current state.
+   *
    * @return currState as a State enum
    */
   public State getCurrState() {
@@ -220,6 +227,7 @@ public class Game {
 
   /**
    * Set the current state.
+   *
    * @param currState as a State enum
    */
   public void setCurrState(State currState) {
@@ -246,6 +254,7 @@ public class Game {
 
   /**
    * Gets the player's score.
+   *
    * @return score as an int
    */
   public int getScore() {
@@ -254,6 +263,7 @@ public class Game {
 
   /**
    * Sets the player's score.
+   *
    * @param score as an int
    */
   public void setScore(int score) {
@@ -270,6 +280,7 @@ public class Game {
 
   /**
    * Get the text box that displays the score.
+   *
    * @return scoreBox as a TextBox
    */
   public TextBox getScoreBox() {
@@ -289,7 +300,7 @@ public class Game {
     renderables = new ArrayList<Renderable>();
     moveables = new ArrayList<Moveable>();
     collidables = new ArrayList<Collidable>();
-    jsonables = new ArrayList<JSONable>();
+    jsonables = new ArrayList<Jsonable>();
     ch = new CollisionsHandler(collidables);
     gsh = new GameSaveHandler(this, "game-save.json", System.currentTimeMillis());
   }
@@ -340,7 +351,7 @@ public class Game {
   }
 
   /**
-   * Spawns a paddle with no arguments and adds it to any necessary ArrayLists
+   * Spawns a paddle with no arguments and adds it to any necessary ArrayLists.
    */
   public void spawnPaddle() {
     pad = new Paddle(win);
@@ -351,7 +362,7 @@ public class Game {
   }
 
   /**
-   * Spawns a paddle with arguments and adds it to any necessary ArrayLists
+   * Spawns a paddle with arguments and adds it to any necessary ArrayLists.
    */
   public void spawnPaddle(Paddle pad) {
     this.pad = pad;
@@ -364,14 +375,21 @@ public class Game {
   /**
    * Spawns a Slab.
    */
-  public void spawnSlab(float width, float height, int health, float xpos, float ypos, float pdropChance,
-                        float vx, float vy, Window window) {
+  public void spawnSlab(float width, float height, int health, float xpos,
+                        float ypos, float pdropChance, float vx, float vy, Window window) {
 
     slabs.spawnSlab(width, height, health, xpos, ypos, pdropChance, vx, vy, window);
   }
 
   /**
-   * Spawns a Ball and adds it to any necessary ArrayLists
+   * Spawns a Slab with arguments.
+   */
+  public void spawnSlab(Slab slab) {
+    slabs.spawnSlab(slab);
+  }
+
+  /**
+   * Spawns a Ball and adds it to any necessary ArrayLists.
    */
   public void spawnBall() {
     Ball tmpball = new Ball(win);
@@ -383,10 +401,14 @@ public class Game {
   }
 
   /**
-   * Spawns a Slab with arguments.
+   * Spawns a Ball with no arguments and adds it to any necessary ArrayLists.
    */
-  public void spawnSlab(Slab slab) {
-    slabs.spawnSlab(slab);
+  public void spawnBall(Ball ball) {
+    balls.add(ball);
+    renderables.add(ball);
+    moveables.add(ball);
+    collidables.add(ball);
+    jsonables.add(ball);
   }
 
   public void spawnWall(Wall wall) {
@@ -394,7 +416,7 @@ public class Game {
   }
 
   /**
-   * Spawns a PowerUp with no arguments and adds it to any necessary ArrayLists
+   * Spawns a PowerUp with no arguments and adds it to any necessary ArrayLists.
    */
   public void spawnPowerUp(PowerUp powerUp) {
     powerUps.add(powerUp);
@@ -405,18 +427,7 @@ public class Game {
   }
 
   /**
-   * Spawns a Ball with no arguments and adds it to any necessary ArrayLists
-   */
-  public void spawnBall(Ball ball) {
-    balls.add(ball);
-    renderables.add(ball);
-    moveables.add(ball);
-    collidables.add(ball);
-    jsonables.add(ball);
-  }
-
-  /**
-   * Spawns a Layout with no arguments and adds it to any necessary ArrayLists
+   * Spawns a Layout with no arguments and adds it to any necessary ArrayLists.
    */
   public void spawnLayout(Layout layout) {
     renderables.add(layout);
@@ -424,7 +435,7 @@ public class Game {
   }
 
   /**
-   * Spawns a Button with no arguments and adds it to any necessary ArrayLists
+   * Spawns a Button with no arguments and adds it to any necessary ArrayLists.
    */
   public void spawnButton(Button button) {
     buttons.add(button);
@@ -433,7 +444,7 @@ public class Game {
   }
 
   /**
-   * Spawns a TextBox with no arguments and adds it to any necessary ArrayLists
+   * Spawns a TextBox with no arguments and adds it to any necessary ArrayLists.
    */
   public void spawnTextBox(TextBox textbox) {
     renderables.add(textbox);
@@ -441,7 +452,7 @@ public class Game {
   }
 
   /**
-   * Spawns a ScoreBox and adds it to any necessary ArrayLists
+   * Spawns a ScoreBox and adds it to any necessary ArrayLists.
    */
   public void spawnScoreBox(ScoreBox sb) {
     this.scoreBox = sb;
@@ -450,7 +461,7 @@ public class Game {
   }
 
   /**
-   * Spawns a ScoreBox with no arguments and adds it to any necessary ArrayLists
+   * Spawns a ScoreBox with no arguments and adds it to any necessary ArrayLists.
    */
   public void spawnScoreBox() {
     ScoreBox sb = new ScoreBox("Score: " + score, new PVector(15, 50), 50, 255, win);
@@ -466,6 +477,11 @@ public class Game {
     slabs.checkDeadSlabs();
   }
 
+  /**
+   * Checks for collisions between the paddle and powerups.
+   *
+   * @param powerUps all powerups to check
+   */
   public void checkPowerUpCollisions(ArrayList<PowerUp> powerUps) {
     ArrayList<PowerUp> notDead = new ArrayList<PowerUp>();
     for (PowerUp p : powerUps) {
@@ -490,6 +506,12 @@ public class Game {
     this.powerUps = notDead;
   }
 
+  /**
+   * Checks if all balls have gone past the bottom of the window,
+   * and removes them if they have.
+   *
+   * @param balls all balls to check
+   */
   public void checkDeadBalls(ArrayList<Ball> balls) {
     ArrayList<Ball> notDead = new ArrayList<Ball>();
     for (Ball b : balls) {
@@ -507,12 +529,13 @@ public class Game {
 
   /**
    * Loads the given level.
+   *
    * @param levelIndex as an int
    */
   public void loadLevel(int levelIndex) {
     currLevel = levelIndex;
     this.init();
-    gsh.loadGame( String.format("levels/level%d.json", currLevel), win, in, this );
+    gsh.loadGame(String.format("levels/level%d.json", currLevel), win, in, this);
   }
 
   /**
@@ -521,7 +544,7 @@ public class Game {
   public void loadNextLevel() {
     currLevel++;
     this.init();
-    gsh.loadGame( String.format("levels/level%d.json", currLevel), win, in, this );
+    gsh.loadGame(String.format("levels/level%d.json", currLevel), win, in, this);
   }
 
   /**
@@ -568,9 +591,9 @@ public class Game {
 
 
   /**
-   * Tells GameSaveHandler to save the current game state to a certain directory
+   * Tells GameSaveHandler to save the current game state to a certain directory.
    *
-   * @params dir directory to store the .json save file
+   * @param dir directory to store the .json save file
    */
   public void save(String dir) {
     gsh.saveGame(jsonables, dir);

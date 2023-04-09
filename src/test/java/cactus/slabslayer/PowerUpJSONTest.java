@@ -21,7 +21,7 @@ public class PowerUpJSONTest {
 
   @Test
   public void testToJSON() {
-    String json = powerUp.toJSON();
+    String json = powerUp.toJson();
     JSONObject jsonObject = JSONObject.parse(json);
     assertEquals(powerUp.getXpos(), jsonObject.getJSONObject("constructorVars").getFloat("xpos"), 0.01f);
     assertEquals(powerUp.getYpos(), jsonObject.getJSONObject("constructorVars").getFloat("ypos"), 0.01f);
@@ -32,9 +32,9 @@ public class PowerUpJSONTest {
 
   @Test
   public void testFromJSON() {
-    String json = powerUp.toJSON();
+    String json = powerUp.toJson();
     JSONObject jsonObject = JSONObject.parse(json);
-    PowerUp newPowerUp = (PowerUp) powerUp.fromJSON(json);
+    PowerUp newPowerUp = (PowerUp) powerUp.fromJson(json);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("xpos"), newPowerUp.getXpos(), 0.01f);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("ypos"), newPowerUp.getYpos(), 0.01f);
     assertEquals(jsonObject.getJSONObject("constructorVars").getFloat("diameter"), newPowerUp.getDiameter(), 0.01f);

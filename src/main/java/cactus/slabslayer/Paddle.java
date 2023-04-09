@@ -3,8 +3,6 @@ package cactus.slabslayer;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
-import java.awt.*;
-
 /**
  * Represents a paddle object.
  */
@@ -41,7 +39,6 @@ public class Paddle extends GameElement implements Moveable, Collidable {
 
   /**
    * How funneled the refletion angle is between ball and paddle.
-   *
    * Bigger is wider max angle.
    */
   int funnelFactor = 10;
@@ -65,7 +62,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     this.width = 150;
     this.height = 20;
     this.xpos = 250 - (width / 2);
-    this.ypos = window.height/100*90;
+    this.ypos = window.height / 100 * 90;
     this.xvel = 10;
     this.window = window;
   }
@@ -191,10 +188,11 @@ public class Paddle extends GameElement implements Moveable, Collidable {
 
     // log: debug: renders possible reflection angles of a poddle and a ball
     if (isDebugging) {
-      for (int i = 0; i <= width; i += width/checkResolution) {
+      for (int i = 0; i <= width; i += width / checkResolution) {
         PVector angle = new PVector(-1, 0);
         angle.setMag(100);
-        float theta = window.map(i, 0, width, window.PI/funnelFactor, window.PI - window.PI/funnelFactor);
+        float theta = window.map(i, 0, width,
+            window.PI / funnelFactor, window.PI - window.PI / funnelFactor);
         angle.rotate(theta);
         window.line(xpos + i, ypos, xpos + i + angle.x, ypos);
       }
@@ -214,9 +212,9 @@ public class Paddle extends GameElement implements Moveable, Collidable {
 
       // splits the paddle into checkResolution number of points
       // and checks if the ball is contacting any of those points
-      for (int i = 0; i <= this.width; i += Math.max(this.width/checkResolution, 1)) {
-        PVector segPos = new PVector(xpos + i, window.height/100*90);
-        if (!(PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+      for (int i = 0; i <= this.width; i += Math.max(this.width / checkResolution, 1)) {
+        PVector segPos = new PVector(xpos + i, window.height / 100 * 90);
+        if (!(PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter() / 2)) {
           continue;
         }
         return true;
@@ -224,10 +222,10 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     }
     if (toCheck.getClass() == PowerUp.class) {
       PowerUp pu = (PowerUp) toCheck;
-      if (pu.xpos + pu.getDiameter()/2 > this.xpos &&
-              pu.xpos + pu.getDiameter()/2 < this.xpos + width &&
-              pu.ypos + pu.getDiameter()/2 > this.ypos &&
-              pu.ypos + pu.getDiameter()/2 < this.ypos + height) {
+      if (pu.xpos + pu.getDiameter() / 2 > this.xpos
+          && pu.xpos + pu.getDiameter() / 2 < this.xpos + width
+          && pu.ypos + pu.getDiameter() / 2 > this.ypos
+          && pu.ypos + pu.getDiameter() / 2 < this.ypos + height) {
         return true;
       }
     }
@@ -252,7 +250,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    * @return JSON string
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -270,7 +268,7 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    * @return paddle
    */
   @Override
-  public Paddle fromJSON(String json) {
+  public Paddle fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
@@ -288,31 +286,5 @@ public class Paddle extends GameElement implements Moveable, Collidable {
     // handle other types here
 
     throw new IllegalArgumentException("Unknown type: " + type);
-  }
-
-  public static void main(String[] args) {
-    // Create a new Paddle instance
-    Paddle paddle = new Paddle(new Window());
-
-    String jsonPaddle = "{\n" +
-            "  \"type\": \"Paddle\",\n" +
-            "  \"constructorVars\": {\n" +
-            "    \"xpos\": 3,\n" +
-            "    \"width\": 1,\n" +
-            "    \"height\": 2\n" +
-            "  }\n" +
-            "}";
-
-    // Serialize Paddle instance to JSON
-    String json = paddle.toJSON();
-    System.out.println(json);
-
-    System.out.println(jsonPaddle);
-
-    // Deserialize JSON to Paddle instance
-    Paddle newPaddle2 = (Paddle) paddle.fromJSON(jsonPaddle);
-//    Paddle newPaddle = (Paddle) paddle.fromJSON(json);
-
-    System.out.println(newPaddle2.toJSON());
   }
 }

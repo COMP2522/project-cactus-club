@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 /**
  *  SlabCollection is a collection of Slab instances.
- *
- *  SlabCollection will manage the Slab object spawning and despawning based on health and method calls.
+ *  SlabCollection will manage the Slab object spawning
+ *  and despawning based on health and method calls.
  */
 public class SlabCollection {
 
@@ -30,8 +30,10 @@ public class SlabCollection {
     for (Slab s : slabs) {
       if (s.isDead()) {
         game.incrementScore();
-        if (Math.random() <= s.getPdropChance() / 100) { //divide s.getPdropChance() by 100 to get a percentage, left alone for testing
-          game.spawnPowerUp(new PowerUp(0, s.getXpos() + s.getWidth() / 2, s.getYpos() + s.getHeight() / 2,
+        if (Math.random() <= s.getPdropChance() / 100) {
+          //divide s.getPdropChance() by 100 to get a percentage, left alone for testing
+          game.spawnPowerUp(
+              new PowerUp(0, s.getXpos() + s.getWidth() / 2, s.getYpos() + s.getHeight() / 2,
                   2, 10, game.getWin()));
         }
         game.getRenderables().remove(s);
@@ -57,8 +59,8 @@ public class SlabCollection {
    * @param vy vy as a float
    * @param window window as a Window
    */
-  public void spawnSlab(float width, float height, int health, float xpos, float ypos, float pdropChance,
-                        float vx, float vy, Window window) {
+  public void spawnSlab(float width, float height, int health, float xpos,
+                        float ypos, float pdropChance, float vx, float vy, Window window) {
     Game game = Game.getGameInstance();
     Slab tmpSlab = new Slab(width, height, health, xpos, ypos, pdropChance, vx, vy, window);
     slabs.add(tmpSlab);

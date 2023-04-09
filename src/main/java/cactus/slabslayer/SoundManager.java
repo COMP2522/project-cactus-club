@@ -1,10 +1,13 @@
 package cactus.slabslayer;
 
-import javax.sound.sampled.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 
 /**
  * A class that handles playing sounds.
@@ -66,7 +69,7 @@ public class SoundManager {
    * @throws LineUnavailableException if the audio line is unavailable
    */
   public static SoundManager getInstance() throws FileNotFoundException, LineUnavailableException {
-    if(instance == null) {
+    if (instance == null) {
       instance = new SoundManager();
     }
     return instance;
@@ -82,7 +85,8 @@ public class SoundManager {
    */
   Clip loadAudio(Path path) throws FileNotFoundException, LineUnavailableException {
     try {
-      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(path.toFile().toURI()));
+      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+          new File(path.toFile().toURI()));
       Clip clip = AudioSystem.getClip();
       clip.open(audioInputStream);
       return clip;
@@ -94,14 +98,14 @@ public class SoundManager {
   /**
    * Plays the background music.
    */
-  public void playBGM() {
+  public void playBgm() {
     bgm.loop(Clip.LOOP_CONTINUOUSLY);
   }
 
-    /**
-     * Stops the background music.
-     */
-  public void stopBGM() {
+  /**
+   * Stops the background music.
+   */
+  public void stopBgm() {
     bgm.stop();
   }
 
@@ -140,7 +144,7 @@ public class SoundManager {
    *
    * @return boolean
    */
-  public boolean isBGMPlaying() {
+  public boolean isBgmPlaying() {
     return bgm.isRunning();
   }
 }

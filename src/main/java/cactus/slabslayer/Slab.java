@@ -294,7 +294,7 @@ public class Slab extends GameElement implements Collidable {
    * @return JSON string
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
@@ -317,7 +317,7 @@ public class Slab extends GameElement implements Collidable {
    * @return Slab object
    */
   @Override
-  public Slab fromJSON(String json) {
+  public Slab fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
@@ -339,40 +339,6 @@ public class Slab extends GameElement implements Collidable {
   }
 
   /**
-   * Quick JSON tests for Slab class.
-   *
-   * @param args command line arguments.
-   */
-  public static void main(String[] args) {
-    Window window = new Window();
-    Slab slab = new Slab(3, 50, 50, 0.5f, window);
-
-    String jsonSlab = "{\n" +
-            "  \"type\": \"Slab\",\n" +
-            "  \"constructorVars\": {\n" +
-            "    \"vx\": 1,\n" +
-            "    \"ypos\": 1,\n" +
-            "    \"pdropChance\": 1,\n" +
-            "    \"vy\": 0,\n" +
-            "    \"xpos\": 1,\n" +
-            "    \"width\": 11,\n" +
-            "    \"health\": 31,\n" +
-            "    \"height\": 51\n" +
-            "  }\n" +
-            "}";
-    // test toJSON() method
-    String json = slab.toJSON();
-
-    System.out.println(json);
-    System.out.println(jsonSlab);
-
-    // test fromJSON() method
-    // Slab newSlab = (Slab) slab.fromJSON(json);
-    Slab newSlab2 = (Slab) slab.fromJSON(jsonSlab);
-    System.out.println(newSlab2.toJSON());
-  }
-
-  /**
    * Checks if colliding with another object.
    *
    * @param toCheck the Object to check
@@ -384,36 +350,36 @@ public class Slab extends GameElement implements Collidable {
       Ball b = (Ball) toCheck;
 
       // bottom edge check
-      for (int i = 0; i <= this.width; i += Math.max(this.width/checkResolution, 1)) {
+      for (int i = 0; i <= this.width; i += Math.max(this.width / checkResolution, 1)) {
         PVector segPos = new PVector(this.xpos + i, this.ypos + height);
-        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter() / 2)) {
           continue;
         }
         return true;
       }
 
       // top edge check
-      for (int i = 0; i <= this.width; i += Math.max(this.width/checkResolution, 1)) {
+      for (int i = 0; i <= this.width; i += Math.max(this.width / checkResolution, 1)) {
         PVector segPos = new PVector(this.xpos + i, this.ypos);
-        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter() / 2)) {
           continue;
         }
         return true;
       }
 
       // left edge check
-      for (int i = 0; i <= this.height; i += Math.max(this.height/checkResolution, 1)) {
+      for (int i = 0; i <= this.height; i += Math.max(this.height / checkResolution, 1)) {
         PVector segPos = new PVector(this.xpos, this.ypos + i);
-        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter() / 2)) {
           continue;
         }
         return true;
       }
 
       // right edge check
-      for (int i = 0; i <= this.height; i += Math.max(this.height/checkResolution, 1)) {
+      for (int i = 0; i <= this.height; i += Math.max(this.height / checkResolution, 1)) {
         PVector segPos = new PVector(this.xpos + width, this.ypos + i);
-        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
+        if (! (PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter() / 2)) {
           continue;
         }
         return true;

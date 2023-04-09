@@ -1,10 +1,13 @@
 package cactus.slabslayer;
 
 import java.util.ArrayList;
-import processing.data.JSONObject;
 import processing.data.JSONArray;
+import processing.data.JSONObject;
 
-public class Layout extends GameElement implements JSONable{
+/**
+ * Contains a list of UI game elements to be rendered in the game window.
+ */
+public class Layout extends GameElement implements Jsonable {
 
   /**
    * The list of all elements contained in the layout.
@@ -18,6 +21,7 @@ public class Layout extends GameElement implements JSONable{
 
   /**
    * Constructs a new Layout.
+   *
    * @param window the game window
    */
   public Layout(Window window) {
@@ -35,20 +39,25 @@ public class Layout extends GameElement implements JSONable{
 
   /**
    * Adds new layout element to layoutElements ArrayList.
+   *
    * @param toAdd the new GameElement to add to the ArrayList
    */
   public void addLayoutElement(GameElement toAdd) {
-
     if (!(toAdd instanceof Layout) && !(toAdd instanceof Button) && !(toAdd instanceof TextBox)) {
-      throw new IllegalArgumentException("Layout element must be of class Layout, Button, or TextBox!");
+      throw new IllegalArgumentException(
+          "Layout element must be of class Layout, Button, or TextBox!");
     }
 
     layoutElements.add(toAdd);
 
   }
 
+  /**
+   * Removes a layout element from the layoutElements ArrayList.
+   *
+   * @param toRemove the GameElement to remove from the ArrayList
+   */
   public void removeLayoutElement(GameElement toRemove) {
-
     if (!layoutElements.contains(toRemove)) {
       throw new NullPointerException("No such element is in this layout.");
     }
@@ -73,13 +82,13 @@ public class Layout extends GameElement implements JSONable{
    * @return JSON string
    */
   @Override
-  public String toJSON() {
+  public String toJson() {
     JSONObject json = new JSONObject();
     json.setString("type", getClass().getSimpleName());
     JSONObject constructorVars = new JSONObject();
     JSONArray layoutElementsArr = new JSONArray();
     for (GameElement elem : layoutElements) {
-      layoutElementsArr.append(JSONObject.parse(elem.toJSON()));
+      layoutElementsArr.append(JSONObject.parse(elem.toJson()));
     }
     constructorVars.setJSONArray("layoutElements", layoutElementsArr);
     json.setJSONObject("constructorVars", constructorVars);
@@ -93,7 +102,7 @@ public class Layout extends GameElement implements JSONable{
    * @return layout
    */
   @Override
-  public Layout fromJSON(String json) {
+  public Layout fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type = jsonObject.getString("type");
 
@@ -107,11 +116,11 @@ public class Layout extends GameElement implements JSONable{
         switch (typeInner) {
           case "Button":
             Button button = new Button(new Window());
-            layout.addLayoutElement((Button) (button.fromJSON(elemJson.toString())));
+            layout.addLayoutElement((Button) (button.fromJson(elemJson.toString())));
             break;
           case "TextBox":
             TextBox textBox = new TextBox(new Window());
-            layout.addLayoutElement((TextBox) (textBox.fromJSON(elemJson.toString())));
+            layout.addLayoutElement((TextBox) (textBox.fromJson(elemJson.toString())));
             break;
           default:
             throw new IllegalArgumentException("Unknown type: " + typeInner);
@@ -122,32 +131,4 @@ public class Layout extends GameElement implements JSONable{
 
     throw new IllegalArgumentException("Unknown type: " + type);
   }
-
-
-  public static void main(String[] args) {
-    
-    Layout l1 = new Layout(new Window());
-
-    l1.addLayoutElement(new Button(new Window()));
-    l1.addLayoutElement(new TextBox(new Window()));
-
-    System.out.println(l1.toJSON());
-    Layout l1Copy = (Layout) l1.fromJSON(l1.toJSON());
-    System.out.println(l1Copy.toJSON());
-
-
-    Button b = new Button(new Window());
-
-    l1.addLayoutElement(b);
-    l1.removeLayoutElement(b);
-
-    Layout l2 = new Layout(new Window());
-    l2.addLayoutElement(new TextBox(new Window()));
-    l2.addLayoutElement(new Button(new Window()));
-
-    l2.addLayoutElement(new Layout(new Window()));
-
-    l1.addLayoutElement(l2);
-  }
-
 }
