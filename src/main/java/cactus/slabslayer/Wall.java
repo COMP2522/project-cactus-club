@@ -63,15 +63,14 @@ public class Wall extends GameElement {
    *
    * @param width       width of slab
    * @param height      height of slab
-   * @param health      hit points of slab
    * @param xpos        x-coord of slab
    * @param ypos        y-coord of slab
-   * @param pdropChance chance to drop power-up upon death
    * @param vx          x-velocity of slab
    * @param vy          y-velocity of slab
    * @param window      window to render to
    */
-  public Wall(float width, float height, float xpos, float ypos, float vx, float vy, Window window) {
+  public Wall(float width, float height, float xpos, float ypos,
+              float vx, float vy, Window window) {
     this.width = width;
     this.height = height;
     this.xpos = xpos;
@@ -140,19 +139,6 @@ public class Wall extends GameElement {
     // handle other types here
 
     throw new IllegalArgumentException("Unknown type: " + type);
-  }
-
-  public static void main(String[] args) {
-    Window window = new Window();
-    Wall wall = new Wall(10, 10, 10, 10, 10, 10, window);
-
-    // test toJSON() method
-    String json = wall.toJson();
-    System.out.println(json);
-
-    // test fromJSON() method
-    Wall newSlab = (Wall) wall.fromJson(json);
-    System.out.println(newSlab.toJson());
   }
 }
 
