@@ -138,7 +138,7 @@ public class GameSaveHandler extends GameProcess {
           break;
         case "Ball":
           Ball ball = new Ball(window);
-          game.spawnBall((Ball) ball.fromJson(jsonElement.toString()));
+          game.spawnBall(ball.fromJson(jsonElement.toString()));
           break;
         case "Slab":
           Slab slab = new Slab(1, 1, 1, 1, 1, 1, 1, 1, window);
@@ -146,7 +146,7 @@ public class GameSaveHandler extends GameProcess {
           break;
         case "Wall":
           Wall wall = new Wall(1f, 1f, 1f, 1f, 1f, 1f, window);
-          game.spawnWall((Wall) wall.fromJson(jsonElement.toString()));
+          game.spawnWall(wall.fromJson(jsonElement.toString()));
           break;
         case "Layout":
           Layout layout = new Layout(window);
@@ -154,11 +154,11 @@ public class GameSaveHandler extends GameProcess {
           break;
         case "Button":
           Button button = new Button(new Window());
-          game.spawnButton((Button) button.fromJson(jsonElement.toString()));
+          game.spawnButton(button.fromJson(jsonElement.toString()));
           break;
         case "TextBox":
           TextBox textbox = new TextBox(window);
-          game.spawnTextBox((TextBox) textbox.fromJson(jsonElement.toString()));
+          game.spawnTextBox(textbox.fromJson(jsonElement.toString()));
           break;
         case "ScoreBox":
           ScoreBox scorebox = new ScoreBox(window);

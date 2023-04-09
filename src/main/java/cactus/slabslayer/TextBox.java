@@ -1,5 +1,6 @@
 package cactus.slabslayer;
 
+import org.w3c.dom.Text;
 import processing.core.PVector;
 import processing.data.JSONObject;
 
@@ -217,7 +218,7 @@ public class TextBox extends GameElement {
    * @return text box
    */
   @Override
-  public Object fromJson(String json) {
+  public TextBox fromJson(String json) {
     JSONObject jsonObject = JSONObject.parse(json);
     String type  = jsonObject.getString("type");
 
