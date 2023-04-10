@@ -511,6 +511,12 @@ public class Game {
         moveables.remove(p);
         jsonables.remove(p);
         spawnBall();
+        try {
+          SoundManager soundManager = SoundManager.getInstance();
+          soundManager.playPowerupSound();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
         continue;
       }
       notDead.add(p);
