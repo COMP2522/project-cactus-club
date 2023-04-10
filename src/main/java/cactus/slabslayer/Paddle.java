@@ -169,10 +169,10 @@ public class Paddle extends GameElement implements Moveable, Collidable {
    */
   @Override
   public void move(InputHandler in) {
-    if (in.isLeft()) {
+    if (in.isLeft() && (this.xpos + this.width) > 0) {
       xpos -= xvel;
     }
-    if (in.isRight()) {
+    if (in.isRight() && this.xpos < window.width) {
       xpos += xvel;
     }
   }
