@@ -1,0 +1,327 @@
+[
+  {
+    "type": "Paddle",
+    "constructorVars": {
+      "xpos": 175,
+      "width": 150,
+      "height": 20
+    }
+  },
+  {
+    "type": "Ball",
+    "constructorVars": {
+      "vx": 2,
+      "vy": -7,
+      "yPos": 300,
+      "xPos": 400
+    }
+  },
+  {
+    "type": "ScoreBox",
+    "constructorVars": {
+      "yPos": 60,
+      "size": 50,
+      "text": "Score: 0",
+      "xPos": 15
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 140,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 510,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 190,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 510,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 240,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 500,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 290,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 450,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 300,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 400,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 300,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 350,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 290,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 300,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 240,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 280,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 190,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 270,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 140,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 270,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 90,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 500,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 70,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 450,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 50,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 400,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 50,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 350,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 70,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 300,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 90,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 280,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 140,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 450,
+      "width": 20,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 140,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 330,
+      "width": 20,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 240,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 330,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 240,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 380,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 240,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 430,
+      "width": 50,
+      "health": 1,
+      "height": 20
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 210,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 460,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  },
+  {
+    "type": "Slab",
+    "constructorVars": {
+      "vx": 0,
+      "ypos": 210,
+      "pdropChance": 5,
+      "vy": 0,
+      "xpos": 320,
+      "width": 20,
+      "health": 1,
+      "height": 50
+    }
+  }
+]
