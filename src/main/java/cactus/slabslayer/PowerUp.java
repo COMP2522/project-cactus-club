@@ -215,19 +215,6 @@ public class PowerUp extends GameElement implements Moveable, Collidable, Jsonab
       }
     }
     return false;
-//    if (toCheck.getClass() == Paddle.class) {
-//        Paddle p = (Paddle) toCheck;
-//        // top edge check
-//        for (int i = 0; i <= p.getWidth(); i += Math.max(p.getWidth()/100, 1)) {
-//        PVector segPos = new PVector(p.getXpos() + i, p.getYpos());
-//        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter/2)) {
-//          continue;
-//        }
-//        System.out.println("PowerUp collided with paddle");
-//        return true;
-//      }
-//    }
-//    return false;
   }
 
   /**
@@ -239,12 +226,6 @@ public class PowerUp extends GameElement implements Moveable, Collidable, Jsonab
   public void doCollision(Object collidedWith) {
     if (collidedWith.getClass() == Paddle.class) {
       health--;
-      //for use with different powerups, relocate to Game.java
-//      switch (this.type) {
-//        case 1:
-//          //something here to spawn a new ball.
-//          break;
-//      }
     }
   }
 
