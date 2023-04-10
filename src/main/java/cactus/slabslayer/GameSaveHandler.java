@@ -117,10 +117,9 @@ public class GameSaveHandler extends GameProcess {
    *
    * @param dir    the directory to load the game from
    * @param window the game window
-   * @param in     the game's input handler
    * @param game   the game to load
    */
-  public void loadGame(String dir, Window window, InputHandler in, Game game) {
+  public void loadGame(String dir, Window window, Game game) {
     JSONArray jsonElements = loadJSONArray(new File(dir));
     for (int i = 0; i < jsonElements.size(); i++) {
       JSONObject jsonElement = jsonElements.getJSONObject(i);

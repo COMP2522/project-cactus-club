@@ -546,7 +546,7 @@ public class Game {
   public void loadLevel(int levelIndex) throws InterruptedException {
     currLevel = levelIndex;
     this.init();
-    gsh.loadGame(String.format("levels/level%d.json", currLevel), win, in, this);
+    gsh.loadGame(String.format("levels/level%d.json", currLevel), win, this);
   }
 
   /**
@@ -558,7 +558,7 @@ public class Game {
       currLevel = 0;
     }
     this.init();
-    gsh.loadGame(String.format("levels/level%d.json", currLevel), win, in, this);
+    gsh.loadGame(String.format("levels/level%d.json", currLevel), win, this);
   }
 
   /**
