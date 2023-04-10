@@ -349,6 +349,10 @@ public class Slab extends GameElement implements Collidable {
     if (toCheck.getClass() == Ball.class) {
       Ball b = (Ball) toCheck;
 
+      if (System.currentTimeMillis() - b.getTimePrevBounce() < Ball.BOUNCE_INTERVAL) {
+        return false;
+      }
+
       // bottom edge check
       for (int i = 0; i <= this.width; i += Math.max(this.width / checkResolution, 1)) {
         PVector segPos = new PVector(this.xpos + i, this.ypos + height);

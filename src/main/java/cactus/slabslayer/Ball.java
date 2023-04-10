@@ -54,6 +54,17 @@ public class Ball extends GameElement implements Moveable, Collidable {
   Window window;
 
   /**
+   * Time since last collision as a long.
+   */
+  long timePrevBounce;
+
+  /**
+   * Time to wait between bounces as a long.
+   */
+  public static final long BOUNCE_INTERVAL = 50;
+
+
+  /**
    * Constructs a new Ball object with initial position and velocity.
    *
    * @param scene the Window object in which the ball will be rendered and moved
@@ -68,6 +79,8 @@ public class Ball extends GameElement implements Moveable, Collidable {
     diameter = 30;
 
     window = scene;
+
+    timePrevBounce = System.currentTimeMillis();
 
     this.doCollision(new Slab());
   }
@@ -198,17 +211,23 @@ public class Ball extends GameElement implements Moveable, Collidable {
   @Override
   public boolean isCollidingWith(Object toCheck) {
     if (toCheck.getClass() == Paddle.class) {
-//      Paddle p = (Paddle) toCheck;
-//      int checkResolution = 10;
-//      for (int i = 0; i <= p.getWidth(); i += p.getWidth()/checkResolution) {
-//        PVector segPos = new PVector(xpos + i, window.height/100*90);
-//        if (!(PVector.dist(segPos, new PVector(b.getXpos(), b.getYpos())) < b.getDiameter()/2)) {
-//          continue;
-//        }
-//        return true;
+      Paddle p = (Paddle) toCheck;
+
+      // splits the paddle into checkResolution number of points
+      // and checks if the ball is contacting any of those points
+      for (int i = 0; i <= p.getWidth(); i += Math.max(p.getWidth() / checkResolution, 1)) {
+        PVector segPos = new PVector(p.getXpos() + i, window.height / 100 * 90);
+        if (!(PVector.dist(segPos, new PVector(this.xpos, this.ypos)) < diameter / 2)) {
+          continue;
+        }
+        return true;
+      }
     }
 
     if (toCheck.getClass() == Slab.class) {
+      if (System.currentTimeMillis() - this.timePrevBounce < BOUNCE_INTERVAL) {
+        return false;
+      }
       Slab s = (Slab) toCheck;
 
       // bottom edge check
@@ -217,6 +236,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
         if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
         }
+        this.timePrevBounce = System.currentTimeMillis();
         return true;
       }
 
@@ -226,6 +246,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
         if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
         }
+        this.timePrevBounce = System.currentTimeMillis();
         return true;
       }
 
@@ -235,6 +256,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
         if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
         }
+        this.timePrevBounce = System.currentTimeMillis();
         return true;
       }
 
@@ -244,6 +266,7 @@ public class Ball extends GameElement implements Moveable, Collidable {
         if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
           continue;
         }
+        this.timePrevBounce = System.currentTimeMillis();
         return true;
       }
 
@@ -288,9 +311,71 @@ public class Ball extends GameElement implements Moveable, Collidable {
     }
 
     if (collidedWith.getClass() == Slab.class) {
-      vy *= -1;
+      Slab s = (Slab) collidedWith;
+
+      boolean reflecty = false;
+      boolean reflectx = false;
+
+      // bottom edge check
+      for (int i = 0; i <= s.getWidth(); i += Math.max(s.getWidth() / checkResolution, 1)) {
+        PVector segPos = new PVector(s.getXpos() + i, s.getYpos() + s.getHeight());
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
+          continue;
+        }
+        reflecty = true;
+        System.out.println("bottom collided with: " + collidedWith + "at i: " + i);
+        break;
+      }
+
+      // top edge check
+      for (int i = 0; i <= s.getWidth(); i += Math.max(s.getWidth() / checkResolution, 1)) {
+        PVector segPos = new PVector(s.getXpos() + i, s.getYpos());
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
+          continue;
+        }
+        reflecty = true;
+        System.out.println("top collided with " + collidedWith + "at i: " + i);
+        break;
+      }
+
+      // left edge check
+      for (int i = 0; i <= s.getHeight(); i += Math.max(s.getHeight() / checkResolution, 1)) {
+        PVector segPos = new PVector(s.getXpos(), s.getYpos() + i);
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
+          continue;
+        }
+        reflectx = true;
+        System.out.println("left collided with " + collidedWith + "at i: " + i);
+        break;
+      }
+
+      // right edge check
+      for (int i = 0; i <= s.getHeight(); i += Math.max(s.getHeight() / checkResolution, 1)) {
+        PVector segPos = new PVector(s.getXpos() + s.getWidth(), s.getYpos() + i);
+        if (! (PVector.dist(segPos, new PVector(xpos, ypos)) < diameter / 2)) {
+          continue;
+        }
+        reflectx = true;
+        System.out.println("right collided with " + collidedWith + "at i: " + i);
+        break;
+      }
+
+      if (reflecty) {
+        vy *= -1;
+        return;
+      }
+      vx *= reflectx ? -1 : 1;
     }
 
+  }
+
+  /**
+   * Gets the time the last bounce occurred.
+   *
+   * @return last bounce as a long
+   */
+  public long getTimePrevBounce() {
+    return timePrevBounce;
   }
 
   @Override
