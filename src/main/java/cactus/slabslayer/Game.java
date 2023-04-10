@@ -1,13 +1,13 @@
 package cactus.slabslayer;
 
-import java.io.File;
-import java.util.ArrayList;
+import static processing.core.PApplet.loadJSONArray;
 
 import com.mongodb.client.MongoDatabase;
+import java.io.File;
+import java.util.ArrayList;
 import processing.core.PVector;
 import processing.data.JSONArray;
 
-import static processing.core.PApplet.loadJSONArray;
 
 /**
  * Game will have collections of game elements, and game processing that affect game elements.
@@ -497,13 +497,6 @@ public class Game {
   public void checkPowerUpCollisions(ArrayList<PowerUp> powerUps) {
     ArrayList<PowerUp> notDead = new ArrayList<PowerUp>();
     for (PowerUp p : powerUps) {
-//      if (p.isCollidingWith(pad)) {
-//        collidables.remove(p);
-//        renderables.remove(p);
-//        moveables.remove(p);
-//        jsonables.remove(p);
-//        spawnBall();
-//      }
       if (p.getHealth() < 1) {
         incrementScore();
         collidables.remove(p);
@@ -561,6 +554,9 @@ public class Game {
    */
   public void loadNextLevel() throws InterruptedException {
     currLevel++;
+    if (currLevel >= 5) {
+      currLevel = 0;
+    }
     this.init();
     gsh.loadGame(String.format("levels/level%d.json", currLevel), win, in, this);
   }
@@ -571,7 +567,6 @@ public class Game {
   public void loadStartScreen() throws InterruptedException {
 
     this.init();
-//    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout startScreen = new Layout(win);
     spawnLayout(startScreen);
     TextBox title = new TextBox("SLAB SLAYER", new PVector(185, 250), 80, 40, win);
@@ -579,7 +574,6 @@ public class Game {
     PlayButton pb = new PlayButton("Start", 150, 50, new PVector(325, 270), win);
     startScreen.addLayoutElement(pb);
     spawnButton(pb);
-//    save("levels/startscreen.json");
 
   }
 
@@ -590,7 +584,6 @@ public class Game {
   public void loadGameOverScreen() throws InterruptedException {
 
     this.init();
-//    gsh.loadGame("levels/startscreen.json", win, in, this);
     Layout endScreen = new Layout(win);
     spawnLayout(endScreen);
 
@@ -603,8 +596,6 @@ public class Game {
     PlayButton pb = new PlayButton("Replay", 150, 50, new PVector(325, 320), win);
     endScreen.addLayoutElement(pb);
     spawnButton(pb);
-
-//    save("levels/gameoverscreen.json");
   }
 
 
