@@ -1,7 +1,13 @@
 package cactus.slabslayer;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import com.mongodb.client.MongoDatabase;
 import processing.core.PVector;
+import processing.data.JSONArray;
+
+import static processing.core.PApplet.loadJSONArray;
 
 /**
  * Game will have collections of game elements, and game processing that affect game elements.
@@ -111,6 +117,11 @@ public class Game {
    * GameProcess that handles saving and loading saves, including levels.
    */
   GameSaveHandler gsh;
+
+  /**
+   * MongoDB database.
+   */
+  MongoDatabase db;
 
   /**
    * Constructs a new Game object.
@@ -291,7 +302,7 @@ public class Game {
    * Initializes Game object to initial state.
    * clears all the collections and re-initializes all game processes
    */
-  public void init() {
+  public void init() throws InterruptedException {
     pad = null;
     slabs = new SlabCollection();
     balls = new ArrayList<Ball>();
@@ -303,6 +314,7 @@ public class Game {
     jsonables = new ArrayList<Jsonable>();
     ch = new CollisionsHandler(collidables);
     gsh = new GameSaveHandler(this, "game-save.json", System.currentTimeMillis());
+    db = DatabaseHandler.getInstance().getDatabase();
   }
 
   public ArrayList<Renderable> getRenderables() {
@@ -532,7 +544,7 @@ public class Game {
    *
    * @param levelIndex as an int
    */
-  public void loadLevel(int levelIndex) {
+  public void loadLevel(int levelIndex) throws InterruptedException {
     currLevel = levelIndex;
     this.init();
     gsh.loadGame(String.format("levels/level%d.json", currLevel), win, in, this);
@@ -541,7 +553,7 @@ public class Game {
   /**
    * Loads the next level in the sequence.
    */
-  public void loadNextLevel() {
+  public void loadNextLevel() throws InterruptedException {
     currLevel++;
     this.init();
     gsh.loadGame(String.format("levels/level%d.json", currLevel), win, in, this);
@@ -550,7 +562,7 @@ public class Game {
   /**
    * Loads the start screen.
    */
-  public void loadStartScreen() {
+  public void loadStartScreen() throws InterruptedException {
 
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);
@@ -569,7 +581,7 @@ public class Game {
   /**
    * Loads the game over screen.
    */
-  public void loadGameOverScreen() {
+  public void loadGameOverScreen() throws InterruptedException {
 
     this.init();
 //    gsh.loadGame("levels/startscreen.json", win, in, this);

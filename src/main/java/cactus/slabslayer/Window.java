@@ -36,7 +36,11 @@ public class Window extends PApplet {
     game = Game.getGameInstance();
     game.setWin(this);
     game.setIn(in);
-    game.init();
+    try {
+      game.init();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**
